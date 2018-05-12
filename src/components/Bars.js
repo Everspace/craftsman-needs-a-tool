@@ -3,11 +3,7 @@ import { Progress } from 'reactstrap';
 import { CentreText } from './Text.js';
 import './SuccessBar.css';
 
-export const ValueBar = props => (
-  <Progress bar {...props} value={props.value}>
-    {props.value}
-  </Progress>
-);
+export const ValueBar = props => <Progress bar {...props}>{props.value}</Progress>
 
 export const SuccessBar = props => {
   let used = props.total - props.available;
