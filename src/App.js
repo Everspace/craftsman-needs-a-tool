@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import './Custom.css';
 import { Navbar, Jumbotron, Button, NavbarBrand, Progress } from 'reactstrap';
+import { ShadowedDiv } from "./components/BootstrapExtras"
 
-import { SuccessBar, MoteBar } from './components/Bars';
+import MoteBar from "components/molecules/MoteBar"
+import SuccessBar from "components/molecules/SuccessBar"
 
 class App extends Component {
   state = {
@@ -54,35 +56,36 @@ class App extends Component {
           <NavbarBrand href="/">React App</NavbarBrand>
         </Navbar>
         <Jumbotron>
-          <h1>Craftsman Needs a Tool</h1>
-          <MoteBar
-            personal={this.state.personal}
-            personalPool={this.state.personalPool}
-            peripheral={this.state.peripheral}
-            peripheralPool={this.state.peripheralPool}
-          />
+          <ShadowedDiv style={{padding: 10, zIndex: 1, marginBottom: 20}}>
+            <h1>Craftsman Needs a Tool</h1>
+          </ShadowedDiv>
+          <ShadowedDiv style={{padding: 10}}>
+            <MoteBar
+              personal={this.state.personal}
+              personalPool={this.state.personalPool}
+              peripheral={this.state.peripheral}
+              peripheralPool={this.state.peripheralPool}
+            />
 
-          <div className="text-center">Willpower</div>
-          <Progress value={this.state.willpower} max={this.state.willpowerPool}>
-            {this.state.willpower}
-          </Progress>
+            <div className="text-center">Willpower</div>
+            <Progress value={this.state.willpower} max={this.state.willpowerPool}>
+              {this.state.willpower}
+            </Progress>
 
-          <SuccessBar
-            total={this.state.successesTotal}
-            available={this.state.successesUsable}
-            target={this.state.successesTarget}
-          />
+            <SuccessBar
+              total={this.state.successesTotal}
+              available={this.state.successesUsable}
+              target={this.state.successesTarget}
+            />
 
-          <br />
-
-          <Button
-            color="secondary"
-            size="large"
-            target="_blank"
-            onClick={() => this.randomize()}
-          >
-            Do the things
-          </Button>
+            <Button
+              color="secondary"
+              size="large"
+              target="_blank"
+              onClick={() => this.randomize()}
+            >
+              Do the things
+            </Button>
             <Button
               color="secondary"
               size="large"
@@ -91,6 +94,7 @@ class App extends Component {
             >
               Max
             </Button>
+          </ShadowedDiv>
         </Jumbotron>
       </div>
     );
