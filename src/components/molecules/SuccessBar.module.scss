@@ -1,0 +1,13 @@
+@import 'styles/Colors.scss';
+
+.usedBar {
+  @extend .primary;
+}
+
+.availableBar {
+  @extend .secondary-dark;
+}
+
+.remainingBar {
+  @extend .grey-100;
+}

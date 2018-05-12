@@ -1,9 +1,9 @@
+@import 'styles/Colors.scss';
+
 .personalBar {
-  background-color: blue;
-  color: white;
+  @extend .primary;
 }
 
 .peripheralBar {
-  background-color: yellow;
-  color: black;
+  @extend .primary-light;
 }

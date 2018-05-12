@@ -1,36 +1,28 @@
 import React from "react"
 import CentreText from "components/atoms/CentreText"
-import ProgressBar from "components/atoms/ProgressBar";
+import ProgressBar from "components/atoms/ProgressBar"
+import styles from './SuccessBar.module.scss'
 
 export default props => {
-  let used = props.total - props.available;
-  let remaining = props.target - props.total;
+  let used = props.total - props.available
+  let remaining = props.target - props.total
 
   let usedBar = {
     value: used,
     text: used,
-    style: {
-      backgroundColor: "blue",
-      color: "white",
-    }
+    className: styles.usedBar,
   }
 
   let availableBar = {
     value: props.available,
     text: props.available,
-    style: {
-      backgroundColor: "green",
-      color: "white",
-    }
+    className: styles.availableBar
   }
 
   let remainingBar = {
     value: remaining,
     text: remaining,
-    style: {
-      backgroundColor: "black",
-      color: "white",
-    }
+    className: styles.remainingBar,
   }
 
   return (
@@ -39,5 +31,5 @@ export default props => {
       <ProgressBar max={props.target} bars={[usedBar, availableBar, remainingBar]}/>
       <div>{props.total}/{props.target}</div>
     </div>
-  );
-};
+  )
+}
