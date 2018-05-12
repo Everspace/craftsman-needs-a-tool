@@ -35,6 +35,18 @@ class App extends Component {
     });
   }
 
+  maximize() {
+    let successes = this.state.successesTarget;
+    let useable = Math.floor(successes / 2);
+
+    this.setState({
+      personal: this.state.personalPool,
+      peripheral: this.state.peripheralPool,
+      willpower: this.state.willpowerPool,
+      successesTotal: successes,
+      successesUsable: useable
+    });
+  }
   render() {
     return (
       <div>
@@ -71,6 +83,14 @@ class App extends Component {
           >
             Do the things
           </Button>
+            <Button
+              color="secondary"
+              size="large"
+              target="_blank"
+              onClick={() => this.maximize()}
+            >
+              Max
+            </Button>
         </Jumbotron>
       </div>
     );
