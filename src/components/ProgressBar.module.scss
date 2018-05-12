@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  overflow: hidden;
+  height: 1rem;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  background-color: black;
+}
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  transition: width .6s ease;
+}
