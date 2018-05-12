@@ -34,3 +34,7 @@ $color-grey-500: mix($color-primary, #222, 5%);
 .grey-300 {@include xony($color-black, $color-grey-300);}
 .grey-400 {@include xony($color-white, $color-grey-400);}
 .grey-500 {@include xony($color-white, $color-grey-500);}
+
+// Baseline material error
+$color-error: #B00020;
+.error {@include xony($color-white, $color-error);}

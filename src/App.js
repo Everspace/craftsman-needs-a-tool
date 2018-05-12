@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
-import './Custom.css';
+import './App.scss';
 import { Navbar, Jumbotron, Button, NavbarBrand, Progress } from 'reactstrap';
 import { ShadowedDiv } from "./components/BootstrapExtras"
 
