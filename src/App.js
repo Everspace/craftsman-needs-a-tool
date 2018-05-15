@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { Navbar, Jumbotron, Button, NavbarBrand, Progress } from 'reactstrap';
-import { ShadowedDiv } from "./components/BootstrapExtras"
+import { Navbar, Jumbotron, Button, NavbarBrand } from 'reactstrap';
 
 import MoteBar from "components/molecules/MoteBar"
 import SuccessBar from "components/molecules/SuccessBar"
+import Material from './components/atoms/Material';
+import ProgressBar from './components/atoms/ProgressBar';
+import { cssClass } from './styles/Colors';
 
 class App extends Component {
   state = {
@@ -25,14 +27,14 @@ class App extends Component {
 
   randomize() {
     let successes = this.wholeRandomize(this.state.successesTarget);
-    let useable = this.wholeRandomize(successes);
+    let useable   = this.wholeRandomize(successes);
 
     this.setState({
-      personal: this.wholeRandomize(this.state.personalPool),
+      personal:   this.wholeRandomize(this.state.personalPool),
       peripheral: this.wholeRandomize(this.state.peripheralPool),
-      willpower: this.wholeRandomize(this.state.willpowerPool),
+      willpower:  this.wholeRandomize(this.state.willpowerPool),
       successesTotal: successes,
-      successesUsable: useable
+      successesUsable: useable,
     });
   }
 
@@ -48,17 +50,28 @@ class App extends Component {
       successesUsable: useable
     });
   }
+
   render() {
+    let wholeScreen = {
+      width: "100%",
+      height: "100%",
+      minWidth: "100%",
+      minHeight: "100%",
+    }
     return (
-      <div>
+      <Material className={cssClass.grey500} style={wholeScreen} >
         <Navbar>
           <NavbarBrand href="/">React App</NavbarBrand>
         </Navbar>
         <Jumbotron>
-          <ShadowedDiv style={{padding: 10, zIndex: 1, marginBottom: 20}}>
+          <Material
+            className={cssClass.primary.main}
+            style={{padding: 10, zIndex: 1, marginBottom: 20}}>
             <h1>Craftsman Needs a Tool</h1>
-          </ShadowedDiv>
-          <ShadowedDiv style={{padding: 10}}>
+          </Material>
+          <Material
+            className={cssClass.grey400}
+            style={{padding: 10, margin: 20}}>
             <MoteBar
               personal={this.state.personal}
               personalPool={this.state.personalPool}
@@ -67,9 +80,16 @@ class App extends Component {
             />
 
             <div className="text-center">Willpower</div>
-            <Progress value={this.state.willpower} max={this.state.willpowerPool}>
-              {this.state.willpower}
-            </Progress>
+            <ProgressBar
+              max={this.state.willpowerPool}
+              bars={[{
+                value: this.state.willpower,
+                text: this.state.willpower,
+                className: cssClass.primary.main,
+              }]}
+              text={this.state.willpower}
+              value={this.state.willpower}
+            />
 
             <SuccessBar
               total={this.state.successesTotal}
@@ -93,9 +113,9 @@ class App extends Component {
             >
               Max
             </Button>
-          </ShadowedDiv>
+          </Material>
         </Jumbotron>
-      </div>
+      </Material>
     );
   }
 }

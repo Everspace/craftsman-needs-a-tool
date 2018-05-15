@@ -1,7 +1,7 @@
 import React from "react"
 import CentreText from "components/atoms/CentreText"
 import ProgressBar from "components/atoms/ProgressBar"
-import styles from "./MoteBar.module.scss"
+import { cssClass } from "../../styles/Colors";
 
 export default props => {
   let total = props.personal + props.peripheral
@@ -10,13 +10,13 @@ export default props => {
   let personalBar = {
     value: props.personal,
     text: props.personal,
-    className: styles.personalBar
+    className: cssClass.primary.main,
   }
 
   let peripheralBar = {
     value: props.peripheral,
     text: props.peripheral,
-    className: styles.peripheralBar,
+    className: cssClass.primary.light,
   }
 
   return (
