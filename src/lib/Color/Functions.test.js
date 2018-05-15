@@ -10,6 +10,13 @@ it("error when you give it weird shit", () => {
   expect(() => mix(null, "#000")).toThrow()
 })
 
+it("only accepts values between 0 and 100", () => {
+  expect(() => mix("000", "000",  -1)).toThrow()
+  expect(() => mix("000", "000",   0))
+  expect(() => mix("000", "000", 100))
+  expect(() => mix("000", "000", 101)).toThrow()
+})
+
 it("should give full hashes despite it's input", () => {
   expect(mix("#000", "000")).toBe("#000000")
 })

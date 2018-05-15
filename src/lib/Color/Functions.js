@@ -21,6 +21,9 @@ let mixFormula = (value1, value2, weight) => {
  * @param {Number} weight Percentage as intiger from 0~100
  */
 export const mix = function(target, base, weight = 50) {
+  if (weight < 0 || weight > 100) {
+    throw(Error("Weight can only be between 0 and 100"))
+  }
 
   let c1 = hexToColor(target)
   let c2 = hexToColor(base)
