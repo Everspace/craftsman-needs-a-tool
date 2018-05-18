@@ -1,6 +1,7 @@
 import React from "react"
-import { css } from "emotion";
+import { css } from "emotion"
 import { cssClass } from "styles/Colors"
+import classnames from "lib/Style/classnames"
 
 //
 // A shameless copy of bootstrap's progress thing.
@@ -29,7 +30,7 @@ let corners = css`
 
 let Bar = props => <div
     {...props}
-    className={`${barClass} ${props.className || ""}`}
+    className={classnames(props.rounded ? corners : null, barClass, props.className)}
     style={{width: props.percent + "%", ...props.style}}
   >
     {props.text}
