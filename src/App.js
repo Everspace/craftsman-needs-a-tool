@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { Navbar, Jumbotron, NavbarBrand } from 'reactstrap';
 import Button from "components/atoms/Button"
 
-import MoteBar from "components/molecules/MoteBar"
-import SuccessBar from "components/molecules/SuccessBar"
-import Material from './components/atoms/Material';
-import ProgressBar from './components/atoms/ProgressBar';
-import { cssClass } from './styles/Colors';
+import Material from 'components/atoms/Material'
+import { cssClass } from 'styles/Colors'
+import StatTracker from './components/organisms/StatTracker';
 
 class App extends Component {
   state = {
@@ -61,64 +58,20 @@ class App extends Component {
     }
     return (
       <Material className={cssClass.grey500} style={wholeScreen} >
-        <Navbar>
-          <NavbarBrand href="/">React App</NavbarBrand>
-        </Navbar>
-        <Jumbotron>
-          <Material
-            className={cssClass.primary.main}
-            style={{padding: 10, zIndex: 1, marginBottom: 20}}
-          >
-            <h1>Craftsman Needs a Tool</h1>
-          </Material>
-          <Material
-            className={cssClass.grey400}
-            style={{padding: "1rem", margin: "1rem"}}
-            rounded
-          >
-            <MoteBar
-              personal={this.state.personal}
-              personalPool={this.state.personalPool}
-              peripheral={this.state.peripheral}
-              peripheralPool={this.state.peripheralPool}
-            />
-
-            <div className="text-center">Willpower</div>
-            <ProgressBar
-              max={this.state.willpowerPool}
-              bars={[{
-                value: this.state.willpower,
-                text: this.state.willpower,
-                className: cssClass.primary.main,
-              }]}
-              text={this.state.willpower}
-              value={this.state.willpower}
-            />
-
-            <SuccessBar
-              total={this.state.successesTotal}
-              available={this.state.successesUsable}
-              target={this.state.successesTarget}
-            />
-
-            <Button
-              color="secondary"
-              size="large"
-              target="_blank"
-              onClick={() => this.randomize()}
-            >
-              Do the things
-            </Button>
-            <Button
-              color="secondary"
-              size="large"
-              target="_blank"
-              onClick={() => this.maximize()}
-            >
-              Max
-            </Button>
-          </Material>
-        </Jumbotron>
+        <Material
+          className={cssClass.primary.main}
+          style={{padding: 10, zIndex: 1, marginBottom: 20}}
+        >
+          <h1>Craftsman Needs a Tool</h1>
+        </Material>
+        <StatTracker {...this.state}>
+          <Button onClick={() => this.randomize()}>
+            Do the things
+          </Button>
+          <Button onClick={() => this.maximize()}>
+            Max
+          </Button>
+        </StatTracker>
       </Material>
     );
   }
