@@ -1,12 +1,17 @@
 import React from "react"
-import { waiting } from "styles/Shadows";
-import { css } from "emotion";
+import { waiting } from "styles/Shadows"
+import classnames from "lib/Style/classnames"
+import { roundedCorners } from "styles/Misc"
 
-let corners = css`
-  border-radius: 0.25rem;
-`
+export default props => {
+  let classes = [waiting, props.className]
 
-export default props => <div
-  {...props}
-  className={`${waiting} ${corners} ${props.className || ""}`}
-/>
+  if (props.rounded) {
+    classes.push(roundedCorners)
+  }
+
+  return <div
+    {...props}
+    className={classnames(...classes)}
+  />
+}

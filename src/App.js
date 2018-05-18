@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { Navbar, Jumbotron, Button, NavbarBrand } from 'reactstrap';
+import { Navbar, Jumbotron, NavbarBrand } from 'reactstrap';
+import Button from "components/atoms/Button"
 
 import MoteBar from "components/molecules/MoteBar"
 import SuccessBar from "components/molecules/SuccessBar"
@@ -66,12 +67,15 @@ class App extends Component {
         <Jumbotron>
           <Material
             className={cssClass.primary.main}
-            style={{padding: 10, zIndex: 1, marginBottom: 20}}>
+            style={{padding: 10, zIndex: 1, marginBottom: 20}}
+          >
             <h1>Craftsman Needs a Tool</h1>
           </Material>
           <Material
             className={cssClass.grey400}
-            style={{padding: 10, margin: 20}}>
+            style={{padding: "1rem", margin: "1rem"}}
+            rounded
+          >
             <MoteBar
               personal={this.state.personal}
               personalPool={this.state.personalPool}
