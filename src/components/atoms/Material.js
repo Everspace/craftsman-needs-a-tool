@@ -16,7 +16,6 @@ export default props => {
 
   return <div
     {...props}
-    style={props.style}
     className={classnames(...classes)}
   />
 }

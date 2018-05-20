@@ -7,7 +7,7 @@ import classnames from "lib/Style/classnames"
 // A shameless copy of bootstrap's progress thing.
 //
 
-let containerClass = css`
+let containerCSS = css`
   display: flex;
   overflow: hidden;
   height: 1rem;
@@ -15,7 +15,7 @@ let containerClass = css`
   border-radius: 0.25rem;
 `
 
-let barClass = css`
+let barCSS = css`
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -28,13 +28,20 @@ let corners = css`
   border-bottom-right-radius: 0.25rem;
 `
 
-let Bar = props => <div
+let Bar = props => {
+  let classes = [barCSS, props.className]
+  if (props.rounded) {
+    classes.push(corners)
+  }
+
+  return <div
     {...props}
-    className={classnames(props.rounded ? corners : null, barClass, props.className)}
+    className={classnames(...classes)}
     style={{width: props.percent + "%", ...props.style}}
   >
     {props.text}
   </div>
+}
 
 export default props => {
   let max = props.max || 100
@@ -42,7 +49,7 @@ export default props => {
 
   elements = props.bars.map((element, index) => {
     if ( index === props.bars.length - 1 ) {
-      element.className = element.className ? `${element.className} ${corners}` : corners
+      element.rounded = true
     }
 
     return <Bar
@@ -50,12 +57,11 @@ export default props => {
       percent={element.value / max * 100}
       key={index}
     />
-  }
-  );
+  })
 
   return <div
     {...props}
-    className={`${containerClass} ${props.className || cssClass.grey500}`}
+    className={classnames(containerCSS, cssClass.grey500, props.className)}
   >
     {elements}
   </div>
