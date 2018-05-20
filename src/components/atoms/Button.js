@@ -1,7 +1,7 @@
 import React from "react"
 import { css } from "emotion";
 import { resting, waiting, hovering } from "styles/Shadows"
-import { cssClass } from "styles/Colors"
+import { cssClass, color } from "styles/Colors"
 import classnames from "lib/Style/classnames";
 
 let style = css`
@@ -13,22 +13,26 @@ let style = css`
   font-size: 1.15rem;
   font-weight: 900;
 
-  ${waiting}
-  ${cssClass.secondary.dark}
+  ${resting};
+  ${cssClass.secondary.dark};
 
   border-radius: 0.25rem;
   transition: 0.25s all ease-in-out;
 
   &:focus {
-    outline: 0;
+    transition: none;
+    outline-style: dotted;
+    outline-color: ${color.secondary.light};
+    outline-offset: -0.25rem;
+    outline-width:   0.15rem;
   }
 
   &:hover {
-    ${hovering};
+    ${waiting}
   }
 
   &:active {
-    ${resting};
+    ${hovering};
     ${cssClass.secondary.main};
   }
 `
