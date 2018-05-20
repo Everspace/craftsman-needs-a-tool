@@ -1,6 +1,6 @@
 import React from "react"
 import { cssClass } from "styles/Colors"
-import StatBar from "components/molecules/StatBar";
+import StatBar from "components/molecules/StatBar"
 
 export default props => {
   let available = props.personal + props.peripheral

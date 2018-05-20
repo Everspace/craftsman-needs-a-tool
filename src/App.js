@@ -5,6 +5,28 @@ import Button from "components/atoms/Button"
 import Material from 'components/atoms/Material'
 import { cssClass } from 'styles/Colors'
 import StatTracker from './components/organisms/StatTracker';
+import state from "./state.json"
+import { solar } from "lib/Exalted/motePool"
+
+let poolMaxes = solar(state.character.essence)
+
+// Perhaps resources is an array with IDs?
+let resources = {
+  ...state.resources,
+
+  willpower: {
+    ...state.resources.willpower,
+    max: state.character.willpowerMax,
+  },
+
+  motes: {
+    ...state.resources.motes,
+    ...state.character.committedMotes,
+    ...poolMaxes,
+  }
+}
+
+console.log(resources)
 
 class App extends Component {
   state = {
