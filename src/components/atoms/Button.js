@@ -14,7 +14,7 @@ let style = css`
   font-weight: 900;
 
   ${resting};
-  ${cssClass.secondary.dark};
+  ${cssClass.secondary.main};
 
   border-radius: 0.25rem;
   transition: 0.25s all ease-in-out;
@@ -28,12 +28,13 @@ let style = css`
   }
 
   &:hover {
-    ${waiting}
+    ${waiting};
+    ${cssClass.secondary.dark};
   }
 
   &:active {
     ${hovering};
-    ${cssClass.secondary.main};
+    ${cssClass.secondary.light};
   }
 `
 
