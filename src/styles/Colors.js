@@ -33,11 +33,11 @@ export const secondaryCSS = {
 const greyTint = primaryColor.main
 
 export const greyColor = {
-  grey100: mix(greyTint, "#777", 5), // Black
-  grey200: mix(greyTint, "#555", 5), // Black
-  grey300: mix(greyTint, "#444", 5), // Black
-  grey400: mix(greyTint, "#333", 5), // White
-  grey500: mix(greyTint, "#222", 5), // White
+  grey100: mix(greyTint, "#777", 5),
+  grey200: mix(greyTint, "#555", 5),
+  grey300: mix(greyTint, "#444", 5),
+  grey400: mix(greyTint, "#333", 5),
+  grey500: mix(greyTint, "#222", 5),
 }
 
 export const greyCSS = {
