@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import './App.scss';
+import React, { Component } from "react";
+import "./App.scss";
 import Button from "components/atoms/Button"
 
-import Material from 'components/atoms/Material'
-import { cssClass } from 'styles/Colors'
-import StatTracker from './components/organisms/StatTracker';
-import state from "./state.json"
+import Material from "components/atoms/Material"
+import { cssClass } from "styles/Colors"
+import StatTracker from "components/organisms/StatTracker";
+import state from "state.json"
 import { solar } from "lib/Exalted/motePool"
 
 let poolMaxes = solar(state.character.essence)
