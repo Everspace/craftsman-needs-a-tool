@@ -19,9 +19,9 @@ export const primaryCSS = {
 }
 
 export const secondaryColor = {
-  light: "#80b240",
-  main:  "#4f8209",
-  dark:  "#1e5500",
+  light: "#f28b3b",
+  main:  "#ba5d05",
+  dark:  "#843100",
 }
 
 export const secondaryCSS = {
