@@ -54,7 +54,7 @@ export const hexToColor = color => {
       b = color[2] + color[2]
       break;
     default:
-      throw(new Error("Color is not 6 or 3 characters long"))
+      throw(new Error(`Color is not 6 or 3 characters long '${color}`))
   }
 
   return {
