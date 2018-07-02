@@ -78,6 +78,7 @@ class App extends Component {
       minWidth: "100%",
       minHeight: "100%",
     }
+
     return (
       <Material className={cssClass.grey500} style={wholeScreen} >
         <Material
@@ -87,6 +88,59 @@ class App extends Component {
           <h1>Craftsman Needs a Tool</h1>
         </Material>
         <StatTracker {...this.state}>
+          <Material className={cssClass.grey300} style={{padding: 10, margin: 5}}>
+            <div>Setup</div>
+            <Material style={{padding: 10, margin: 5}}>
+              Rating:
+              <Button>
+                ••••• ▼
+              </Button>
+            </Material>
+
+            <Material style={{padding: 10, margin: 5}}>
+              <div>
+                Double
+              </div>
+              <Button>9</Button>
+              <Button>8</Button>
+              <Button>7</Button>
+            </Material>
+            <Material style={{padding: 10, margin: 5}}>
+              <div>
+                Explode
+              </div>
+              {
+                Array.from(
+                  {length: 10},
+                  (_, i) => <Button key={i} active={i % 3 === 0} >{10 - i}s</Button>
+                ).reverse()
+              }
+            </Material>
+          </Material>
+
+          <Material className={cssClass.grey300} style={{padding: 10, margin: 5} }>
+            <Button>
+              First Word of the Demiurge
+            </Button>
+            <Button>
+              Sacrosanct Delerium
+            </Button>
+          </Material>
+          <Material className={cssClass.grey300} style={{padding: 10, margin: 5} }>
+            <div>Spend:</div>
+            <div className={cssClass.grey400}>
+              <Button>8</Button><Button>personal ▼</Button><Button>motes</Button>
+            </div>
+            <div className={cssClass.grey400}>
+              <Button>8</Button><Button>peripheral ▼</Button><Button>motes</Button>
+            </div>
+            <div className={cssClass.grey400}>
+              <Button>8</Button><Button>any ▼</Button><Button>motes</Button>
+            </div>
+            <div className={cssClass.grey400}>
+              <Button>1</Button><Button>willpower</Button>
+            </div>
+          </Material>
           <Button onClick={() => this.randomize()}>
             Do the things
           </Button>
