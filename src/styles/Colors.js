@@ -42,7 +42,7 @@ export const greyColor = {
 
 export const greyCSS = {
   grey100: xony(textColor.dark,  greyColor.grey100),
-  grey200: xony(textColor.dark,  greyColor.grey200),
+  grey200: xony(textColor.light, greyColor.grey200),
   grey300: xony(textColor.light, greyColor.grey300),
   grey400: xony(textColor.light, greyColor.grey400),
   grey500: xony(textColor.light, greyColor.grey500),
