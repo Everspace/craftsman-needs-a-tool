@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./App.scss";
 import Button from "components/atoms/Button"
 
 import Material from "components/atoms/Material"
