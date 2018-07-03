@@ -27,6 +27,17 @@ let resources = {
 
 console.log(resources)
 
+let spacing =  {
+  padding: 10,
+  margin: 5,
+}
+
+let ButtonBlock = props => <Material
+    className={cssClass.grey200}
+    style={{display: 'inline-block', ...spacing}}
+    {...props}
+  />
+
 class App extends Component {
   state = {
     personal: 13,
@@ -71,15 +82,9 @@ class App extends Component {
   }
 
   render() {
-    let wholeScreen = {
-      width: "100%",
-      height: "100%",
-      minWidth: "100%",
-      minHeight: "100%",
-    }
 
     return (
-      <Material className={cssClass.grey500} style={wholeScreen} >
+      <div className={cssClass.grey500}  >
         <Material
           className={cssClass.primary.main}
           style={{padding: 10, zIndex: 1, marginBottom: 20}}
@@ -87,37 +92,56 @@ class App extends Component {
           <h1>Craftsman Needs a Tool</h1>
         </Material>
         <StatTracker {...this.state}>
-          <Material className={cssClass.grey300} style={{padding: 10, margin: 5}}>
-            <div>Setup</div>
-            <Material style={{padding: 10, margin: 5}}>
-              Rating:
-              <Button>
-                ••••• ▼
-              </Button>
-            </Material>
-
-            <Material style={{padding: 10, margin: 5}}>
+          <Material className={cssClass.grey300} style={spacing}>
+            <h2 style={spacing} >Setup</h2>
+            <div style={spacing} className={cssClass.grey400}>
               <div>
-                Double
+                <ButtonBlock>
+                  Rating:
+                  <Button>
+                    ••••• ▼
+                  </Button>
+                </ButtonBlock>
+                <ButtonBlock>
+                  Dice Pool:
+                  <Button>
+                    9
+                  </Button>
+                </ButtonBlock>
+                <ButtonBlock>
+                  Stunt Rating:
+                  <Button>
+                    ••• ▼
+                  </Button>
+                </ButtonBlock>
+                <ButtonBlock>
+                  Interval:
+                  <Button>3</Button>
+                  <Button>Next</Button>
+                  <Button>Complete</Button>
+                </ButtonBlock>
               </div>
-              <Button>9</Button>
-              <Button>8</Button>
-              <Button>7</Button>
-            </Material>
-            <Material style={{padding: 10, margin: 5}}>
               <div>
-                Explode
+                <ButtonBlock>
+                  Double:
+                  <Button>9</Button>
+                  <Button>8</Button>
+                  <Button>7</Button>
+                </ButtonBlock>
+                <ButtonBlock>
+                  Explode:
+                  {
+                    Array.from(
+                      {length: 10},
+                      (_, i) => <Button key={i} active={i % 3 === 0} >{10 - i}s</Button>
+                    ).reverse()
+                  }
+                </ButtonBlock>
               </div>
-              {
-                Array.from(
-                  {length: 10},
-                  (_, i) => <Button key={i} active={i % 3 === 0} >{10 - i}s</Button>
-                ).reverse()
-              }
-            </Material>
+            </div>
           </Material>
 
-          <Material className={cssClass.grey300} style={{padding: 10, margin: 5} }>
+          <Material className={cssClass.grey300} style={spacing}>
             <Button>
               First Word of the Demiurge
             </Button>
@@ -125,7 +149,7 @@ class App extends Component {
               Sacrosanct Delerium
             </Button>
           </Material>
-          <Material className={cssClass.grey300} style={{padding: 10, margin: 5} }>
+          <Material className={cssClass.grey300} style={spacing}>
             <div>Spend:</div>
             <div className={cssClass.grey400}>
               <Button>8</Button><Button>personal ▼</Button><Button>motes</Button>
@@ -147,7 +171,7 @@ class App extends Component {
             Max
           </Button>
         </StatTracker>
-      </Material>
+      </div>
     );
   }
 }
