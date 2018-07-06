@@ -122,6 +122,15 @@
     ]
   },
 
+  "rollMods": {
+    "stunt": 3,
+    "explode": [],
+    "double": [10],
+    "autosuccesses": 2
+  },
+
+  "artifactRating": 5,
+
   "resources": {
     "willpower": {
       "max":     1,
@@ -129,8 +138,8 @@
     },
 
     "successes": {
-      "current": 1,
-      "usable":  1
+      "current": 57,
+      "available": 34
     },
 
     "motes": {

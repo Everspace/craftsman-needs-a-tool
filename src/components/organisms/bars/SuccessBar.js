@@ -1,10 +1,14 @@
-import React from "react"
 import { cssClass } from "styles/Colors"
 import StatBar from "components/molecules/StatBar";
+import { connect } from "react-redux";
+import { ratingToSuccessesNeeded } from "lib/Exalted/craft";
 
-export default props => {
-  let used = props.total - props.available
-  let remaining = props.target - props.total
+const mapStateToProps = state => {
+  let target = ratingToSuccessesNeeded(state.artifactRating)
+  let current = state.successes.current
+  let available = state.successes.available
+  let used = current - available
+  let remaining = target - current
 
   let usedBar = {
     value: used,
@@ -13,8 +17,8 @@ export default props => {
   }
 
   let availableBar = {
-    value: props.available,
-    text: props.available,
+    value: available,
+    text: available,
     className: cssClass.primary.light,
     rounded: true,
     style: {zIndex: 1},
@@ -26,11 +30,12 @@ export default props => {
     className: cssClass.grey500,
   }
 
-  return <StatBar
-    {...props}
-    title="Successes"
-    bars={[usedBar, availableBar, remainingBar]}
-    current={props.total}
-    total={props.target}
-  />
+  let bars = [usedBar, availableBar, remainingBar]
+  return {
+    bars,
+    current,
+    total: target,
+  }
 }
+
+export default connect(mapStateToProps)(StatBar)

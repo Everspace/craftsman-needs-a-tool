@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import Button from "components/atoms/Button"
 
 import Material from "components/atoms/Material"
 import { cssClass } from "styles/Colors"
-import StatTracker from "components/organisms/StatTracker";
+import StatTracker from "components/organisms/StatTracker"
 import state from "state.json"
 import { solar } from "lib/Exalted/motePool"
+import { Provider } from "react-redux"
+import { createStore } from "redux";
 
 let poolMaxes = solar(state.character.essence)
 
@@ -25,9 +27,9 @@ let resources = {
   }
 }
 
-console.log(resources)
+let store = createStore((state)=>state, resources)
 
-let spacing =  {
+let spacing = {
   padding: 10,
   margin: 5,
 }
@@ -84,7 +86,8 @@ class App extends Component {
   render() {
 
     return (
-      <div className={cssClass.grey500}  >
+      <Provider store={store}>
+        <div className={cssClass.grey500}  >
         <Material
           className={cssClass.primary.main}
           style={{padding: 10, zIndex: 1, marginBottom: 20}}
@@ -172,6 +175,7 @@ class App extends Component {
           </Button>
         </StatTracker>
       </div>
+      </Provider>
     );
   }
 }
