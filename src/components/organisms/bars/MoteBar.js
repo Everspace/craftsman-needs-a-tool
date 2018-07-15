@@ -1,28 +1,32 @@
-import React from "react"
 import { cssClass } from "styles/Colors"
 import StatBar from "components/molecules/StatBar"
+import { connect } from "react-redux"
 
-export default props => {
-  let available = props.personal + props.peripheral
-  let totalPool = props.personalPool + props.peripheralPool;
+let mapStateToProps = state => {
+  let available = state.personal + state.peripheral
+  let totalPool = state.personalPool + state.peripheralPool;
 
   let personalBar = {
-    value: props.personal,
-    text: props.personal,
+    value: state.personal,
+    text: state.personal,
     className: cssClass.primary.main,
   }
 
   let peripheralBar = {
-    value: props.peripheral,
-    text: props.peripheral,
+    value: state.peripheral,
+    text: state.peripheral,
     className: cssClass.primary.light,
   }
 
-  return <StatBar
-    {...props}
-    title="Motes"
-    bars={[personalBar, peripheralBar]}
-    current={available}
-    total={totalPool}
-  />
+  return {
+    title: "Motes",
+    bars: [
+      personalBar,
+      peripheralBar
+    ],
+    current: available,
+    total: totalPool,
+  }
 }
+
+export default connect(mapStateToProps)(StatBar)
