@@ -9,6 +9,8 @@ import { solar } from "lib/Exalted/motePool"
 import { Provider } from "react-redux"
 import { createStore } from "redux";
 import motes from "reducers/motes"
+import { interactiveGroup } from "styles/Misc";
+import Incrementer from "components/molecules/Incrementer";
 
 let poolMaxes = solar(state.character.essence)
 
@@ -109,6 +111,7 @@ class App extends Component {
             <Button onClick={() => this.maximize()}>
               Max
             </Button>
+            <Incrementer value={5} />
           </Material>
 
           <Material className={cssClass.grey300} style={spacing}>
@@ -149,12 +152,14 @@ class App extends Component {
                 </ButtonBlock>
                 <ButtonBlock>
                   Explode:
+                  <div className={interactiveGroup} >
                   {
                     Array.from(
                       {length: 10},
                       (_, i) => <Button key={i} active={i % 3 === 0} >{10 - i}s</Button>
                     ).reverse()
                   }
+                  </div>
                 </ButtonBlock>
               </div>
             </div>
