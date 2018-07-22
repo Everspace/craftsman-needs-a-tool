@@ -8,6 +8,7 @@ import state from "state.json"
 import { solar } from "lib/Exalted/motePool"
 import { Provider } from "react-redux"
 import { createStore } from "redux";
+import motes from "reducers/motes"
 
 let poolMaxes = solar(state.character.essence)
 
@@ -27,7 +28,13 @@ let resources = {
   }
 }
 
-let store = createStore((state)=>state, resources)
+let store = createStore((state, action)=> {
+  let newState =  {...state}
+
+  newState.motes = motes(state.motes, action)
+
+  return newState
+}, resources)
 
 let spacing = {
   padding: 10,
@@ -95,6 +102,15 @@ class App extends Component {
           <h1>Craftsman Needs a Tool</h1>
         </Material>
         <StatTracker {...this.state}>
+          <Material className={cssClass.grey300} style={spacing}>
+            <Button onClick={() => this.randomize()}>
+              Do the things
+            </Button>
+            <Button onClick={() => this.maximize()}>
+              Max
+            </Button>
+          </Material>
+
           <Material className={cssClass.grey300} style={spacing}>
             <h2 style={spacing} >Setup</h2>
             <div style={spacing} className={cssClass.grey400}>
@@ -167,12 +183,6 @@ class App extends Component {
               <Button>1</Button><Button>willpower</Button>
             </div>
           </Material>
-          <Button onClick={() => this.randomize()}>
-            Do the things
-          </Button>
-          <Button onClick={() => this.maximize()}>
-            Max
-          </Button>
         </StatTracker>
       </div>
       </Provider>
