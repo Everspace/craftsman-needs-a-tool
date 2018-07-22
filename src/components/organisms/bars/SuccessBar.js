@@ -1,10 +1,10 @@
 import { cssClass } from "styles/Colors"
 import StatBar from "components/molecules/StatBar";
 import { connect } from "react-redux";
-import { ratingToSuccessesNeeded } from "lib/Exalted/craft";
+import { artifactRatingToSuccessesNeeded } from "lib/Exalted/craft";
 
 const mapStateToProps = state => {
-  let target = ratingToSuccessesNeeded(state.artifactRating)
+  let target = artifactRatingToSuccessesNeeded(state.artifactRating)
   let current = state.successes.current
   let available = state.successes.available
   let used = current - available
