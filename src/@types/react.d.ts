@@ -16,7 +16,7 @@ declare module "react" {
     memorizer?: any[],
   ) => [T, (T) => void]
 
-  type ReturnsCleanupFunctionPossibly = void | (() => void)
+  type OptionalCleanupFunction = void | (() => void)
 
   /**
    * Uses an effect that will run only when the dependantValues change
@@ -29,7 +29,7 @@ declare module "react" {
    * })
    */
   export const useEffect: (
-    effectConsumer: () => ReturnsCleanupFunctionPossibly,
+    effectConsumer: () => OptionalCleanupFunction,
     dependantValues?: any[],
   ) => void
 
