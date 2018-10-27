@@ -1,5 +1,5 @@
-export const ratingToSuccessesNeeded = rating => {
-  switch(rating){
+export const artifactRatingToSuccessesNeeded = rating => {
+  switch (rating) {
     case 2:
       return 30
     case 3:
