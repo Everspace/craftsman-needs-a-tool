@@ -1,8 +1,7 @@
 import React from "react"
-import { css } from "emotion";
+import { css, cx } from "emotion"
 import { resting, waiting, hovering } from "styles/Shadows"
 import { cssClass, color } from "styles/Colors"
-import classnames from "lib/Style/classnames";
 
 let style = css`
   background: none;
@@ -24,7 +23,7 @@ let style = css`
     outline-style: dotted;
     outline-color: ${color.secondary.light};
     outline-offset: -0.25rem;
-    outline-width:   0.15rem;
+    outline-width: 0.15rem;
   }
 
   &:hover {
@@ -39,8 +38,5 @@ let style = css`
 `
 
 export default props => {
-  return <button
-    {...props}
-    className={classnames(style, props.className)}
-  />
+  return <button {...props} className={cx(style, props.className)} />
 }

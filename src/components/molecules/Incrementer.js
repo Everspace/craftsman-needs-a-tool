@@ -1,6 +1,5 @@
 import React from "react"
-import { css } from "emotion"
-import classnames from "lib/Style/classnames"
+import { css, cx } from "emotion"
 import Button from "../atoms/Button"
 import { interactiveGroup, interactive } from "styles/Misc"
 
@@ -19,18 +18,16 @@ let numberStyle = css`
   padding-bottom: 0.3rem;
 `
 
-export default class Incrementer extends React.Component {
-  render() {
-    return (
-      <div className={classnames(interactiveGroup, style)}>
-        <Button>-</Button>
-        <input
-          className={classnames(interactive, numberStyle)}
-          type="number"
-          placeholder={this.props.value}
-        />
-        <Button>+</Button>
-      </div>
-    )
-  }
-}
+const Incrementer = props => (
+  <div className={cx(interactiveGroup, style)}>
+    <Button>-</Button>
+    <input
+      className={cx(interactive, numberStyle)}
+      type="number"
+      placeholder={props.value}
+    />
+    <Button>+</Button>
+  </div>
+)
+
+export default Incrementer

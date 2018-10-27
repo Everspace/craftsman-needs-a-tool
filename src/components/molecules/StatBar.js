@@ -1,7 +1,6 @@
 import React from "react"
 import ProgressBar from "components/atoms/ProgressBar"
-import classnames from "lib/Style/classnames"
-import { css } from "emotion";
+import { css, cx } from "emotion"
 
 let containerStyle = css`
   margin: 0.5rem 0;
@@ -11,10 +10,10 @@ let barStyle = css`
   margin: 0.25rem 0;
 `
 
-export default props => {
+const StatBar = props => {
   return (
     <div
-      className={classnames(containerStyle, props.className)}
+      className={cx(containerStyle, props.className)}
       key={props.title}
       style={props.style}
     >
@@ -29,3 +28,5 @@ export default props => {
     </div>
   )
 }
+
+export default StatBar

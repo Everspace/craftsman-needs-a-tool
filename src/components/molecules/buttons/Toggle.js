@@ -4,7 +4,9 @@ import { connect } from "react-redux"
 
 const mapState = state => state
 
-export default connect(
+const Toggle = connect(
   mapState,
   {},
 )(<Button />)
+
+export default Toggle
