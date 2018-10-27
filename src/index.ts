@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./App"
 import { injectGlobal } from "emotion"
-import { color } from "./styles/Colors";
+import { color } from "./styles/Colors"
 
 injectGlobal`
   *, *:before, *:after {
@@ -21,4 +21,4 @@ injectGlobal`
   }
 `
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(React.createElement(App), document.getElementById("root"))

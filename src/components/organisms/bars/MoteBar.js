@@ -3,18 +3,18 @@ import StatBar from "components/molecules/StatBar"
 import { connect } from "react-redux"
 
 let mapStateToProps = state => {
-  let available = state.personal + state.peripheral
-  let totalPool = state.personalPool + state.peripheralPool;
+  let available = state.motes.personal + state.motes.peripheral
+  let totalPool = state.motes.personalPool + state.motes.peripheralPool;
 
   let personalBar = {
-    value: state.personal,
-    text: state.personal,
+    value: state.motes.personal,
+    text: state.motes.personal,
     className: cssClass.primary.main,
   }
 
   let peripheralBar = {
-    value: state.peripheral,
-    text: state.peripheral,
+    value: state.motes.peripheral,
+    text: state.motes.peripheral,
     className: cssClass.primary.light,
   }
 

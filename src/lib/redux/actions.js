@@ -4,7 +4,7 @@
  * use like `export const addTodo = makeActionCreator(ADD_TODO, text)`
  *
  * @param {string} type
- * @param {string} argNames
+ * @param {string[]} argNames
  */
 export const makeActionCreator = (type, ...argNames) => {
   // This is from the redux documentation

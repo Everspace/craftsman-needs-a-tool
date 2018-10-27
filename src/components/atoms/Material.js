@@ -1,21 +1,19 @@
 import React from "react"
 import { waiting } from "styles/Shadows"
 import classnames from "lib/Style/classnames"
-import { roundedCorners, spaced } from "styles/Misc"
+import { roundedCorners, spaced as spacedStyle } from "styles/Misc"
 
 export default props => {
   let classes = [waiting, props.className]
+  const { rounded, spaced, ...otherProps } = props
 
-  if (props.rounded) {
+  if (rounded) {
     classes.push(roundedCorners)
   }
 
-  if (props.spaced) {
-    classes.push(spaced)
+  if (spaced) {
+    classes.push(spacedStyle)
   }
 
-  return <div
-    {...props}
-    className={classnames(...classes)}
-  />
+  return <div {...otherProps} className={classnames(...classes)} />
 }
