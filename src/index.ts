@@ -2,7 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
 import { injectGlobal } from "emotion"
-import { color } from "./styles/Colors"
+import { grey } from "./styles/Colors"
 
 injectGlobal`
   *, *:before, *:after {
@@ -17,7 +17,7 @@ injectGlobal`
     width: 100%;
     height: 100%;
     font-family: 'Roboto', sans-serif;
-    background-color: ${color.grey.grey500}
+    background-color: ${grey.dark.background}
   }
 `
 

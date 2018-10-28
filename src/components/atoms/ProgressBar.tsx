@@ -1,6 +1,6 @@
 import React from "react"
 import { css, cx } from "emotion"
-import { cssClass } from "styles/Colors"
+import { grey } from "styles/Colors"
 
 interface ProgressBarProps extends DivComponent {
   bars: BarSegmentDefintion[]
@@ -17,7 +17,10 @@ export const ProgressBar: React.SFC<ProgressBarProps> = ({
   ...props
 }) => {
   return (
-    <div {...props} className={cx(containerCSS, cssClass.grey500, className)}>
+    <div
+      {...props}
+      className={cx(containerCSS, grey.grey500.cssClass, className)}
+    >
       {bars.map((definition, index) =>
         barDefToComponent(definition, index, max),
       )}

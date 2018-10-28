@@ -1,6 +1,6 @@
 import { css } from "emotion"
 import { resting, waiting, hovering } from "./Shadows"
-import { cssClass, color } from "./Colors"
+import { secondary } from "./Colors"
 
 export const cornerRadius = "0.25em"
 export const roundedCorners = css`
@@ -12,9 +12,10 @@ export const spaced = css`
   margin: 1em;
 `
 
-export const interactive = css`
+export const interactive = (colorObj = secondary) => css`
   background: none;
   border: none;
+  /* TODO write multiplaction function */
   padding: ${cornerRadius} 0.5em;
   margin: ${cornerRadius};
 
@@ -22,70 +23,31 @@ export const interactive = css`
   font-weight: 900;
 
   ${resting};
-  ${cssClass.secondary.main};
+  ${colorObj.main.cssClass};
 
-  ${roundedCorners} transition: 0.25s all ease-in-out;
+  ${roundedCorners};
+  transition: 0.25s all ease-in-out;
 
   &:focus {
     transition: none;
     outline-style: dotted;
-    outline-color: ${color.secondary.light};
+    outline-color: ${colorObj.light.color};
     outline-offset: -${cornerRadius};
     outline-width: 0.15em;
   }
 
+  ::placeholder {
+    color: ${colorObj.main.text};
+    opacity: 1; /* Firefox */
+  }
+
   &:hover {
     ${waiting};
-    ${cssClass.secondary.dark};
+    ${colorObj.dark.cssClass};
   }
 
   &:active {
     ${hovering};
-    ${cssClass.secondary.light};
-  }
-`
-
-export const interactiveGroup = css`
-  /* Redo some of the interactive style */
-  background-color: transparent;
-  border-radius: ${cornerRadius};
-  margin: ${cornerRadius};
-  padding: 0;
-
-  ${waiting};
-  display: inline-flex;
-
-  & > * {
-    /* Allow z-index to work */
-    position: relative;
-
-    display: flex;
-
-    /* Reset style */
-    border-radius: 0;
-    box-shadow: none;
-    margin: 0;
-  }
-
-  & > *:hover {
-    /* Push hovered element above siblings */
-    z-index: 1;
-  }
-
-  /* Replant corners */
-  & > *:first-child {
-    border-top-left-radius: ${cornerRadius};
-    border-bottom-left-radius: ${cornerRadius};
-  }
-
-  & > *:not(:first-child):not(:last-child) {
-    margin: 0;
-    border-radius: 0;
-    z-index: 0;
-  }
-
-  & > *:last-child {
-    border-top-right-radius: ${cornerRadius};
-    border-bottom-right-radius: ${cornerRadius};
+    ${colorObj.light.cssClass};
   }
 `

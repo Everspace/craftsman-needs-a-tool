@@ -1,7 +1,9 @@
 import React, { useState, useRef } from "react"
 import { css, cx } from "emotion"
-import { Button, ButtonStyle } from "components/atoms/Button"
-import { interactiveGroup } from "styles/Misc"
+import { Button } from "components/atoms/Button"
+import { interactive } from "styles/Misc"
+import { InteractiveGroup } from "components/atoms/InteractiveGroup"
+import { secondary } from "styles/Colors"
 
 interface IncrementerProps {
   initialValue?: number
@@ -9,6 +11,7 @@ interface IncrementerProps {
   min?: number
   step?: number
   className?: string
+  color?: any
   callback: (number) => void
 }
 
@@ -18,12 +21,13 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   min = -9,
   step = 1,
   callback,
+  color = secondary,
   className,
 }) => {
   const [count, setCount] = useState(initialValue)
   const input: any = useRef(null)
 
-  const onChange = e => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newNumber = e.target.value
     if (newNumber !== "") {
       const cast = Number(newNumber)
@@ -35,27 +39,27 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   }
 
   return (
-    <div className={cx(interactiveGroup, className)}>
+    <InteractiveGroup color={color as any} seperated className={className}>
       <Button onClick={() => input.current.stepDown()}>-</Button>
       <input
-        ref={input as any}
+        ref={input}
         max={max}
         min={min}
         step={step}
-        className={numberInputStyle}
+        className={cx(interactive(color as any), numberInputStyle)}
         value={count}
         onChange={onChange}
         type="number"
       />
       <Button onClick={() => input.current.stepUp()}>+</Button>
-    </div>
+    </InteractiveGroup>
   )
 }
 
 let numberInputStyle = css`
-  ${ButtonStyle};
-  width: 2.5rem;
+  width: 2.5em;
   text-align: center;
+  box-shadow: none;
 
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {

@@ -1,5 +1,5 @@
 import React from "react"
-import { cssClass } from "styles/Colors"
+import { primary } from "styles/Colors"
 import StatBar from "components/molecules/StatBar"
 import { BarSegmentDefintion } from "components/atoms/ProgressBar"
 
@@ -12,7 +12,7 @@ export const WillpowerBar = props => {
     value: props.willpower,
     text: props.willpower,
     roundedCorners: "true",
-    className: cssClass.primary.main,
+    className: primary.main.cssClass,
   }
 
   return (

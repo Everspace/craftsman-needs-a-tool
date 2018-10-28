@@ -1,4 +1,4 @@
-import { cssClass } from "styles/Colors"
+import { primary } from "styles/Colors"
 import StatBar from "components/molecules/StatBar"
 import { connect } from "react-redux"
 
@@ -9,13 +9,13 @@ let mapStateToProps = state => {
   let personalBar = {
     value: state.motes.personal,
     text: state.motes.personal,
-    className: cssClass.primary.main,
+    className: primary.main.cssClass,
   }
 
   let peripheralBar = {
     value: state.motes.peripheral,
     text: state.motes.peripheral,
-    className: cssClass.primary.light,
+    className: primary.light.cssClass,
   }
 
   return {

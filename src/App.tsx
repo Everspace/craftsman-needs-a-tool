@@ -2,15 +2,15 @@ import React, { Component } from "react"
 import { Button } from "components/atoms/Button"
 
 import Material from "components/atoms/Material"
-import { cssClass } from "styles/Colors"
+import { grey, primary } from "styles/Colors"
 import StatTracker from "components/organisms/StatTracker"
 import state from "state"
 import { solar } from "lib/Exalted/motePool"
 import { Provider } from "react-redux"
 import { createStore } from "redux"
 import motes from "reducers/motes"
-import { interactiveGroup } from "styles/Misc"
 import Incrementer from "components/molecules/Incrementer"
+import { InteractiveGroup } from "components/atoms/InteractiveGroup"
 
 let poolMaxes = solar(state.character.essence)
 
@@ -45,7 +45,7 @@ let spacing = {
 
 let ButtonBlock = props => (
   <Material
-    className={cssClass.grey200}
+    className={grey.grey300.cssClass}
     style={{ display: "inline-block", ...spacing }}
     {...props}
   />
@@ -97,9 +97,9 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className={cssClass.grey500}>
+        <div className={grey.grey500.cssClass}>
           <Material
-            className={cssClass.primary.main}
+            className={primary.main.cssClass}
             style={{
               padding: 10,
               zIndex: 1,
@@ -109,15 +109,15 @@ class App extends Component {
             <h1>Craftsman Needs a Tool</h1>
           </Material>
           <StatTracker {...this.state}>
-            <Material className={cssClass.grey300} style={spacing}>
+            <Material className={grey.grey300.cssClass} style={spacing}>
               <Button onClick={() => this.randomize()}>Do the things</Button>
               <Button onClick={() => this.maximize()}>Max</Button>
               <Incrementer initialValue={5} callback={console.log} />
             </Material>
 
-            <Material className={cssClass.grey300} style={spacing}>
+            <Material className={grey.grey300.cssClass} style={spacing}>
               <h2 style={spacing}>Setup</h2>
-              <div style={spacing} className={cssClass.grey400}>
+              <div style={spacing} className={grey.grey400.cssClass}>
                 <div>
                   <ButtonBlock>
                     Rating:
@@ -147,38 +147,38 @@ class App extends Component {
                   </ButtonBlock>
                   <ButtonBlock>
                     Explode:
-                    <div className={interactiveGroup}>
+                    <InteractiveGroup>
                       {Array.from({ length: 10 }, (_, i) => (
                         <Button key={i}>{10 - i}s</Button>
                       )).reverse()}
-                    </div>
+                    </InteractiveGroup>
                   </ButtonBlock>
                 </div>
               </div>
             </Material>
 
-            <Material className={cssClass.grey300} style={spacing}>
+            <Material className={grey.grey300.cssClass} style={spacing}>
               <Button>First Word of the Demiurge</Button>
               <Button>Sacrosanct Delerium</Button>
             </Material>
-            <Material className={cssClass.grey300} style={spacing}>
+            <Material className={grey.grey300.cssClass} style={spacing}>
               <div>Spend:</div>
-              <div className={cssClass.grey400}>
+              <div className={grey.grey400.cssClass}>
                 <Button>8</Button>
                 <Button>personal ▼</Button>
                 <Button>motes</Button>
               </div>
-              <div className={cssClass.grey400}>
+              <div className={grey.grey400.cssClass}>
                 <Button>8</Button>
                 <Button>peripheral ▼</Button>
                 <Button>motes</Button>
               </div>
-              <div className={cssClass.grey400}>
+              <div className={grey.grey400.cssClass}>
                 <Button>8</Button>
                 <Button>any ▼</Button>
                 <Button>motes</Button>
               </div>
-              <div className={cssClass.grey400}>
+              <div className={grey.grey400.cssClass}>
                 <Button>1</Button>
                 <Button>willpower</Button>
               </div>

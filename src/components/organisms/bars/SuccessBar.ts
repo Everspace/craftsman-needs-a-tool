@@ -1,4 +1,4 @@
-import { cssClass } from "styles/Colors"
+import { grey, primary } from "styles/Colors"
 import StatBar from "components/molecules/StatBar"
 import { connect } from "react-redux"
 import { artifactRatingToSuccessesNeeded } from "lib/Exalted/craft"
@@ -14,13 +14,13 @@ const mapStateToProps = state => {
   const usedBar = {
     value: used,
     text: used,
-    className: cssClass.primary.main,
+    className: primary.main.cssClass,
   }
 
   const availableBar: BarSegmentDefintion = {
     value: available,
     text: available,
-    className: cssClass.primary.light,
+    className: primary.light.cssClass,
     roundedCorners: "true",
     style: { zIndex: 1 },
   }
@@ -28,7 +28,7 @@ const mapStateToProps = state => {
   const remainingBar = {
     value: remaining,
     text: remaining,
-    className: cssClass.grey500,
+    className: grey.grey500.cssClass,
   }
 
   const bars = [usedBar, availableBar, remainingBar]
