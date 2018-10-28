@@ -14,7 +14,7 @@ declare module "react" {
   export const useState: <T>(
     initialState: Resolvable<T> | null,
     memorizer?: any[],
-  ) => [T, (T) => void]
+  ) => [T, (newState: any) => void]
 
   type OptionalCleanupFunction = void | (() => void)
 
