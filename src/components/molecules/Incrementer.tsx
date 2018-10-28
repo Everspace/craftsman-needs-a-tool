@@ -23,7 +23,8 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   const [count, setCount] = useState(initialValue)
   const input: any = useRef(null)
 
-  let countAndCallback = function(newNumber: any) {
+  const onChange = e => {
+    let newNumber = e.target.value
     if (newNumber !== "") {
       const cast = Number(newNumber)
       setCount(cast)
@@ -31,44 +32,27 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
     } else {
       setCount(newNumber)
     }
-    if (typeof newNumber === "number") {
-    }
-  }
-
-  const increment = () => {
-    input.current.stepUp()
-  }
-
-  const deincrement = () => {
-    input.current.stepDown()
-  }
-
-  const onChange = e => {
-    countAndCallback(e.target.value)
   }
 
   return (
     <div className={cx(interactiveGroup, className)}>
-      <Button onClick={deincrement}>-</Button>
+      <Button onClick={() => input.current.stepDown()}>-</Button>
       <input
         ref={input as any}
         max={max}
         min={min}
         step={step}
-        className={numberStyle}
+        className={numberInputStyle}
         value={count}
         onChange={onChange}
         type="number"
       />
-      <Button onClick={increment}>+</Button>
+      <Button onClick={() => input.current.stepUp()}>+</Button>
     </div>
   )
 }
 
-// const callback = useCallback(e => e)
-// const onChange = useCallback(e => e)
-
-let numberStyle = css`
+let numberInputStyle = css`
   ${ButtonStyle};
   width: 2.5rem;
   text-align: center;

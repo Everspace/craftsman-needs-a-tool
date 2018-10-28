@@ -12,14 +12,10 @@ import motes from "reducers/motes"
 import { interactiveGroup } from "styles/Misc"
 import Incrementer from "components/molecules/Incrementer"
 
-declare module "react" {
-  export const useConext: (any) => any
-}
-
 let poolMaxes = solar(state.character.essence)
 
 // Perhaps resources is an array with IDs?
-let resources: object = {
+let resources: any = {
   ...state.resources,
 
   willpower: {
@@ -34,7 +30,7 @@ let resources: object = {
   },
 }
 
-let store = createStore((state: any, action: any) => {
+let store = createStore((state: any, action) => {
   let newState = { ...state }
 
   newState.motes = motes(state.motes, action)
@@ -116,7 +112,7 @@ class App extends Component {
             <Material className={cssClass.grey300} style={spacing}>
               <Button onClick={() => this.randomize()}>Do the things</Button>
               <Button onClick={() => this.maximize()}>Max</Button>
-              <Incrementer value={5} />
+              <Incrementer initialValue={5} callback={console.log} />
             </Material>
 
             <Material className={cssClass.grey300} style={spacing}>
