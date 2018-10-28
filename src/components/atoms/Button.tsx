@@ -42,6 +42,6 @@ export const ButtonStyle = css`
   }
 `
 
-export const Button = props => {
-  return <button {...props} className={cx(ButtonStyle, props.className)} />
+export const Button: React.SFC<ButtonComponent> = ({ className, ...props }) => {
+  return <button {...props} className={cx(ButtonStyle, className)} />
 }

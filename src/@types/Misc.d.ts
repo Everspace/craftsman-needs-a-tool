@@ -10,3 +10,5 @@ declare namespace cnat {
 type booleanString = "false" | "true"
 
 type DivComponent = JSX.IntrinsicElements["div"]
+type ButtonComponent = JSX.IntrinsicElements["button"]
+type InputComponent = JSX.IntrinsicElements["input"]
