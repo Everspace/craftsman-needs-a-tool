@@ -6,3 +6,7 @@ declare namespace cnat {
     a?: number
   }
 }
+
+type booleanString = "false" | "true"
+
+type DivComponent = JSX.IntrinsicElements["div"]

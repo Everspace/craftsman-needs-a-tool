@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 
 let mapStateToProps = state => {
   let available = state.motes.personal + state.motes.peripheral
-  let totalPool = state.motes.personalPool + state.motes.peripheralPool;
+  let totalPool = state.motes.personalPool + state.motes.peripheralPool
 
   let personalBar = {
     value: state.motes.personal,
@@ -20,10 +20,7 @@ let mapStateToProps = state => {
 
   return {
     title: "Motes",
-    bars: [
-      personalBar,
-      peripheralBar
-    ],
+    bars: [personalBar, peripheralBar],
     current: available,
     total: totalPool,
   }

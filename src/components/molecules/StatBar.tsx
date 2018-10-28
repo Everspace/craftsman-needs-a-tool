@@ -1,5 +1,5 @@
 import React from "react"
-import ProgressBar from "components/atoms/ProgressBar"
+import { ProgressBar } from "components/atoms/ProgressBar"
 import { css, cx } from "emotion"
 
 let containerStyle = css`

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Button from "components/atoms/Button"
+import { Button } from "components/atoms/Button"
 
 import Material from "components/atoms/Material"
 import { cssClass } from "styles/Colors"
@@ -104,7 +104,11 @@ class App extends Component {
         <div className={cssClass.grey500}>
           <Material
             className={cssClass.primary.main}
-            style={{ padding: 10, zIndex: 1, marginBottom: 20 }}
+            style={{
+              padding: 10,
+              zIndex: 1,
+              marginBottom: 20,
+            }}
           >
             <h1>Craftsman Needs a Tool</h1>
           </Material>

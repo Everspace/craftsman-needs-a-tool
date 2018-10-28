@@ -1,20 +1,70 @@
-import React, { SFC, SFCElement } from "react"
+import React from "react"
 import { css, cx } from "emotion"
 import { cssClass } from "styles/Colors"
 
-//
-// A shameless copy of bootstrap's progress thing.
-//
+interface ProgressBarProps extends DivComponent {
+  bars: BarSegmentDefintion[]
+  max?: number
+}
+
+/**
+ * A shameless copy of bootstrap's progress thing.
+ */
+export const ProgressBar: React.SFC<ProgressBarProps> = ({
+  bars,
+  max = 100,
+  className,
+  ...props
+}) => {
+  return (
+    <div {...props} className={cx(containerCSS, cssClass.grey500, className)}>
+      {bars.map((definition, index) =>
+        barDefToComponent(definition, index, max),
+      )}
+    </div>
+  )
+}
 
 let containerCSS = css`
   display: flex;
   overflow: hidden;
-  height: 1rem;
-  font-size: 0.75rem;
-  border-radius: 0.25rem;
+  height: 1em;
+  font-size: 0.75em;
+  border-radius: 0.25em;
 `
 
-let barCSS = css`
+let roundedCornersStyle = css`
+  border-top-right-radius: 0.25em;
+  border-bottom-right-radius: 0.25em;
+`
+
+export interface BarSegmentDefintion extends DivComponent {
+  value: number
+  text?: string
+  roundedCorners?: booleanString
+}
+
+const barDefToComponent = (
+  definition: BarSegmentDefintion,
+  key: any,
+  maxValue = 100,
+) => {
+  const { value, text, roundedCorners, className, ...props } = definition
+
+  return (
+    <BarSegement
+      {...props}
+      key={key}
+      text={text}
+      className={cx(className, {
+        [roundedCornersStyle]: roundedCorners,
+      })}
+      percent={(value / maxValue) * 100}
+    />
+  )
+}
+
+let barSegmentStyle = css`
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -22,78 +72,20 @@ let barCSS = css`
   transition: width 0.6s ease;
 `
 
-let roundedCorners = css`
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-`
-
-type booleanString = "false" | "true"
-
-interface BarProps extends Partial<HTMLDivElement> {
-  rounded?: booleanString
+export interface BarSegementProps extends DivComponent {
   percent: number
   text?: string
 }
 
-const Bar: SFC<BarProps> = props => {
-  const { rounded, percent, text, className, ...otherProps } = props
+const BarSegement: React.SFC<BarSegementProps> = props => {
+  const { percent, text, className, ...otherProps } = props
   return (
     <div
-      {...otherProps as object}
-      className={cx(barCSS, className)}
+      {...otherProps}
+      className={cx(barSegmentStyle, className)}
       style={{ width: `${percent}%` }}
     >
       {text}
     </div>
   )
 }
-
-interface BarDefinition {
-  value: number
-  text?: string
-  className?: string
-  props?: object // TODO BETTER TYPING
-}
-
-type BarConverter = (bars: BarDefinition[], maxValue?: number) => JSX.Element[]
-
-const barsToElements: BarConverter = (bars, maxValue = 100) => {
-  return bars.map((element, index) => {
-    const { value, text, className, props } = element
-
-    return (
-      <Bar
-        {...(props || {}) as object}
-        key={index}
-        text={text}
-        className={cx(className, {
-          [roundedCorners]: index === bars.length - 1,
-        })}
-        percent={(value / maxValue) * 100}
-      />
-    )
-  })
-}
-
-interface ProgressBarProps extends HTMLDivElement {
-  bars: BarDefinition[]
-  max?: number
-}
-
-const ProgressBar: SFC<ProgressBarProps> = ({
-  bars,
-  className,
-  max,
-  ...otherProps
-}) => {
-  return (
-    <div
-      {...otherProps as object}
-      className={cx(containerCSS, cssClass.grey500, className)}
-    >
-      {barsToElements(bars, max)}
-    </div>
-  )
-}
-
-export default ProgressBar

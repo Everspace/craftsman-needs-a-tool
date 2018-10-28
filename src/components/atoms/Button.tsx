@@ -3,7 +3,7 @@ import { css, cx } from "emotion"
 import { resting, waiting, hovering } from "styles/Shadows"
 import { cssClass, color } from "styles/Colors"
 
-let style = css`
+export const ButtonStyle = css`
   background: none;
   border: none;
   padding: 0.25rem 0.5rem;
@@ -26,6 +26,11 @@ let style = css`
     outline-width: 0.15rem;
   }
 
+  ::placeholder {
+    color: ${color.text.light};
+    opacity: 1; /* Firefox */
+  }
+
   &:hover {
     ${waiting};
     ${cssClass.secondary.dark};
@@ -37,6 +42,6 @@ let style = css`
   }
 `
 
-export default props => {
-  return <button {...props} className={cx(style, props.className)} />
+export const Button = props => {
+  return <button {...props} className={cx(ButtonStyle, props.className)} />
 }

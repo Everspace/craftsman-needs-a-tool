@@ -1,9 +1,14 @@
-import React from "react"
+import React, { SFC } from "react"
 import { waiting } from "styles/Shadows"
 import { roundedCorners, spaced as spacedStyle } from "styles/Misc"
 import { cx } from "emotion"
 
-const Material = props => {
+interface Props extends DivComponent {
+  rounded?: boolean
+  spaced?: boolean
+}
+
+const Material: SFC<Props> = props => {
   const { rounded, spaced, className, ...otherProps } = props
 
   return (

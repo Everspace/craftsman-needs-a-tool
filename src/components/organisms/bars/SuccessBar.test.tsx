@@ -2,7 +2,7 @@ import React from "react"
 import SuccessBar from "components/organisms/bars/SuccessBar"
 import { createStore } from "redux"
 import { Provider } from "react-redux"
-import { render, cleanup } from "react-testing-library"
+import { render } from "react-testing-library"
 
 let store = createStore(state => state, {
   successes: {
