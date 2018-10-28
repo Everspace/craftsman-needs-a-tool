@@ -6,7 +6,7 @@
   "dependencies": {
     "emotion": "^9.2.12",
     "react": "next",
-    "react-dom": "^16.6.0",
+    "react-dom": "next",
     "react-redux": "^5.1.0",
     "react-scripts": "next",
     "redux": "^4.0.0",
