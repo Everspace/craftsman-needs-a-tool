@@ -40,7 +40,9 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
 
   return (
     <InteractiveGroup color={color as any} seperated className={className}>
-      <Button onClick={() => input.current.stepDown()}>-</Button>
+      <Button color={color as any} onClick={() => input.current.stepDown()}>
+        -
+      </Button>
       <input
         ref={input}
         max={max}
@@ -51,7 +53,9 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
         onChange={onChange}
         type="number"
       />
-      <Button onClick={() => input.current.stepUp()}>+</Button>
+      <Button color={color as any} onClick={() => input.current.stepUp()}>
+        +
+      </Button>
     </InteractiveGroup>
   )
 }
