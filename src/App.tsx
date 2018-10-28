@@ -149,9 +149,7 @@ class App extends Component {
                     Explode:
                     <div className={interactiveGroup}>
                       {Array.from({ length: 10 }, (_, i) => (
-                        <Button key={i} active={(i % 3 === 0).toString()}>
-                          {10 - i}s
-                        </Button>
+                        <Button key={i}>{10 - i}s</Button>
                       )).reverse()}
                     </div>
                   </ButtonBlock>
