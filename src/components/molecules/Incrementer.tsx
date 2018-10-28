@@ -1,7 +1,72 @@
-import React from "react"
+import React, { useState, useRef } from "react"
 import { css, cx } from "emotion"
 import { Button, ButtonStyle } from "components/atoms/Button"
 import { interactiveGroup } from "styles/Misc"
+
+interface IncrementerProps {
+  initialValue?: number
+  max?: number
+  min?: number
+  step?: number
+  className?: string
+  callback: (number) => void
+}
+
+export const Incrementer: React.SFC<IncrementerProps> = ({
+  initialValue = 5,
+  max = 99,
+  min = -9,
+  step = 1,
+  callback,
+  className,
+}) => {
+  const [count, setCount] = useState(initialValue)
+  const input: any = useRef(null)
+
+  let countAndCallback = function(newNumber: any) {
+    if (newNumber !== "") {
+      const cast = Number(newNumber)
+      setCount(cast)
+      callback && callback(cast)
+    } else {
+      setCount(newNumber)
+    }
+    if (typeof newNumber === "number") {
+    }
+  }
+
+  const increment = () => {
+    input.current.stepUp()
+  }
+
+  const deincrement = () => {
+    input.current.stepDown()
+  }
+
+  const onChange = e => {
+    countAndCallback(e.target.value)
+  }
+
+  return (
+    <div className={cx(interactiveGroup, className)}>
+      <Button onClick={deincrement}>-</Button>
+      <input
+        ref={input as any}
+        max={max}
+        min={min}
+        step={step}
+        className={numberStyle}
+        value={count}
+        onChange={onChange}
+        type="number"
+      />
+      <Button onClick={increment}>+</Button>
+    </div>
+  )
+}
+
+// const callback = useCallback(e => e)
+// const onChange = useCallback(e => e)
 
 let numberStyle = css`
   ${ButtonStyle};
@@ -14,27 +79,5 @@ let numberStyle = css`
     margin: 0;
   }
 `
-
-//
-// height: 100%;
-// min-height: 100%;
-// position: relative;
-
-// Explode:
-// <div className={interactiveGroup}>
-//   {Array.from({ length: 10 }, (_, i) => (
-//     <Button key={i} active={(i % 3 === 0).toString()}>
-//       {10 - i}s
-//     </Button>
-//   )).reverse()}
-// </div>
-
-export const Incrementer = props => (
-  <div className={cx(interactiveGroup, props.className)}>
-    <Button>-</Button>
-    <input className={numberStyle} type="number" placeholder={props.value} />
-    <Button>+</Button>
-  </div>
-)
 
 export default Incrementer
