@@ -35,6 +35,11 @@ declare module "react" {
 
   export const useContext: <T>(context: Context<T>) => ProviderProps<T>
 
+  export const useCallback: <T extends (...any) => void>(
+    callBack?: T,
+    memorize: any[],
+  ) => T
+
   type Reducer = (state: object, action: any) => object
 
   /**
