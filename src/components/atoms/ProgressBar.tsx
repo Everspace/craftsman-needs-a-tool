@@ -2,7 +2,7 @@ import React from "react"
 import { css, cx } from "emotion"
 import { grey } from "styles/Colors"
 
-interface ProgressBarProps extends DivComponent {
+interface ProgressBarProps extends JSXElement<"div"> {
   bars: BarSegmentDefintion[]
   max?: number
 }
@@ -41,7 +41,7 @@ let roundedCornersStyle = css`
   border-bottom-right-radius: 0.25em;
 `
 
-export interface BarSegmentDefintion extends DivComponent {
+export interface BarSegmentDefintion extends JSXElement<"div"> {
   value: number
   text?: string
   roundedCorners?: booleanString
@@ -75,7 +75,7 @@ let barSegmentStyle = css`
   transition: width 0.6s ease;
 `
 
-export interface BarSegementProps extends DivComponent {
+export interface BarSegementProps extends JSXElement<"div"> {
   percent: number
   text?: string
 }

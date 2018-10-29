@@ -4,7 +4,7 @@ import { cornerRadius } from "styles/Misc"
 import { secondary } from "styles/Colors"
 import { waiting } from "styles/Shadows"
 
-interface InteractiveGroupProps extends DivComponent {
+interface InteractiveGroupProps extends JSXElement<"div"> {
   color?: any
   seperated?: boolean
 }

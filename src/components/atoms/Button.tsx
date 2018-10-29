@@ -3,11 +3,7 @@ import { cx } from "emotion"
 import { secondary } from "styles/Colors"
 import { interactive } from "styles/Misc"
 
-interface ButtonProps extends ButtonComponent {
-  color?: any
-}
-
-export const Button: React.SFC<ButtonProps> = ({
+export const Button: React.SFC<JSXElement<"button">> & Colorable = ({
   className,
   color = secondary,
   ...props

@@ -3,12 +3,12 @@ import { waiting } from "styles/Shadows"
 import { roundedCorners, spaced as spacedStyle } from "styles/Misc"
 import { cx } from "emotion"
 
-interface Props extends DivComponent {
+interface MaterialProps extends JSXElement<"div"> {
   rounded?: boolean
   spaced?: boolean
 }
 
-const Material: SFC<Props> = props => {
+const Material: SFC<MaterialProps> = props => {
   const { rounded, spaced, className, ...otherProps } = props
 
   return (
