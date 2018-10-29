@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Button } from "components/atoms/Button"
 
 import Material from "components/atoms/Material"
-import { grey, primary } from "styles/Colors"
+import { grey, primary, secondary } from "styles/Colors"
 import StatTracker from "components/organisms/StatTracker"
 import state from "state"
 import { solar } from "lib/Exalted/motePool"
@@ -112,7 +112,21 @@ class App extends Component {
             <Material className={grey.grey300.cssClass} style={spacing}>
               <Button onClick={() => this.randomize()}>Do the things</Button>
               <Button onClick={() => this.maximize()}>Max</Button>
-              <Incrementer initialValue={5} callback={console.log} />
+              <Incrementer
+                color={primary}
+                initialValue={5}
+                callback={console.log}
+              />
+              <Incrementer
+                color={secondary}
+                initialValue={5}
+                callback={console.log}
+              />
+              <Incrementer
+                color={grey}
+                initialValue={5}
+                callback={console.log}
+              />
             </Material>
 
             <Material className={grey.grey300.cssClass} style={spacing}>
