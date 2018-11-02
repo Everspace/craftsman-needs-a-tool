@@ -1,0 +1,8 @@
+type MoteAction =
+  | "MOTES_ADD"
+  | "MOTES_REMOVE"
+  | "MOTES_SET"
+  | "MOTES_DRIP"
+  | "MOTES_FILL_POOLS"
+  | "MOTES_COMMIT"
+  | "MOTES_RELEASE"

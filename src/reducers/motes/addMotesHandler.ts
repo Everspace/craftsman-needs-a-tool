@@ -1,6 +1,8 @@
-export default (state, action) => {
-  let {personal, periferal} = action
-  let {personalPool, periferalPool} = state
+import { AnyAction } from "redux"
+
+export const addMotesHandler = (state, action: AnyAction) => {
+  let { personal, periferal } = action
+  let { personalPool, periferalPool } = state
   let personalResult = state.personal
   let periferalResult = state.periferal
 
