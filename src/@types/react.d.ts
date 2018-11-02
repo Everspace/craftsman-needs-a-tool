@@ -53,14 +53,12 @@ declare module "react" {
   export const useCallback
   export const useMemo
 
-  type Reference = { current: Element | null }
-
   /**
    * returns a mutable ref object that is initialized to the passed argument.
    *
    * The returned object will persist for the full lifetime of the component
    */
-  export const useRef: (any) => Reference
+  export const useRef: <T>() => React.RefObject<T>
 
   // export const useImperativeMethods
   // export const useMutationEffect
