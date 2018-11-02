@@ -4,6 +4,7 @@ import { Button } from "components/atoms/Button"
 import { interactive } from "styles/Misc"
 import { InteractiveGroup } from "components/atoms/InteractiveGroup"
 import { secondary } from "styles/Colors"
+import { useNumberInput } from "hooks/input"
 
 interface IncrementerProps {
   initialValue?: number
@@ -24,36 +25,21 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   color = secondary,
   className,
 }) => {
-  const [count, setCount] = useState(initialValue)
-  const input = useRef<HTMLInputElement>()
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let newNumber = e.target.value
-    if (newNumber !== "") {
-      const cast = Number(newNumber)
-      setCount(cast)
-      callback && callback(cast)
-    } else {
-      setCount(newNumber)
-    }
-  }
+  const { ref, inputProps } = useNumberInput(initialValue, callback)
 
   return (
     <InteractiveGroup seperated color={color} className={className}>
-      <Button color={color} onClick={() => input.current!.stepDown()}>
+      <Button color={color} onClick={() => ref.current!.stepDown()}>
         -
       </Button>
       <input
-        ref={input}
+        {...inputProps}
         max={max}
         min={min}
         step={step}
         className={cx(interactive(color), numberInputStyle)}
-        value={count}
-        onChange={onChange}
-        type="number"
       />
-      <Button color={color} onClick={() => input.current!.stepUp()}>
+      <Button color={color} onClick={() => ref.current!.stepUp()}>
         +
       </Button>
     </InteractiveGroup>
