@@ -1,37 +1,37 @@
 /**
  * Turns number into string like "A" or "3C"
- * @param {number} decimal
- * @returns {string}
  */
-export const decimalTohex = decimal => decimal.toString(16)
+export const decimalTohex = (decimal: number): string => decimal.toString(16)
 
 /**
  * Aligns A to 0A or 3C4 to 03C4
- * @param {string} hex
- * @returns {string} aligned bytes
+ * @param hex
+ * @returns aligned bytes
  */
-export const byteify = hex => (hex.length % 2 === 0 ? hex : "0" + hex)
+export const byteify = (hex: string): string =>
+  hex.length % 2 === 0 ? hex : "0" + hex
 
 /**
  * Turns string into number
- * @param {string} hex
- * @returns {number} decimal value of hex
+ * @param hex
+ * @returns decimal value of hex
  */
-export const hexTodecimal = hex => parseInt(hex, 16)
+export const hexTodecimal = (hex: string): number => parseInt(hex, 16)
 
 /**
  * Makes 16 into 0F
- * @param {number} decimal
- * @returns {string} hex string
+ * @param decimal
+ * @returns hex string
  */
-export const decimalToHexByte = decimal => byteify(decimalTohex(decimal))
+export const decimalToHexByte = (decimal: number): string =>
+  byteify(decimalTohex(decimal))
 
 /**
  * Splits a #FF00FF into an object {r,g,b}
- * @param {string} color A hex color string of FF00FF or F0F with # optional
- * @returns {cnat.Color} a color object
+ * @param color A hex color string of FF00FF or F0F with # optional
+ * @returns a color object
  */
-export const hexToColor = color => {
+export const hexToColor = (color: string): cnat.Color => {
   // Get rid of #
   if (color[0] === "#") {
     color = color.substr(1, color.length - 1)
@@ -65,10 +65,10 @@ export const hexToColor = color => {
 
 /**
  * Takes an r/g/b split color object and poops out a #FF3D5C type color
- * @param {cnat.Color} color
- * @returns {string} `#FF00FF`
+ * @param color
+ * @returns `#FF00FF`
  */
-export const colorToHex = color => {
+export const colorToHex = (color: cnat.Color): string => {
   return Object.keys(color).reduce(
     (memory, key) => memory + decimalToHexByte(color[key]),
     "#",

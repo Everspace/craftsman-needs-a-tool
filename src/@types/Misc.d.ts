@@ -1,10 +1,15 @@
 declare namespace cnat {
-  export type ColorPrimative = {
+  export type Color = {
     r: number
     b: number
     g: number
     a?: number
   }
+}
+
+interface HasStyle {
+  className?: string
+  style?: React.CSSProperties
 }
 
 type booleanString = "false" | "true"

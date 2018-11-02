@@ -1,5 +1,5 @@
 import { mix } from "lib/Color/Functions"
-import { xony } from "lib/Style/xony"
+import { xony } from "lib/Style"
 
 const textColor = {
   light: "#F0F0F0",
@@ -28,7 +28,7 @@ const greyColor = {
   grey500: mix(greyTint, "#222", 5),
 }
 
-export const primary = {
+export const primary: MaterialColor = {
   light: {
     cssClass: xony(textColor.light, primaryColor.light),
     text: textColor.light,
@@ -46,7 +46,7 @@ export const primary = {
   },
 }
 
-export const secondary = {
+export const secondary: MaterialColor = {
   light: {
     cssClass: xony(textColor.light, secondaryColor.light),
     text: textColor.light,
@@ -64,7 +64,7 @@ export const secondary = {
   },
 }
 
-const greys = {
+const greys: Record<string, MaterialColorObject> = {
   grey100: {
     cssClass: xony(textColor.dark, greyColor.grey100),
     text: textColor.dark,
@@ -92,13 +92,30 @@ const greys = {
   },
 }
 
-export const grey = {
+export const grey: MaterialColor & Record<string, MaterialColorObject> = {
   ...greys,
-  light: greys.grey500,
+  light: greys.grey100,
   main: greys.grey300,
-  dark: greys.grey100,
+  dark: greys.grey500,
 }
 
 // Baseline material error Color
-export const errorColor = "#B00020"
-export const errorCSS = xony(textColor.light, errorColor)
+const errorColor = "#B00020"
+const errorCSS = xony(textColor.light, errorColor)
+export const error: MaterialColor = {
+  light: {
+    color: errorColor,
+    cssClass: errorCSS,
+    text: textColor.light,
+  },
+  main: {
+    color: errorColor,
+    cssClass: errorCSS,
+    text: textColor.light,
+  },
+  dark: {
+    color: errorColor,
+    cssClass: errorCSS,
+    text: textColor.light,
+  },
+}

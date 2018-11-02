@@ -25,7 +25,7 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   className,
 }) => {
   const [count, setCount] = useState(initialValue)
-  const input: any = useRef(null)
+  const input = useRef<HTMLInputElement>()
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newNumber = e.target.value
@@ -39,8 +39,8 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   }
 
   return (
-    <InteractiveGroup color={color as any} seperated className={className}>
-      <Button color={color as any} onClick={() => input.current.stepDown()}>
+    <InteractiveGroup seperated color={color} className={className}>
+      <Button color={color} onClick={() => input.current!.stepDown()}>
         -
       </Button>
       <input
@@ -48,12 +48,12 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
         max={max}
         min={min}
         step={step}
-        className={cx(interactive(color as any), numberInputStyle)}
+        className={cx(interactive(color), numberInputStyle)}
         value={count}
         onChange={onChange}
         type="number"
       />
-      <Button color={color as any} onClick={() => input.current.stepUp()}>
+      <Button color={color} onClick={() => input.current!.stepUp()}>
         +
       </Button>
     </InteractiveGroup>

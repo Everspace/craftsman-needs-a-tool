@@ -1,6 +1,7 @@
 import React from "react"
 import { css, cx } from "emotion"
 import { grey } from "styles/Colors"
+import { acceptStyle } from "lib/Style"
 
 interface ProgressBarProps extends JSXElement<"div"> {
   bars: BarSegmentDefintion[]
@@ -81,13 +82,14 @@ export interface BarSegementProps extends JSXElement<"div"> {
 }
 
 const BarSegement: React.SFC<BarSegementProps> = props => {
-  const { percent, text, className, ...otherProps } = props
+  const { percent, text, ...otherProps } = props
+  const styleResult = acceptStyle(props, {
+    cx: barSegmentStyle,
+    style: { width: `${percent}%` },
+  })
+
   return (
-    <div
-      {...otherProps}
-      className={cx(barSegmentStyle, className)}
-      style={{ width: `${percent}%` }}
-    >
+    <div {...otherProps} {...styleResult}>
       {text}
     </div>
   )
