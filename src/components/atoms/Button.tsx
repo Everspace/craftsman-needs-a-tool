@@ -3,12 +3,13 @@ import { cx } from "emotion"
 import { interactive } from "../../styles/Misc"
 import { secondary } from "../../styles/Colors";
 
-export const Button: React.SFC<JSXElement<"button">> & Colorable = ({
+export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & Colorable> = ({
   className,
-  color = secondary,
+  colorStyle = secondary,
+  style,
   ...props
 }) => {
   return (
-    <button {...props} className={cx(interactive(color as any), className)} />
+    <button {...props} className={cx(interactive(colorStyle), className)} />
   )
 }

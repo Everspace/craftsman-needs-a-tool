@@ -1,9 +1,8 @@
-import React, { Component } from "react"
+import React, { Component, useEffect, useState } from "react"
 import { Button } from "./components/atoms/Button"
 
 import Material from "./components/atoms/Material"
 import { grey, primary, secondary } from "./styles/Colors"
-import StatTracker from "./components/organisms/StatTracker"
 import { state, character } from "./state"
 import { solar } from "./lib/Exalted/motePool"
 import { Provider } from "react-redux"
@@ -11,6 +10,7 @@ import { createStore } from "redux"
 import motes from "./reducers/motes"
 import Incrementer from "./components/molecules/Incrementer"
 import { InteractiveGroup } from "./components/atoms/InteractiveGroup"
+import mathjs from "mathjs"
 
 let poolMaxes = solar(character.essence)
 
@@ -62,6 +62,26 @@ let ButtonHolderPanel: React.FC<{label?: String}> = ({label, children, ...props}
   </Panel>
 )
 
+let ToggleButton: React.FC<{on?:boolean, callback?:(boolean)=>void} & React.ButtonHTMLAttributes<HTMLButtonElement> & Colorable>  = (
+  {on = false, callback, onClick, colorStyle = secondary, ...props}
+) => {
+  let [state, setState] = useState(on)
+
+  useEffect(()=>{
+    callback && callback(state)
+  }, [state])
+
+  return <Button
+    colorStyle={state ? grey: colorStyle}
+    {...props}
+    onClick={(e)=> {
+      onClick && onClick(e)
+      setState(!state)
+    }}
+  />
+}
+
+
 let Header = props => (
   <Material
   className={primary.main.cssClass}
@@ -75,16 +95,80 @@ let Header = props => (
 </Material>
 )
 
+const defaultRegularState = {
+  targetNumber: 7,
+  double: 10,
+  dice: 10,
+  difficulty: 0,
+  terminus: 1,
+  target: 5,
+  reroll6: false,
+  reroll10: false,
+  reroll1: false,
+  nonCharmSuccesses: 0,
+  willpower: false,
+}
+
+const defaultCraftState = {
+  targetNumber: 7,
+  double: 10,
+  dice: 20,
+  difficulty: 5,
+  terminus: 6,
+  target: 100,
+  reroll6: false,
+  reroll10: false,
+  reroll1: false,
+  nonCharmSuccesses: 0,
+  willpower: true,
+}
+
+
 class App extends Component {
-  state = {
-    targetNumber: 7,
-    double: 10,
-    dice: 20,
-    reroll: []
+  state = {...defaultRegularState}
+
+  calcProb(state:any) {
+    let doubledSides = state.double ? 11 - state.double : 0
+    let p2 = doubledSides / 10 // prob of 2 succeses
+    let singleSuccessSides = (10 - doubledSides - state.targetNumber + 1)
+    let p1 = singleSuccessSides / 10
+    let p0 = 1 - p1 - p2
+    let availableSides = 10 - (state.reroll6 ? 1:0) - (state.reroll10 ? 1:0) - (state.reroll1 ? 1:0)
+    let dice = state.dice * 10 / availableSides
+    let mu = p2 * 2 + p1 * 1
+    let sigmaSq = p2 * Math.pow(2 - 0.5, 2)
+      + p1 * Math.pow(1 - 0.5, 2)
+      + p0 * Math.pow(0 - 0.5, 2)
+
+    let desired = Math.ceil(state.target / state.terminus) + state.difficulty - 1
+    desired -= state.willpower ? 1 : 0
+    desired -= state.nonCharmSuccesses
+
+    let continuityCorrection = desired - 0.5
+
+    let pnorm = this.pnorm(continuityCorrection,
+      dice * mu,
+      Math.sqrt(dice * sigmaSq)
+    )
+
+    return 1 - pnorm
+
+  }
+
+  pnorm(x:number, mean:number, standardDeviation:number) {
+    let erf = mathjs.erf(
+      (x - mean) / (standardDeviation * Math.sqrt(2))
+    ) as number
+
+    return 0.5 * (1 + erf)
   }
 
   wholeRandomize(n: number) {
     return Math.floor(Math.random() * n)
+  }
+
+  doThing(n) {
+    this.setState(n)
   }
 
   render() {
@@ -93,44 +177,80 @@ class App extends Component {
         <div className={grey.grey500.cssClass}>
           <Header />
           <Material rounded spaced className={grey.grey400.cssClass}>
-            <Panel>
-              Probability...
+            <Panel key="toggle area">
+              <Button onClick={()=>this.setState({...defaultRegularState})}>
+                Difficulty 5
+              </Button>
+              <Button onClick={()=>this.setState({...defaultCraftState})}>
+                Craft 5 dot Artifact
+              </Button>
+            </Panel>
+            <Panel key="prob area">
+              Probability of {this.state.target} successes: {Math.round(this.calcProb(this.state) * 100)}%
             </Panel>
 
-            <ButtonHolderPanel label="The Craft">
-
-            <ButtonBlock label="Difficulty">
+            <ButtonHolderPanel label="The Challenge">
+              <ButtonBlock label="Target">
                 <Incrementer
-                  color={secondary}
-                  initialValue={5}
+                  initialValue={this.state.target}
                   min={1}
-                  callback={console.log}
+                  callback={(target) => this.doThing({target})}
+                />
+              </ButtonBlock>
+
+              <ButtonBlock label="Difficulty">
+                <Incrementer
+                  initialValue={this.state.difficulty}
+                  min={1}
+                  callback={(difficulty) => this.doThing({difficulty})}
                 />
               </ButtonBlock>
               <ButtonBlock label="Terminus">
                 <Incrementer
-                  color={secondary}
-                  initialValue={6}
+                  initialValue={this.state.terminus}
                   min={1}
-                  callback={console.log}
+                  callback={(terminus) => this.doThing({terminus})}
                 />
               </ButtonBlock>
             </ButtonHolderPanel>
 
-            <ButtonHolderPanel label="Setup">
+            <ButtonHolderPanel label="Roll Effects">
               <ButtonBlock label="Dice pool">
                 <Incrementer
-                  color={secondary}
-                  initialValue={10}
+                  initialValue={this.state.dice}
                   min={1}
-                  callback={console.log}
+                  callback={(dice) => this.doThing({dice})}
                 />
               </ButtonBlock>
+              <ButtonBlock label="Double">
+                <Incrementer
+                  initialValue={this.state.double}
+                  min={7}
+                  max={10}
+                  callback={(double) =>  this.doThing({double})}
+                />
+              </ButtonBlock>
+              <ButtonBlock label="Target Number">
+                <Incrementer
+                  initialValue={this.state.targetNumber}
+                  min={4}
+                  max={8}
+                  callback={(targetNumber) => this.doThing({targetNumber})}
+                />
+              </ButtonBlock>
+              <ButtonBlock>
+              <ToggleButton
+                    on={this.state.willpower}
+                    callback={(willpower)=>this.setState({willpower})}
+                  key="wp">Willpower</ToggleButton>
+
+              </ButtonBlock>
+                          </ButtonHolderPanel>
+            <Panel>
               <ButtonBlock label="Non-Charm Autosuccesses">
                 <Incrementer
-                  color={secondary}
-                  initialValue={0}
-                  callback={console.log}
+                  initialValue={this.state.nonCharmSuccesses}
+                  callback={(nonCharmSuccesses) => this.doThing({nonCharmSuccesses})}
                 />
               </ButtonBlock>
               <ButtonBlock label="Stunt Rating">
@@ -141,52 +261,26 @@ class App extends Component {
                   <Button>•••</Button>
                 </InteractiveGroup>
               </ButtonBlock>
-              <ButtonBlock label="Interval">
-                <Button>Willpower</Button>
-              </ButtonBlock>
-              <ButtonBlock label="Double">
-                <InteractiveGroup>
-                  {Array.from({ length: 4 }, (_, i) => (
-                    <Button key={i}>{i + 7}s</Button>
-                  ))}
-                </InteractiveGroup>
+              <ButtonBlock label="Stuff">
               </ButtonBlock>
               <ButtonBlock label="Reroll">
                 <InteractiveGroup>
-                  <Button key="1s">1s</Button>
-                  <Button key="6s">6s</Button>
-                  <Button key="10s">10s</Button>
+                  <ToggleButton
+                    callback={(reroll1)=>this.setState({reroll1})}
+                    key="1s">1s</ToggleButton>
+                  <ToggleButton
+                  callback={(reroll6)=>this.setState({reroll6})}
+                  key="6s">6s</ToggleButton>
+                  <ToggleButton callback={(reroll10)=>this.setState({reroll10})}
+                  key="10s">10s</ToggleButton>
                 </InteractiveGroup>
               </ButtonBlock>
-            </ButtonHolderPanel>
+            </Panel>
 
             <ButtonHolderPanel>
               <Button>First Word of the Demiurge</Button>
               <Button>Sacrosanct Delerium</Button>
             </ButtonHolderPanel>
-            <ButtonHolderPanel>
-              <div>Spend:</div>
-              <div className={grey.grey400.cssClass}>
-                <Button>8</Button>
-                <Button>personal ▼</Button>
-                <Button>motes</Button>
-              </div>
-              <div className={grey.grey400.cssClass}>
-                <Button>8</Button>
-                <Button>peripheral ▼</Button>
-                <Button>motes</Button>
-              </div>
-              <div className={grey.grey400.cssClass}>
-                <Button>8</Button>
-                <Button>any ▼</Button>
-                <Button>motes</Button>
-              </div>
-              <div className={grey.grey400.cssClass}>
-                <Button>1</Button>
-                <Button>willpower</Button>
-              </div>
-            </ButtonHolderPanel>
-
           </Material>
         </div>
       </Provider>

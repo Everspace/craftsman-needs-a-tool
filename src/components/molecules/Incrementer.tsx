@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useEffect, useState, useRef } from "react"
 import { css, cx } from "emotion"
 import { Button } from "../../components/atoms/Button"
 import { interactive } from "../../styles/Misc"
@@ -13,7 +13,7 @@ interface IncrementerProps {
   step?: number
   className?: string
   color?: any
-  callback: (number) => void
+  callback: (n: number) => void
 }
 
 export const Incrementer: React.SFC<IncrementerProps> = ({
@@ -25,28 +25,49 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   color = secondary,
   className,
 }) => {
-  const { ref, inputProps } = useNumberInput(initialValue, callback)
-  // let {onChange, ref ,type ,value} = inputProps
+  const [value, setValue] = useState(initialValue)
+  const ref = useRef<HTMLInputElement>(null)
 
-  let adjustNumber = useCallback((delta:number) => {
+  let maxima = (newNumber:number) => {
+    if (newNumber > max) return max
+    if (newNumber < min) return min
+    return newNumber
+  }
+
+  let adjustNumber = (delta:number) => {
     if (!ref.current) return
     let newNumber = Number(ref.current.value) + delta
-    ref.current.value = (newNumber).toString()
-  }, [ref.current, ref])
+    setValue(maxima(newNumber))
+  }
+
+  let onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!ref.current) return
+    if (e.target.value === "") return // don't go to 0 when empty
+    let cast = Number(e.target.value)
+    if (isNaN(cast)) return
+    setValue(maxima(cast))
+  }
+
+  useEffect(()=> {
+    if (!ref.current) return
+    ref.current.value = value.toString()
+    callback && callback(value)
+  }, [value])
 
   return (
     <InteractiveGroup seperated color={color} className={className}>
-      <Button color={color} onClick={()=>adjustNumber(-step)}>
+      <Button colorStyle={color} onClick={()=>adjustNumber(-step)}>
         -
       </Button>
       <input
-        {...inputProps}
         max={max}
         min={min}
         step={step}
+        ref={ref}
         className={cx(interactive(color), numberInputStyle)}
+        onChange={onChange}
       />
-      <Button color={color} onClick={()=>adjustNumber(step)}>
+      <Button colorStyle={color} onClick={()=>adjustNumber(step)}>
         +
       </Button>
     </InteractiveGroup>

@@ -1,15 +1,14 @@
 import React from "react"
 import { css, cx } from "emotion"
-import { cornerRadius } from "../../styles/Misc"
+import { cornerRadius, interactive } from "../../styles/Misc"
 import { secondary } from "../../styles/Colors"
 import { waiting } from "../../styles/Shadows"
 
 interface InteractiveGroupProps extends JSXElement<"div"> {
-  color?: any
   seperated?: boolean
 }
 
-const interactiveGroupStyle = (colorObj: any, seperated = false) => css`
+const interactiveGroupStyle = (colorObj: MaterialColor, seperated = false) => css`
   /* Redo some of the interactive style */
   background-color: transparent;
   border-radius: ${cornerRadius};
@@ -60,14 +59,14 @@ const interactiveGroupStyle = (colorObj: any, seperated = false) => css`
   }
 `
 
-export const InteractiveGroup: React.SFC<InteractiveGroupProps> = ({
-  color = secondary,
+export const InteractiveGroup: React.FC<InteractiveGroupProps & Colorable> = ({
+  colorStyle = secondary,
   seperated = false,
   className,
   ...props
 }) => (
   <div
     {...props}
-    className={cx(interactiveGroupStyle(color, seperated), className)}
+    className={cx(interactiveGroupStyle(colorStyle, seperated), className)}
   />
 )
