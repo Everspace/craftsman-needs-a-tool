@@ -105,7 +105,7 @@ const defaultRegularState = {
   reroll6: false,
   reroll10: false,
   reroll1: false,
-  nonCharmSuccesses: 0,
+  autoSuccesses: 0,
   willpower: false,
 }
 
@@ -119,7 +119,7 @@ const defaultCraftState = {
   reroll6: false,
   reroll10: false,
   reroll1: false,
-  nonCharmSuccesses: 0,
+  autoSuccesses: 0,
   willpower: true,
 }
 
@@ -140,11 +140,11 @@ class App extends Component {
       + p1 * Math.pow(1 - 0.5, 2)
       + p0 * Math.pow(0 - 0.5, 2)
 
-    let desired = Math.ceil(state.target / state.terminus) + state.difficulty - 1
+    let desired = Math.ceil(state.target / state.terminus) + state.difficulty - (state.terminus === 1 ? 0 : 1)
     desired -= state.willpower ? 1 : 0
-    desired -= state.nonCharmSuccesses
+    desired -= state.autoSuccesses
 
-    let continuityCorrection = desired - 0.5
+    let continuityCorrection = desired - (state.terminus === 1 ? 0 : 0.5)
 
     let pnorm = this.pnorm(continuityCorrection,
       dice * mu,
@@ -194,6 +194,7 @@ class App extends Component {
                 <Incrementer
                   initialValue={this.state.target}
                   min={1}
+                  max={200}
                   callback={(target) => this.doThing({target})}
                 />
               </ButtonBlock>
@@ -201,7 +202,7 @@ class App extends Component {
               <ButtonBlock label="Difficulty">
                 <Incrementer
                   initialValue={this.state.difficulty}
-                  min={1}
+                  min={0}
                   callback={(difficulty) => this.doThing({difficulty})}
                 />
               </ButtonBlock>
@@ -222,37 +223,38 @@ class App extends Component {
                   callback={(dice) => this.doThing({dice})}
                 />
               </ButtonBlock>
-              <ButtonBlock label="Double">
+              <ButtonBlock label="Autosuccesses">
                 <Incrementer
-                  initialValue={this.state.double}
-                  min={7}
-                  max={10}
-                  callback={(double) =>  this.doThing({double})}
-                />
-              </ButtonBlock>
-              <ButtonBlock label="Target Number">
-                <Incrementer
-                  initialValue={this.state.targetNumber}
-                  min={4}
-                  max={8}
-                  callback={(targetNumber) => this.doThing({targetNumber})}
+                  initialValue={this.state.autoSuccesses}
+                  callback={(autoSuccesses) => this.doThing({autoSuccesses})}
                 />
               </ButtonBlock>
               <ButtonBlock>
-              <ToggleButton
+                <ToggleButton
                     on={this.state.willpower}
                     callback={(willpower)=>this.setState({willpower})}
                   key="wp">Willpower</ToggleButton>
-
               </ButtonBlock>
-                          </ButtonHolderPanel>
+              <div key="New row thing">
+                <ButtonBlock label="Double">
+                  <Incrementer
+                    initialValue={this.state.double}
+                    min={7}
+                    max={10}
+                    callback={(double) =>  this.doThing({double})}
+                  />
+                </ButtonBlock>
+                <ButtonBlock label="Target Number">
+                  <Incrementer
+                    initialValue={this.state.targetNumber}
+                    min={4}
+                    max={8}
+                    callback={(targetNumber) => this.doThing({targetNumber})}
+                  />
+                </ButtonBlock>
+              </div>
+            </ButtonHolderPanel>
             <Panel>
-              <ButtonBlock label="Non-Charm Autosuccesses">
-                <Incrementer
-                  initialValue={this.state.nonCharmSuccesses}
-                  callback={(nonCharmSuccesses) => this.doThing({nonCharmSuccesses})}
-                />
-              </ButtonBlock>
               <ButtonBlock label="Stunt Rating">
                 <InteractiveGroup>
                   <Button>0</Button>
@@ -277,10 +279,10 @@ class App extends Component {
               </ButtonBlock>
             </Panel>
 
-            <ButtonHolderPanel>
+            {/* <ButtonHolderPanel>
               <Button>First Word of the Demiurge</Button>
               <Button>Sacrosanct Delerium</Button>
-            </ButtonHolderPanel>
+            </ButtonHolderPanel> */}
           </Material>
         </div>
       </Provider>
