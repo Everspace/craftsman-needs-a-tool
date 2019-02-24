@@ -177,14 +177,14 @@ class App extends Component {
         <div className={grey.grey500.cssClass}>
           <Header />
           <Material rounded spaced className={grey.grey400.cssClass}>
-            <Panel key="toggle area">
+            {/* <Panel key="toggle area">
               <Button onClick={()=>this.setState({...defaultRegularState})}>
                 Difficulty 5
               </Button>
               <Button onClick={()=>this.setState({...defaultCraftState})}>
                 Craft 5 dot Artifact
               </Button>
-            </Panel>
+            </Panel> */}
             <Panel key="prob area">
               Probability of {this.state.target} successes: {Math.round(this.calcProb(this.state) * 100)}%
             </Panel>
@@ -214,9 +214,9 @@ class App extends Component {
                 />
               </ButtonBlock>
             </ButtonHolderPanel>
+            <ButtonHolderPanel label="Dice Pool">
 
-            <ButtonHolderPanel label="Roll Effects">
-              <ButtonBlock label="Dice pool">
+            <ButtonBlock label="Dice">
                 <Incrementer
                   initialValue={this.state.dice}
                   min={1}
@@ -235,7 +235,9 @@ class App extends Component {
                     callback={(willpower)=>this.setState({willpower})}
                   key="wp">Willpower</ToggleButton>
               </ButtonBlock>
-              <div key="New row thing">
+            </ButtonHolderPanel>
+
+            <ButtonHolderPanel label="Roll Effects">
                 <ButtonBlock label="Double">
                   <Incrementer
                     initialValue={this.state.double}
@@ -244,27 +246,6 @@ class App extends Component {
                     callback={(double) =>  this.doThing({double})}
                   />
                 </ButtonBlock>
-                <ButtonBlock label="Target Number">
-                  <Incrementer
-                    initialValue={this.state.targetNumber}
-                    min={4}
-                    max={8}
-                    callback={(targetNumber) => this.doThing({targetNumber})}
-                  />
-                </ButtonBlock>
-              </div>
-            </ButtonHolderPanel>
-            <Panel>
-              <ButtonBlock label="Stunt Rating">
-                <InteractiveGroup>
-                  <Button>0</Button>
-                  <Button>•</Button>
-                  <Button>••</Button>
-                  <Button>•••</Button>
-                </InteractiveGroup>
-              </ButtonBlock>
-              <ButtonBlock label="Stuff">
-              </ButtonBlock>
               <ButtonBlock label="Reroll">
                 <InteractiveGroup>
                   <ToggleButton
@@ -277,7 +258,25 @@ class App extends Component {
                   key="10s">10s</ToggleButton>
                 </InteractiveGroup>
               </ButtonBlock>
-            </Panel>
+              <ButtonBlock label="Target Number">
+                  <Incrementer
+                    initialValue={this.state.targetNumber}
+                    min={4}
+                    max={8}
+                    callback={(targetNumber) => this.doThing({targetNumber})}
+                  />
+                </ButtonBlock>
+            </ButtonHolderPanel>
+            {/* <Panel>
+              <ButtonBlock label="Stunt Rating">
+                <InteractiveGroup>
+                  <Button>0</Button>
+                  <Button>•</Button>
+                  <Button>••</Button>
+                  <Button>•••</Button>
+                </InteractiveGroup>
+              </ButtonBlock>
+            </Panel>*/}
 
             {/* <ButtonHolderPanel>
               <Button>First Word of the Demiurge</Button>
