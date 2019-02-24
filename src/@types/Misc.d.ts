@@ -48,5 +48,5 @@ interface MaterialColor {
  * Object accepts a Material color to be.
  */
 interface Colorable {
-  color?: MaterialColor
+  colorStyle?: MaterialColor
 }
