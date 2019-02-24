@@ -144,7 +144,7 @@ class App extends Component {
     desired -= state.willpower ? 1 : 0
     desired -= state.autoSuccesses
 
-    let continuityCorrection = desired - (state.terminus === 1 ? 0 : 0.5)
+    let continuityCorrection = desired + 0.6
 
     let pnorm = this.pnorm(continuityCorrection,
       dice * mu,
