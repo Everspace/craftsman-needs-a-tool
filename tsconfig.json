@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
     "target": "es5",
     "allowJs": true,
     "skipLibCheck": true,
@@ -10,16 +9,26 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "resolveJsonModule": true,
     "noEmit": true,
     "jsx": "preserve",
     "isolatedModules": true,
     "checkJs": false,
     "noImplicitAny": false,
-    "typeRoots": ["@types"],
+    "typeRoots": [
+      "@types"
+    ],
     "sourceMap": true
   },
-  "exclude": ["src/setupProxy.js", "*.test.*"],
-  "include": ["src"]
+  "exclude": [
+    "src/setupProxy.js",
+    "*.test.*"
+  ],
+  "include": [
+    "src"
+  ]
 }

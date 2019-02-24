@@ -1,15 +1,17 @@
 import React from "react"
-import SuccessBar from "components/organisms/bars/SuccessBar"
-import { createStore } from "redux"
+import SuccessBar from "./SuccessBar"
 import { Provider } from "react-redux"
 import { render } from "react-testing-library"
+import { createStore } from "redux";
 
-let store = createStore(state => state, {
+const base = {
   successes: {
     current: 7,
     available: 2,
   },
-})
+}
+
+let store = createStore(state => base)
 
 const substring = { exact: false }
 

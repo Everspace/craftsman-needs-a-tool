@@ -1,0 +1,671 @@
+{
+    "extension": "linecount",
+    "version": "0.1.7",
+    "workspace": "s:\\git\\craftsman-needs-a-tool",
+    "linecount": [
+        {
+            "version": "0.1.7",
+            "counttime": "2018-11-02 22:57:23",
+            "filesum": 54,
+            "codesum": 20696,
+            "commentsum": 268,
+            "blanksum": 3835,
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".env"
+                },
+                {
+                    "blank": 6,
+                    "code": 18,
+                    "comment": 1,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": ".prettierrc"
+                },
+                {
+                    "blank": 4,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "LICENSE"
+                },
+                {
+                    "blank": 2,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "filename": "public\\favicon.ico",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 18,
+                    "comment": 26,
+                    "filename": "public\\index.html"
+                },
+                {
+                    "blank": 0,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "public\\manifest.json"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 18,
+                    "filename": "src\\@types\\Misc.d.ts"
+                },
+                {
+                    "blank": 11,
+                    "code": 27,
+                    "comment": 28,
+                    "filename": "src\\@types\\react.d.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 28,
+                    "filename": "src\\actions\\motes.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "src\\actions\\successes.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\App.test.tsx"
+                },
+                {
+                    "blank": 20,
+                    "code": 186,
+                    "comment": 1,
+                    "filename": "src\\App.tsx"
+                },
+                {
+                    "blank": 1,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "src\\components\\atoms\\Button.tsx"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\components\\atoms\\CentreText.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 57,
+                    "comment": 5,
+                    "filename": "src\\components\\atoms\\InteractiveGroup.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\components\\atoms\\Material.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 82,
+                    "comment": 3,
+                    "filename": "src\\components\\atoms\\ProgressBar.tsx"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\components\\molecules\\buttons\\Toggle.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 55,
+                    "comment": 0,
+                    "filename": "src\\components\\molecules\\Incrementer.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\components\\molecules\\StatBar.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\components\\organisms\\bars\\MoteBar.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 23,
+                    "comment": 4,
+                    "filename": "src\\components\\organisms\\bars\\SuccessBar.test.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 36,
+                    "comment": 0,
+                    "filename": "src\\components\\organisms\\bars\\SuccessBar.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 21,
+                    "comment": 4,
+                    "filename": "src\\components\\organisms\\bars\\WillpowerBar.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\components\\organisms\\StatTracker.tsx"
+                },
+                {
+                    "blank": 3,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "src\\hooks\\input.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\index.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 24,
+                    "comment": 26,
+                    "filename": "src\\lib\\Color\\Convert.ts"
+                },
+                {
+                    "blank": 12,
+                    "code": 50,
+                    "comment": 3,
+                    "filename": "src\\lib\\Color\\Functions.test.ts"
+                },
+                {
+                    "blank": 5,
+                    "code": 21,
+                    "comment": 12,
+                    "filename": "src\\lib\\Color\\Functions.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "src\\lib\\Exalted\\craft.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 4,
+                    "comment": 3,
+                    "filename": "src\\lib\\Exalted\\motePool.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 9,
+                    "filename": "src\\lib\\redux\\actions.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 16,
+                    "comment": 3,
+                    "filename": "src\\lib\\Style.ts"
+                },
+                {
+                    "blank": 12,
+                    "code": 47,
+                    "comment": 2,
+                    "filename": "src\\react-app.d.ts"
+                },
+                {
+                    "blank": 8,
+                    "code": 65,
+                    "comment": 0,
+                    "filename": "src\\reducers\\motes\\addMotesHandler.test.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 26,
+                    "comment": 2,
+                    "filename": "src\\reducers\\motes\\addMotesHandler.ts"
+                },
+                {
+                    "blank": 5,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\reducers\\motes\\index.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\reducers\\motes\\motes.d.ts"
+                },
+                {
+                    "blank": 12,
+                    "code": 77,
+                    "comment": 28,
+                    "filename": "src\\registerServiceWorker.js.dont"
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 2,
+                    "filename": "src\\setupTests.js"
+                },
+                {
+                    "blank": 21,
+                    "code": 114,
+                    "comment": 0,
+                    "filename": "src\\state.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 104,
+                    "comment": 0,
+                    "filename": "src\\state.yaml"
+                },
+                {
+                    "blank": 10,
+                    "code": 110,
+                    "comment": 1,
+                    "filename": "src\\styles\\Colors.ts"
+                },
+                {
+                    "blank": 10,
+                    "code": 42,
+                    "comment": 1,
+                    "filename": "src\\styles\\Misc.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 22,
+                    "comment": 2,
+                    "filename": "src\\styles\\Shadows.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\types\\successes.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "tsconfig.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "tslint.json"
+                },
+                {
+                    "blank": 1873,
+                    "code": 10132,
+                    "comment": 28,
+                    "filename": "yarn-error.log"
+                },
+                {
+                    "blank": 1699,
+                    "code": 8887,
+                    "comment": 27,
+                    "filename": "yarn.lock"
+                }
+            ]
+        },
+        {
+            "version": "0.1.7",
+            "counttime": "2018-11-02 22:58:01",
+            "filesum": 53,
+            "codesum": 10564,
+            "commentsum": 240,
+            "blanksum": 1962,
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".env"
+                },
+                {
+                    "blank": 6,
+                    "code": 18,
+                    "comment": 1,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": ".prettierrc"
+                },
+                {
+                    "blank": 4,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "LICENSE"
+                },
+                {
+                    "blank": 2,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "filename": "public\\favicon.ico",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 18,
+                    "comment": 26,
+                    "filename": "public\\index.html"
+                },
+                {
+                    "blank": 0,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "public\\manifest.json"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 18,
+                    "filename": "src\\@types\\Misc.d.ts"
+                },
+                {
+                    "blank": 11,
+                    "code": 27,
+                    "comment": 28,
+                    "filename": "src\\@types\\react.d.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 28,
+                    "filename": "src\\actions\\motes.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "src\\actions\\successes.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\App.test.tsx"
+                },
+                {
+                    "blank": 20,
+                    "code": 186,
+                    "comment": 1,
+                    "filename": "src\\App.tsx"
+                },
+                {
+                    "blank": 1,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "src\\components\\atoms\\Button.tsx"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\components\\atoms\\CentreText.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 57,
+                    "comment": 5,
+                    "filename": "src\\components\\atoms\\InteractiveGroup.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\components\\atoms\\Material.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 82,
+                    "comment": 3,
+                    "filename": "src\\components\\atoms\\ProgressBar.tsx"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\components\\molecules\\buttons\\Toggle.js"
+                },
+                {
+                    "blank": 6,
+                    "code": 55,
+                    "comment": 0,
+                    "filename": "src\\components\\molecules\\Incrementer.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\components\\molecules\\StatBar.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\components\\organisms\\bars\\MoteBar.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 23,
+                    "comment": 4,
+                    "filename": "src\\components\\organisms\\bars\\SuccessBar.test.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 36,
+                    "comment": 0,
+                    "filename": "src\\components\\organisms\\bars\\SuccessBar.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 21,
+                    "comment": 4,
+                    "filename": "src\\components\\organisms\\bars\\WillpowerBar.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\components\\organisms\\StatTracker.tsx"
+                },
+                {
+                    "blank": 3,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "src\\hooks\\input.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\index.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 24,
+                    "comment": 26,
+                    "filename": "src\\lib\\Color\\Convert.ts"
+                },
+                {
+                    "blank": 12,
+                    "code": 50,
+                    "comment": 3,
+                    "filename": "src\\lib\\Color\\Functions.test.ts"
+                },
+                {
+                    "blank": 5,
+                    "code": 21,
+                    "comment": 12,
+                    "filename": "src\\lib\\Color\\Functions.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "src\\lib\\Exalted\\craft.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 4,
+                    "comment": 3,
+                    "filename": "src\\lib\\Exalted\\motePool.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 9,
+                    "filename": "src\\lib\\redux\\actions.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 16,
+                    "comment": 3,
+                    "filename": "src\\lib\\Style.ts"
+                },
+                {
+                    "blank": 12,
+                    "code": 47,
+                    "comment": 2,
+                    "filename": "src\\react-app.d.ts"
+                },
+                {
+                    "blank": 8,
+                    "code": 65,
+                    "comment": 0,
+                    "filename": "src\\reducers\\motes\\addMotesHandler.test.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 26,
+                    "comment": 2,
+                    "filename": "src\\reducers\\motes\\addMotesHandler.ts"
+                },
+                {
+                    "blank": 5,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\reducers\\motes\\index.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\reducers\\motes\\motes.d.ts"
+                },
+                {
+                    "blank": 12,
+                    "code": 77,
+                    "comment": 28,
+                    "filename": "src\\registerServiceWorker.js.dont"
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 2,
+                    "filename": "src\\setupTests.js"
+                },
+                {
+                    "blank": 21,
+                    "code": 114,
+                    "comment": 0,
+                    "filename": "src\\state.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 104,
+                    "comment": 0,
+                    "filename": "src\\state.yaml"
+                },
+                {
+                    "blank": 10,
+                    "code": 110,
+                    "comment": 1,
+                    "filename": "src\\styles\\Colors.ts"
+                },
+                {
+                    "blank": 10,
+                    "code": 42,
+                    "comment": 1,
+                    "filename": "src\\styles\\Misc.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 22,
+                    "comment": 2,
+                    "filename": "src\\styles\\Shadows.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\types\\successes.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "tsconfig.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "tslint.json"
+                },
+                {
+                    "blank": 1699,
+                    "code": 8887,
+                    "comment": 27,
+                    "filename": "yarn.lock"
+                }
+            ]
+        }
+    ]
+}

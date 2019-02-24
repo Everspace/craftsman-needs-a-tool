@@ -1,31 +1,31 @@
 import React, { Component } from "react"
-import { Button } from "components/atoms/Button"
+import { Button } from "./components/atoms/Button"
 
-import Material from "components/atoms/Material"
-import { grey, primary, secondary } from "styles/Colors"
-import StatTracker from "components/organisms/StatTracker"
-import state from "state"
-import { solar } from "lib/Exalted/motePool"
+import Material from "./components/atoms/Material"
+import { grey, primary, secondary } from "./styles/Colors"
+import StatTracker from "./components/organisms/StatTracker"
+import { state, character } from "./state"
+import { solar } from "./lib/Exalted/motePool"
 import { Provider } from "react-redux"
 import { createStore } from "redux"
-import motes from "reducers/motes"
-import Incrementer from "components/molecules/Incrementer"
-import { InteractiveGroup } from "components/atoms/InteractiveGroup"
+import motes from "./reducers/motes"
+import Incrementer from "./components/molecules/Incrementer"
+import { InteractiveGroup } from "./components/atoms/InteractiveGroup"
 
-let poolMaxes = solar(state.character.essence)
+let poolMaxes = solar(character.essence)
 
 // Perhaps resources is an array with IDs?
 let resources: any = {
   ...state.resources,
 
   willpower: {
-    ...state.resources.willpower,
-    max: state.character.willpowerMax,
+    ...state.willpower,
+    max: character.willpower_permanent,
   },
 
   motes: {
-    ...state.resources.motes,
-    ...state.character.committedMotes,
+    ...state.motes,
+    // ...state.character.committedMotes,
     ...poolMaxes,
   },
 }

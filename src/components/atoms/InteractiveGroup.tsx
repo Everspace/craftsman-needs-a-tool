@@ -1,8 +1,8 @@
 import React from "react"
 import { css, cx } from "emotion"
-import { cornerRadius } from "styles/Misc"
-import { secondary } from "styles/Colors"
-import { waiting } from "styles/Shadows"
+import { cornerRadius } from "../../styles/Misc"
+import { secondary } from "../../styles/Colors"
+import { waiting } from "../../styles/Shadows"
 
 interface InteractiveGroupProps extends JSXElement<"div"> {
   color?: any

@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react"
+import React, { useCallback } from "react"
 import { css, cx } from "emotion"
-import { Button } from "components/atoms/Button"
-import { interactive } from "styles/Misc"
-import { InteractiveGroup } from "components/atoms/InteractiveGroup"
-import { secondary } from "styles/Colors"
-import { useNumberInput } from "hooks/input"
+import { Button } from "../../components/atoms/Button"
+import { interactive } from "../../styles/Misc"
+import { InteractiveGroup } from "../../components/atoms/InteractiveGroup"
+import { secondary } from "../../styles/Colors"
+import { useNumberInput } from "../../hooks/input"
 
 interface IncrementerProps {
   initialValue?: number
@@ -26,10 +26,17 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   className,
 }) => {
   const { ref, inputProps } = useNumberInput(initialValue, callback)
+  // let {onChange, ref ,type ,value} = inputProps
+
+  let adjustNumber = useCallback((delta:number) => {
+    if (!ref.current) return
+    let newNumber = Number(ref.current.value) + delta
+    ref.current.value = (newNumber).toString()
+  }, [ref.current, ref])
 
   return (
     <InteractiveGroup seperated color={color} className={className}>
-      <Button color={color} onClick={() => ref.current!.stepDown()}>
+      <Button color={color} onClick={()=>adjustNumber(-step)}>
         -
       </Button>
       <input
@@ -39,7 +46,7 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
         step={step}
         className={cx(interactive(color), numberInputStyle)}
       />
-      <Button color={color} onClick={() => ref.current!.stepUp()}>
+      <Button color={color} onClick={()=>adjustNumber(step)}>
         +
       </Button>
     </InteractiveGroup>

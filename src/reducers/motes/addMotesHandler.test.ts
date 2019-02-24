@@ -1,5 +1,5 @@
-import reducer from "reducers/motes"
-import { addMotes } from "actions/motes"
+import reducer from "../../reducers/motes"
+import { addMotes } from "../../actions/motes"
 
 let initialMotes = {
   personal: 10,

@@ -1,7 +1,7 @@
 import React from "react"
 import { css, cx } from "emotion"
-import { grey } from "styles/Colors"
-import { acceptStyle } from "lib/Style"
+import { grey } from "../../styles/Colors"
+import { acceptStyle } from "../../lib/Style"
 
 interface ProgressBarProps extends JSXElement<"div"> {
   bars: BarSegmentDefintion[]

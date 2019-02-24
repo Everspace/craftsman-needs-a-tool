@@ -1,6 +1,6 @@
-import { addMotes } from "actions/motes"
+import { addMotes } from "../../actions/motes"
 import { AnyAction } from "redux"
-import { addMotesHandler } from "reducers/motes/addMotesHandler"
+import { addMotesHandler } from "../../reducers/motes/addMotesHandler"
 
 const baseState = {
   personal: 0,

@@ -1,7 +1,7 @@
 import React from "react"
-import { primary } from "styles/Colors"
-import StatBar from "components/molecules/StatBar"
-import { BarSegmentDefintion } from "components/atoms/ProgressBar"
+import { primary } from "../../../styles/Colors"
+import StatBar from "../../../components/molecules/StatBar"
+import { BarSegmentDefintion } from "../../../components/atoms/ProgressBar"
 
 /**
  * willpower

@@ -1,28 +1,33 @@
-import { useRef, useState } from "react"
+import { useRef, useState, useCallback, useEffect } from "react"
 
 export const useNumberInput = (
   initialValue: number,
-  callback?: (number) => void,
+  callback?: (n: number) => void,
 ) => {
-  const ref = useRef<HTMLInputElement>()
-  let [value, setCount] = useState(initialValue, [callback])
-  value = value
+
+  const ref = useRef<HTMLInputElement>(null)
+  let [value, setCount] = useState<string>(initialValue.toString())
+
+  // Make on change
+  let onChange = useCallback( (e: React.ChangeEvent<HTMLInputElement>) => {
+    let newNumber = e.target.value
+    setCount(newNumber)
+  }, [initialValue, callback])
+
+  // Dispatch callback
+  useEffect(() => {
+    const cast = Number(value)
+    if(cast && cast !== NaN) { // if cast is a number
+      callback && callback(cast)
+    }
+  }, [callback, value])
 
   const inputProps = {
     type: "number",
     ref,
     value,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-      let newNumber = e.target.value
-      if (newNumber !== "") {
-        const cast = Number(newNumber)
-        setCount(cast)
-        callback && callback(cast)
-      } else {
-        setCount(newNumber)
-      }
-    },
+    onChange
   }
 
-  return { value, setCount, ref, inputProps }
+  return { value, setCount: (n:number)=>setCount(n.toString()), ref, inputProps }
 }
