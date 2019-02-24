@@ -43,139 +43,128 @@ let spacing = {
   margin: 5,
 }
 
-let ButtonBlock = props => (
+let ButtonBlock: React.FC<{label?: string}> = ({label, children, ...props }) => (
   <Material
     className={grey.grey300.cssClass}
     style={{ display: "inline-block", ...spacing }}
     {...props}
-  />
+  > {label ? label + ":" : null} {children} </Material>
+)
+
+let InnerBlock: React.FC = props => <div style={spacing} className={grey.grey400.cssClass} {...props} />
+let Panel: React.FC = props => <Material className={grey.grey300.cssClass} style={spacing} {...props} />
+let ButtonHolderPanel: React.FC<{label?: String}> = ({label, children, ...props}) => (
+  <Panel {...props}>
+    {label ? <h2 style={spacing}>{label}</h2>:null}
+    <InnerBlock>
+      {children}
+    </InnerBlock>
+  </Panel>
+)
+
+let Header = props => (
+  <Material
+  className={primary.main.cssClass}
+  style={{
+    padding: 10,
+    zIndex: 1,
+    marginBottom: 20,
+  }}
+>
+  <h1>Craftsman Needs a Tool</h1>
+</Material>
 )
 
 class App extends Component {
   state = {
-    personal: 13,
-    personalPool: 13,
-    peripheral: 5,
-    peripheralPool: 32,
-    willpower: 3,
-    willpowerPool: 5,
-    successesTotal: 65,
-    successesUsable: 12,
-    successesTarget: 100,
+    targetNumber: 7,
+    double: 10,
+    dice: 20,
+    reroll: []
   }
 
-  wholeRandomize(n) {
+  wholeRandomize(n: number) {
     return Math.floor(Math.random() * n)
-  }
-
-  randomize() {
-    let successes = this.wholeRandomize(this.state.successesTarget)
-    let useable = this.wholeRandomize(successes)
-
-    this.setState({
-      personal: this.wholeRandomize(this.state.personalPool),
-      peripheral: this.wholeRandomize(this.state.peripheralPool),
-      willpower: this.wholeRandomize(this.state.willpowerPool),
-      successesTotal: successes,
-      successesUsable: useable,
-    })
-  }
-
-  maximize() {
-    let successes = this.state.successesTarget
-    let useable = Math.floor(successes / 2)
-
-    this.setState({
-      personal: this.state.personalPool,
-      peripheral: this.state.peripheralPool,
-      willpower: this.state.willpowerPool,
-      successesTotal: successes,
-      successesUsable: useable,
-    })
   }
 
   render() {
     return (
       <Provider store={store}>
         <div className={grey.grey500.cssClass}>
-          <Material
-            className={primary.main.cssClass}
-            style={{
-              padding: 10,
-              zIndex: 1,
-              marginBottom: 20,
-            }}
-          >
-            <h1>Craftsman Needs a Tool</h1>
-          </Material>
-          <StatTracker {...this.state}>
-            <Material className={grey.grey300.cssClass} style={spacing}>
-              <Button onClick={() => this.randomize()}>Do the things</Button>
-              <Button onClick={() => this.maximize()}>Max</Button>
-              <Incrementer
-                color={primary}
-                initialValue={5}
-                callback={console.log}
-              />
-              <Incrementer
-                color={secondary}
-                initialValue={5}
-                callback={console.log}
-              />
-              <Incrementer
-                color={grey}
-                initialValue={5}
-                callback={console.log}
-              />
-            </Material>
+          <Header />
+          <Material rounded spaced className={grey.grey400.cssClass}>
+            <Panel>
+              Probability...
+            </Panel>
 
-            <Material className={grey.grey300.cssClass} style={spacing}>
-              <h2 style={spacing}>Setup</h2>
-              <div style={spacing} className={grey.grey400.cssClass}>
-                <div>
-                  <ButtonBlock>
-                    Rating:
-                    <Button>••••• ▼</Button>
-                  </ButtonBlock>
-                  <ButtonBlock>
-                    Dice Pool:
-                    <Button>9</Button>
-                  </ButtonBlock>
-                  <ButtonBlock>
-                    Stunt Rating:
-                    <Button>••• ▼</Button>
-                  </ButtonBlock>
-                  <ButtonBlock>
-                    Interval:
-                    <Button>3</Button>
-                    <Button>Next</Button>
-                    <Button>Complete</Button>
-                  </ButtonBlock>
-                </div>
-                <div>
-                  <ButtonBlock>
-                    Double:
-                    <Button>9</Button>
-                    <Button>8</Button>
-                    <Button>7</Button>
-                  </ButtonBlock>
-                  <ButtonBlock>
-                    Explode:
-                    <InteractiveGroup>
-                      {Array.from({ length: 10 }, (_, i) => (
-                        <Button key={i}>{10 - i}s</Button>
-                      )).reverse()}
-                    </InteractiveGroup>
-                  </ButtonBlock>
-                </div>
-              </div>
-            </Material>
+            <ButtonHolderPanel label="The Craft">
 
-            <Material className={grey.grey300.cssClass} style={spacing}>
+            <ButtonBlock label="Difficulty">
+                <Incrementer
+                  color={secondary}
+                  initialValue={5}
+                  min={1}
+                  callback={console.log}
+                />
+              </ButtonBlock>
+              <ButtonBlock label="Terminus">
+                <Incrementer
+                  color={secondary}
+                  initialValue={6}
+                  min={1}
+                  callback={console.log}
+                />
+              </ButtonBlock>
+            </ButtonHolderPanel>
+
+            <ButtonHolderPanel label="Setup">
+              <ButtonBlock label="Dice pool">
+                <Incrementer
+                  color={secondary}
+                  initialValue={10}
+                  min={1}
+                  callback={console.log}
+                />
+              </ButtonBlock>
+              <ButtonBlock label="Non-Charm Autosuccesses">
+                <Incrementer
+                  color={secondary}
+                  initialValue={0}
+                  callback={console.log}
+                />
+              </ButtonBlock>
+              <ButtonBlock label="Stunt Rating">
+                <InteractiveGroup>
+                  <Button>0</Button>
+                  <Button>•</Button>
+                  <Button>••</Button>
+                  <Button>•••</Button>
+                </InteractiveGroup>
+              </ButtonBlock>
+              <ButtonBlock label="Interval">
+                <Button>Willpower</Button>
+              </ButtonBlock>
+              <ButtonBlock label="Double">
+                <InteractiveGroup>
+                  {Array.from({ length: 4 }, (_, i) => (
+                    <Button key={i}>{i + 7}s</Button>
+                  ))}
+                </InteractiveGroup>
+              </ButtonBlock>
+              <ButtonBlock label="Reroll">
+                <InteractiveGroup>
+                  <Button key="1s">1s</Button>
+                  <Button key="6s">6s</Button>
+                  <Button key="10s">10s</Button>
+                </InteractiveGroup>
+              </ButtonBlock>
+            </ButtonHolderPanel>
+
+            <ButtonHolderPanel>
               <Button>First Word of the Demiurge</Button>
               <Button>Sacrosanct Delerium</Button>
-            </Material>
-            <Material className={grey.grey300.cssClass} style={spacing}>
+            </ButtonHolderPanel>
+            <ButtonHolderPanel>
               <div>Spend:</div>
               <div className={grey.grey400.cssClass}>
                 <Button>8</Button>
@@ -196,8 +185,9 @@ class App extends Component {
                 <Button>1</Button>
                 <Button>willpower</Button>
               </div>
-            </Material>
-          </StatTracker>
+            </ButtonHolderPanel>
+
+          </Material>
         </div>
       </Provider>
     )
