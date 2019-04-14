@@ -140,11 +140,14 @@ class App extends Component {
       + p1 * Math.pow(1 - 0.5, 2)
       + p0 * Math.pow(0 - 0.5, 2)
 
-    let desired = Math.ceil(state.target / state.terminus) + state.difficulty - state.terminus
-    desired -= state.willpower ? 1 : 0
-    desired -= state.autoSuccesses
+    // Since we need to at least roll Target dice over N terminuses, and success is "meet or exceed",
+    // Pnorm is about rolling X or less dice, so we need to calculate what the chances of failing
+    // are, which is 1 less than the difficulty
+    let failure = Math.ceil(state.target / state.terminus) + state.difficulty - 1
+    failure -= state.willpower ? 1 : 0
+    failure -= state.autoSuccesses
 
-    let continuityCorrection = desired + 0.6
+    let continuityCorrection = failure + 0.6
 
     let pnorm = this.pnorm(continuityCorrection,
       dice * mu,
