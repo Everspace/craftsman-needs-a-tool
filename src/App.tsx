@@ -140,7 +140,7 @@ class App extends Component {
       + p1 * Math.pow(1 - 0.5, 2)
       + p0 * Math.pow(0 - 0.5, 2)
 
-    let desired = Math.ceil(state.target / state.terminus) + state.difficulty - (state.terminus === 1 ? 0 : 1)
+    let desired = Math.ceil(state.target / state.terminus) + state.difficulty - state.terminus
     desired -= state.willpower ? 1 : 0
     desired -= state.autoSuccesses
 
