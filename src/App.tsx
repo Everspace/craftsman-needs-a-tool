@@ -12,6 +12,19 @@ import Incrementer from "./components/molecules/Incrementer"
 import { InteractiveGroup } from "./components/atoms/InteractiveGroup"
 import mathjs from "mathjs"
 
+type Fraction = {
+  numerator: number
+  denominator: number
+}
+
+const sumFractions = (a:Fraction, b:Fraction):Fraction  => ({
+  numerator: a.numerator + b.numerator,
+  denominator: a.denominator + b.denominator,
+})
+const divideFraction = (f:Fraction):number => f.numerator / f.denominator
+
+const round = (number, decimals) => Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals)
+
 let poolMaxes = solar(character.essence)
 
 // Perhaps resources is an array with IDs?
@@ -92,6 +105,7 @@ let Header = props => (
   }}
 >
   <h1>Craftsman Needs a Tool</h1>
+  <sub>1.0.0</sub>
 </Material>
 )
 
@@ -127,18 +141,84 @@ const defaultCraftState = {
 class App extends Component {
   state = {...defaultRegularState}
 
-  calcProb(state:any) {
-    let doubledSides = state.double ? 11 - state.double : 0
-    let p2 = doubledSides / 10 // prob of 2 succeses
-    let singleSuccessSides = (10 - doubledSides - state.targetNumber + 1)
-    let p1 = singleSuccessSides / 10
-    let p0 = 1 - p1 - p2
-    let availableSides = 10 - (state.reroll6 ? 1:0) - (state.reroll10 ? 1:0) - (state.reroll1 ? 1:0)
-    let dice = state.dice * 10 / availableSides
-    let mu = p2 * 2 + p1 * 1
-    let sigmaSq = p2 * Math.pow(2 - 0.5, 2)
-      + p1 * Math.pow(1 - 0.5, 2)
-      + p0 * Math.pow(0 - 0.5, 2)
+  calcVarianceAndMean(state: { targetNumber: number, double: number, reroll1: boolean, reroll6: boolean, reroll10: boolean}): { mean: number, variance: number } {
+    // Thanks AG from the Exalted discord for the formula/base code this is derived from.
+    //
+    // let p0 = chance of 0 with no reroll
+    // let r0 = chance of 0 with reroll
+    // p1/r1, p2/r2 etc.
+    // E[X^2] = p0 * 0^2 + r0 * E[X^2] + p1 * 1^2 + r1 * E[(X + 1)^2] + p2 * 2^2 + r2 * E[(X + 2)^2]
+    // E[(X + k)^2] = E[X^2 + 2 * X * k + k^2] = E[X^2] + 2 * k * E[X] + k^2
+    // =>
+    // E[X^2] * (1 - r0 - r1 - r2) = p1 * 1^2 + r1 * (2 * 1 * E[X] + 1^2) + p2 * 2^2 + r2 * (2 * 2 * E[X] + 2^2)
+    // E[X^2] -> variance
+    const rerolls: number[] = []
+    if (state.reroll1) {
+      rerolls.push(1);
+    }
+    if (state.reroll6) {
+      rerolls.push(6);
+    }
+    if (state.reroll10) {
+      rerolls.push(10);
+    }
+
+    type Face = {
+      probability: number,
+      reroll: boolean,
+      value: number,
+    }
+
+    const faces: Face[] = []
+    for(let index = 0; index < 10; index++) {
+      let side = index + 1
+      let isInTarget = side >= state.targetNumber
+      let isDouble = side >= state.double
+      faces[index] = {
+        probability: 1 / 10,
+        reroll: rerolls.includes(side),
+        value: isInTarget ? (isDouble ? 2 : 1) : 0
+      }
+    }
+
+    const meanFraction:Fraction = faces.map((face) => ({
+      numerator: face.probability * face.value,
+      denominator: face.reroll ? 0 : face.probability
+    })).reduce(sumFractions, {numerator: 0, denominator: 0})
+    const mean = divideFraction(meanFraction)
+
+    const varianceFraction = faces.map((face) => {
+      let numerator = face.probability
+      if (face.reroll) {
+        numerator *= face.value * (2 * mean + face.value)
+      } else {
+        numerator *= face.value * face.value
+      }
+
+      let denominator = face.probability
+      if (face.reroll) {
+        denominator = 0
+      }
+      return {numerator, denominator}
+    }).reduce(sumFractions, {numerator: 0, denominator: 0})
+
+    const variance = divideFraction(varianceFraction) - (mean * mean)
+
+    return { mean, variance };
+  }
+
+  calcProb(state:any, calcVarianceAndMean) {
+    // let doubledSides = state.double ? 11 - state.double : 0
+    // let p2 = doubledSides / 10 // prob of 2 succeses
+    // let singleSuccessSides = (10 - doubledSides - state.targetNumber + 1)
+    // let p1 = singleSuccessSides / 10
+    // let p0 = 1 - p1 - p2
+    // let availableSides = 10 - (state.reroll6 ? 1:0) - (state.reroll10 ? 1:0) - (state.reroll1 ? 1:0)
+    // let dice = state.dice * 10 / availableSides
+    // let mu = p2 * 2 + p1 * 1
+    // let sigmaSq = p2 * Math.pow(2 - 0.5, 2)
+    //   + p1 * Math.pow(1 - 0.5, 2)
+    //   + p0 * Math.pow(0 - 0.5, 2)
 
     // Since we need to at least roll Target dice over N terminuses, and success is "meet or exceed",
     // Pnorm is about rolling X or less dice, so we need to calculate what the chances of failing
@@ -147,11 +227,13 @@ class App extends Component {
     failure -= state.willpower ? 1 : 0
     failure -= state.autoSuccesses
 
-    let continuityCorrection = failure + 0.6
+    let continuityCorrection = failure
+    const { mean, variance } = calcVarianceAndMean
 
-    let pnorm = this.pnorm(continuityCorrection,
-      dice * mu,
-      Math.sqrt(dice * sigmaSq)
+    let pnorm = this.pnorm(
+      continuityCorrection,
+      state.dice * mean,
+      Math.sqrt(state.dice * variance)
     )
 
     return 1 - pnorm
@@ -175,6 +257,10 @@ class App extends Component {
   }
 
   render() {
+    const variance = this.calcVarianceAndMean(this.state)
+    const standardDeviations = 2 // 95% of all rolls
+    const singleDieDeviation = Math.sqrt(variance.variance) * standardDeviations
+    const diceDeviation = Math.sqrt(variance.variance * this.state.dice) * standardDeviations
     return (
       <Provider store={store}>
         <div className={grey.grey500.cssClass}>
@@ -189,9 +275,17 @@ class App extends Component {
               </Button>
             </Panel> */}
             <Panel key="prob area">
-              Probability of {this.state.target} successes: {Math.round(this.calcProb(this.state) * 100)}%
+              <p>
+                Probability of succeeding difficulty {this.state.target}: {(this.calcProb(this.state, variance) * 100).toFixed()}%
+              </p>
+              <p>
+                Success per die: {variance.mean.toFixed(2)} ±{singleDieDeviation.toFixed(2)}
+              </p>
+              <p>
+                Expected successes: {(
+                  variance.mean * this.state.dice + this.state.autoSuccesses + (this.state.willpower ? 1 : 0)).toFixed(1)} ±{diceDeviation.toFixed(1)}
+              </p>
             </Panel>
-
             <ButtonHolderPanel label="The Challenge">
               <ButtonBlock label="Target">
                 <Incrementer
@@ -265,7 +359,7 @@ class App extends Component {
                   <Incrementer
                     initialValue={this.state.targetNumber}
                     min={4}
-                    max={8}
+                    max={9}
                     callback={(targetNumber) => this.doThing({targetNumber})}
                   />
                 </ButtonBlock>
