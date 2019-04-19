@@ -76,6 +76,7 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
 
 let numberInputStyle = css`
   width: 2.5em;
+  padding: 0em;
   text-align: center;
   box-shadow: none;
 
