@@ -48,7 +48,7 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   )
 
   return (
-    <InteractiveGroup seperated color={color} className={className}>
+    <InteractiveGroup seperated className={className}>
       <Button colorStyle={color} onClick={downNumber}>
         -
       </Button>
