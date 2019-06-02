@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef } from "react"
+import React, { useCallback } from "react"
 import { css, cx } from "emotion"
 import { Button } from "../../components/atoms/Button"
 import { interactive } from "../../styles/Misc"
@@ -25,49 +25,32 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   color = secondary,
   className,
 }) => {
-  const [value, setValue] = useState(initialValue)
-  const ref = useRef<HTMLInputElement>(null)
+  const { number, setNumber, inputProps } = useNumberInput({
+    initialValue,
+    max,
+    min,
+    step,
+    callback
+  })
 
-  let maxima = (newNumber:number) => {
-    if (newNumber > max) return max
-    if (newNumber < min) return min
-    return newNumber
-  }
+  const upNumber = useCallback((e:React.MouseEvent) => {
+    setNumber(number + step)
+  }, [number, setNumber, step])
 
-  let adjustNumber = (delta:number) => {
-    if (!ref.current) return
-    let newNumber = Number(ref.current.value) + delta
-    setValue(maxima(newNumber))
-  }
-
-  let onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!ref.current) return
-    if (e.target.value === "") return // don't go to 0 when empty
-    let cast = Number(e.target.value)
-    if (isNaN(cast)) return
-    setValue(maxima(cast))
-  }
-
-  useEffect(()=> {
-    if (!ref.current) return
-    ref.current.value = value.toString()
-    callback && callback(value)
-  }, [value])
+  const downNumber = useCallback((e:React.MouseEvent) => {
+    setNumber(number - step)
+  }, [number, setNumber, step])
 
   return (
     <InteractiveGroup seperated color={color} className={className}>
-      <Button colorStyle={color} onClick={()=>adjustNumber(-step)}>
+      <Button colorStyle={color} onClick={downNumber}>
         -
       </Button>
       <input
-        max={max}
-        min={min}
-        step={step}
-        ref={ref}
+        {...inputProps}
         className={cx(interactive(color), numberInputStyle)}
-        onChange={onChange}
       />
-      <Button colorStyle={color} onClick={()=>adjustNumber(step)}>
+      <Button colorStyle={color} onClick={upNumber}>
         +
       </Button>
     </InteractiveGroup>
