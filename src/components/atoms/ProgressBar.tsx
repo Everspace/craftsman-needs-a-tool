@@ -3,7 +3,7 @@ import { css, cx } from "emotion"
 import { grey } from "styles/Colors"
 import { acceptStyle } from "lib/Style"
 
-interface ProgressBarProps extends JSXElement<"div"> {
+interface ProgressBarProps extends HasStyle {
   bars: BarSegmentDefintion[]
   max?: number
 }
@@ -11,7 +11,7 @@ interface ProgressBarProps extends JSXElement<"div"> {
 /**
  * A shameless copy of bootstrap's progress thing.
  */
-export const ProgressBar: React.SFC<ProgressBarProps> = ({
+export const ProgressBar: React.FC<ProgressBarProps> = ({
   bars,
   max = 100,
   className,
@@ -42,7 +42,7 @@ let roundedCornersStyle = css`
   border-bottom-right-radius: 0.25em;
 `
 
-export interface BarSegmentDefintion extends JSXElement<"div"> {
+export interface BarSegmentDefintion extends HasStyle {
   value: number
   text?: string
   roundedCorners?: booleanString
@@ -76,12 +76,12 @@ let barSegmentStyle = css`
   transition: width 0.6s ease;
 `
 
-export interface BarSegementProps extends JSXElement<"div"> {
+export interface BarSegementProps extends HasStyle {
   percent: number
-  text?: string
+  text?: string,
 }
 
-const BarSegement: React.SFC<BarSegementProps> = props => {
+const BarSegement: React.FC<BarSegementProps> = props => {
   const { percent, text, ...otherProps } = props
   const styleResult = acceptStyle(props, {
     cx: barSegmentStyle,

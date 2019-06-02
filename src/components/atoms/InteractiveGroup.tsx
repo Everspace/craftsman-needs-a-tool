@@ -4,7 +4,7 @@ import { cornerRadius } from "styles/Misc"
 import { secondary } from "styles/Colors"
 import { waiting } from "styles/Shadows"
 
-interface InteractiveGroupProps extends JSXElement<"div"> {
+interface InteractiveGroupProps {
   seperated?: boolean
 }
 
@@ -59,7 +59,7 @@ const interactiveGroupStyle = (colorObj: MaterialColor, seperated = false) => cs
   }
 `
 
-export const InteractiveGroup: React.FC<InteractiveGroupProps & Colorable> = ({
+export const InteractiveGroup: React.FC<InteractiveGroupProps & Colorable & HasStyle> = ({
   colorStyle = secondary,
   seperated = false,
   className,

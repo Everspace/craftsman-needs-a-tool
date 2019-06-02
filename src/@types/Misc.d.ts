@@ -14,9 +14,6 @@ interface HasStyle {
 
 type booleanString = "false" | "true"
 
-type IntrisnicElement = keyof JSX.IntrinsicElements
-type JSXElement<K extends IntrisnicElement> = JSX.IntrinsicElements[K]
-
 /**
  * Actual color specification
  */

@@ -1,14 +1,14 @@
-import React, { SFC } from "react"
+import React from "react"
 import { waiting } from "styles/Shadows"
 import { roundedCorners, spaced as spacedStyle } from "styles/Misc"
 import { cx } from "emotion"
 
-interface MaterialProps extends JSXElement<"div"> {
+interface MaterialProps extends HasStyle {
   rounded?: boolean
   spaced?: boolean
 }
 
-const Material: SFC<MaterialProps> = props => {
+const Material: React.FC<MaterialProps> = props => {
   const { rounded, spaced, className, ...otherProps } = props
 
   return (
