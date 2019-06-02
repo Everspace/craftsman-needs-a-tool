@@ -1,5 +1,5 @@
-import { mix } from "../lib/Color/Functions"
-import { xony } from "../lib/Style"
+import { mix } from "lib/Color/Functions"
+import { xony } from "lib/Style"
 
 const textColor = {
   light: "#F0F0F0",

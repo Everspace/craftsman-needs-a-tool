@@ -1,5 +1,5 @@
-import { primary } from "../../../styles/Colors"
-import StatBar from "../../../components/molecules/StatBar"
+import { primary } from "styles/Colors"
+import StatBar from "components/molecules/StatBar"
 import { connect } from "react-redux"
 
 let mapStateToProps = state => {

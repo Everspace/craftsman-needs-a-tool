@@ -1,6 +1,6 @@
 import React, { SFC } from "react"
-import { waiting } from "../../styles/Shadows"
-import { roundedCorners, spaced as spacedStyle } from "../../styles/Misc"
+import { waiting } from "styles/Shadows"
+import { roundedCorners, spaced as spacedStyle } from "styles/Misc"
 import { cx } from "emotion"
 
 interface MaterialProps extends JSXElement<"div"> {

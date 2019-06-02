@@ -39,7 +39,7 @@ export const useNumberInput = ({
     setNumber(newNumber)
     setValue(newNumber.toString())
     callback && callback(newNumber)
-  }, [callback, setValue, setNumber])
+  }, [callback, setValue, setNumber, maxima])
 
   const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
@@ -47,7 +47,7 @@ export const useNumberInput = ({
     const cast = Number(e.target.value)
     if (isNaN(cast)) return // drop NaN
     setNumberWrapper(cast)
-  }, [callback, setNumberWrapper, setValue])
+  }, [setNumberWrapper, setValue])
 
   const inputProps = {
     type: "number",

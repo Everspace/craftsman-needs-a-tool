@@ -1,15 +1,15 @@
 import React, { Component, useEffect, useState } from "react"
-import { Button } from "./components/atoms/Button"
+import { Button } from "components/atoms/Button"
 
-import Material from "./components/atoms/Material"
-import { grey, primary, secondary } from "./styles/Colors"
-import { state, character } from "./state"
-import { solar } from "./lib/Exalted/motePool"
+import Material from "components/atoms/Material"
+import { grey, primary, secondary } from "styles/Colors"
+import { state, character } from "state"
+import { solar } from "lib/Exalted/motePool"
 import { Provider } from "react-redux"
 import { createStore } from "redux"
-import motes from "./reducers/motes"
-import Incrementer from "./components/molecules/Incrementer"
-import { InteractiveGroup } from "./components/atoms/InteractiveGroup"
+import motes from "reducers/motes"
+import Incrementer from "components/molecules/Incrementer"
+import { InteractiveGroup } from "components/atoms/InteractiveGroup"
 import mathjs from "mathjs"
 
 type Fraction = {
@@ -23,7 +23,7 @@ const sumFractions = (a:Fraction, b:Fraction):Fraction  => ({
 })
 const divideFraction = (f:Fraction):number => f.numerator / f.denominator
 
-const round = (number, decimals) => Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals)
+// const round = (number, decimals) => Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals)
 
 let poolMaxes = solar(character.essence)
 

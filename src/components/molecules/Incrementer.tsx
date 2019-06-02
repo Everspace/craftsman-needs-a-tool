@@ -1,10 +1,10 @@
 import React, { useCallback } from "react"
 import { css, cx } from "emotion"
-import { Button } from "../../components/atoms/Button"
-import { interactive } from "../../styles/Misc"
-import { InteractiveGroup } from "../../components/atoms/InteractiveGroup"
-import { secondary } from "../../styles/Colors"
-import { useNumberInput } from "../../hooks/input"
+import { Button } from "components/atoms/Button"
+import { interactive } from "styles/Misc"
+import { InteractiveGroup } from "components/atoms/InteractiveGroup"
+import { secondary } from "styles/Colors"
+import { useNumberInput } from "hooks/input"
 
 interface IncrementerProps {
   initialValue?: number
@@ -48,7 +48,10 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
       </Button>
       <input
         {...inputProps}
-        className={cx(interactive(color), numberInputStyle)}
+        className={cx(
+          interactive(color),
+          numberInputStyle
+        )}
       />
       <Button colorStyle={color} onClick={upNumber}>
         +

@@ -1,4 +1,4 @@
-import { makeActionCreator } from "../../lib/redux/actions"
+import { makeActionCreator } from "lib/redux/actions"
 import {
   ADD_SUCCESSES,
   SET_SUCCESSES,

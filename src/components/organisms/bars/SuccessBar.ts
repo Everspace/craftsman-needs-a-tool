@@ -1,8 +1,8 @@
-import { grey, primary } from "../../../styles/Colors"
-import StatBar from "../../../components/molecules/StatBar"
+import { grey, primary } from "styles/Colors"
+import StatBar from "components/molecules/StatBar"
 import { connect } from "react-redux"
-import { artifactRatingToSuccessesNeeded } from "../../../lib/Exalted/craft"
-import { BarSegmentDefintion } from "../../../components/atoms/ProgressBar"
+import { artifactRatingToSuccessesNeeded } from "lib/Exalted/craft"
+import { BarSegmentDefintion } from "components/atoms/ProgressBar"
 
 const mapStateToProps = state => {
   const target = artifactRatingToSuccessesNeeded(state.artifactRating)

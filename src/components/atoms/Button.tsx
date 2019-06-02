@@ -1,7 +1,7 @@
 import React from "react"
 import { cx } from "emotion"
-import { interactive } from "../../styles/Misc"
-import { secondary } from "../../styles/Colors";
+import { interactive } from "styles/Misc"
+import { secondary } from "styles/Colors";
 
 export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & Colorable> = ({
   className,
