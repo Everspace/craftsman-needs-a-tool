@@ -8,7 +8,10 @@ interface InteractiveGroupProps {
   seperated?: boolean
 }
 
-const interactiveGroupStyle = (colorObj: MaterialColor, seperated = false) => css`
+const interactiveGroupStyle = (
+  colorObj: MaterialColor,
+  seperated = false,
+) => css`
   /* Redo some of the interactive style */
   background-color: transparent;
   border-radius: ${cornerRadius};
@@ -59,12 +62,9 @@ const interactiveGroupStyle = (colorObj: MaterialColor, seperated = false) => cs
   }
 `
 
-export const InteractiveGroup: React.FC<InteractiveGroupProps & Colorable & HasStyle> = ({
-  colorStyle = secondary,
-  seperated = false,
-  className,
-  ...props
-}) => (
+export const InteractiveGroup: React.FC<
+  InteractiveGroupProps & Colorable & HasStyle
+> = ({ colorStyle = secondary, seperated = false, className, ...props }) => (
   <div
     {...props}
     className={cx(interactiveGroupStyle(colorStyle, seperated), className)}

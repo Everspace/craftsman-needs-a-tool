@@ -2,7 +2,7 @@ import React from "react"
 import SuccessBar from "./SuccessBar"
 import { Provider } from "react-redux"
 import { render } from "@testing-library/react"
-import { createStore } from "redux";
+import { createStore } from "redux"
 
 const base = {
   successes: {

@@ -30,16 +30,22 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
     max,
     min,
     step,
-    callback
+    callback,
   })
 
-  const upNumber = useCallback((e:React.MouseEvent) => {
-    setNumber(number + step)
-  }, [number, setNumber, step])
+  const upNumber = useCallback(
+    (e: React.MouseEvent) => {
+      setNumber(number + step)
+    },
+    [number, setNumber, step],
+  )
 
-  const downNumber = useCallback((e:React.MouseEvent) => {
-    setNumber(number - step)
-  }, [number, setNumber, step])
+  const downNumber = useCallback(
+    (e: React.MouseEvent) => {
+      setNumber(number - step)
+    },
+    [number, setNumber, step],
+  )
 
   return (
     <InteractiveGroup seperated color={color} className={className}>
@@ -48,10 +54,7 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
       </Button>
       <input
         {...inputProps}
-        className={cx(
-          interactive(color),
-          numberInputStyle
-        )}
+        className={cx(interactive(color), numberInputStyle)}
       />
       <Button colorStyle={color} onClick={upNumber}>
         +

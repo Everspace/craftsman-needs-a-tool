@@ -78,7 +78,7 @@ let barSegmentStyle = css`
 
 export interface BarSegementProps extends HasStyle {
   percent: number
-  text?: string,
+  text?: string
 }
 
 const BarSegement: React.FC<BarSegementProps> = props => {
