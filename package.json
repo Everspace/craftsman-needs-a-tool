@@ -8,7 +8,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-redux": "^6.0.0",
-    "react-scripts": "^2.1.0",
+    "react-scripts": "^3.0.0",
     "redux": "^4.0.0",
     "typescript": "^3.3.3",
     "mathjs": "5.5.0"
@@ -39,10 +39,9 @@
     "@types/react-dom": "^16.8.0",
     "@types/react-redux": "^7.0.1",
     "@types/mathjs": "5.0.0",
-    "babel-preset-react-app": "7.0.0",
     "jest-dom": "^3.1.0",
     "prettier": "^1.14.3",
-    "react-testing-library": "^5.9.0",
+    "@testing-library/react": "^8.0.0",
     "tslint": "^5.13.0"
   }
 }
