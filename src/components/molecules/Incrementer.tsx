@@ -68,7 +68,7 @@ let numberInputStyle = css`
   padding: 0em;
   text-align: center;
   box-shadow: none;
-
+  -moz-appearance: textfield;
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
     appearance: none;
