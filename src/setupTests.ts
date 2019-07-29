@@ -2,6 +2,6 @@
 import "@testing-library/react/cleanup-after-each"
 
 // add some helpful assertions
-import "jest-dom/extend-expect"
+import "@testing-library/jest-dom/extend-expect"
 
 export default undefined
