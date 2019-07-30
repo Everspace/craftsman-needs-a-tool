@@ -218,7 +218,10 @@ class App extends Component {
       Math.sqrt(variance.variance * this.state.dice) * standardDeviations
     return (
       <div css={grey.grey500.cssClass}>
-        <Header />
+        <Header>
+          <h1>Craftsman Needs New Tools</h1>
+          <sub>1.1.0</sub>
+        </Header>
         <Material rounded spaced css={grey.grey400.cssClass}>
           {/* <Panel key="toggle area">
               <Button onClick={()=>this.setState({...defaultRegularState})}>

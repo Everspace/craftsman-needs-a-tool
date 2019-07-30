@@ -13,8 +13,6 @@ export const Header: React.FC = props => (
         marginBottom: 20,
       },
     ]}
-  >
-    <h1>Craftsman Needs a Tool</h1>
-    <sub>1.0.0</sub>
-  </Material>
+    {...props}
+  />
 )
