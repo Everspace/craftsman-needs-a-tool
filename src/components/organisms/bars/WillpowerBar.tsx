@@ -11,7 +11,7 @@ export const WillpowerBar = props => {
   const willpowerBar: BarSegmentDefintion = {
     value: props.willpower,
     text: props.willpower,
-    roundedCorners: "true",
+    roundedCorners: true,
     className: primary.main.cssClass,
   }
 

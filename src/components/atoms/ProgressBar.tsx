@@ -1,7 +1,7 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core"
 import React from "react"
-import { css, cx } from "emotion"
 import { grey } from "styles/Colors"
-import { acceptStyle } from "lib/Style"
 
 interface ProgressBarProps extends HasStyle {
   bars: BarSegmentDefintion[]
@@ -14,14 +14,10 @@ interface ProgressBarProps extends HasStyle {
 export const ProgressBar: React.FC<ProgressBarProps> = ({
   bars,
   max = 100,
-  className,
   ...props
 }) => {
   return (
-    <div
-      {...props}
-      className={cx(containerCSS, grey.grey500.cssClass, className)}
-    >
+    <div {...props} css={[containerCSS, grey.grey500.cssClass]}>
       {bars.map((definition, index) =>
         barDefToComponent(definition, index, max),
       )}
@@ -45,7 +41,7 @@ let roundedCornersStyle = css`
 export interface BarSegmentDefintion extends HasStyle {
   value: number
   text?: string
-  roundedCorners?: booleanString
+  roundedCorners?: boolean
 }
 
 const barDefToComponent = (
@@ -57,13 +53,11 @@ const barDefToComponent = (
 
   return (
     <BarSegement
-      {...props}
       key={key}
       text={text}
-      className={cx(className, {
-        [roundedCornersStyle]: roundedCorners,
-      })}
+      css={roundedCorners ? roundedCornersStyle : {}}
       percent={(value / maxValue) * 100}
+      {...props}
     />
   )
 }
@@ -83,13 +77,9 @@ export interface BarSegementProps extends HasStyle {
 
 const BarSegement: React.FC<BarSegementProps> = props => {
   const { percent, text, ...otherProps } = props
-  const styleResult = acceptStyle(props, {
-    cx: barSegmentStyle,
-    style: { width: `${percent}%` },
-  })
 
   return (
-    <div {...otherProps} {...styleResult}>
+    <div css={[barSegmentStyle, { width: `${percent}%` }]} {...otherProps}>
       {text}
     </div>
   )

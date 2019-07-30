@@ -1,5 +1,7 @@
+/// <reference types="@emotion/css" />
+
 declare namespace cnat {
-  export type Color = {
+  type Color = {
     r: number
     b: number
     g: number
@@ -21,7 +23,7 @@ interface MaterialColorObject {
   /**
    * css classname from xony
    */
-  cssClass: string
+  cssClass: SerializedStyles
   /**
    * the color of the text
    */

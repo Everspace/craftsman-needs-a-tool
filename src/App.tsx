@@ -10,7 +10,7 @@ import { createStore } from "redux"
 import motes from "reducers/motes"
 import Incrementer from "components/molecules/Incrementer"
 import { InteractiveGroup } from "components/atoms/InteractiveGroup"
-import mathjs from "mathjs"
+import { erf } from "mathjs"
 
 type Fraction = {
   numerator: number
@@ -62,8 +62,7 @@ let ButtonBlock: React.FC<{ label?: string }> = ({
   ...props
 }) => (
   <Material
-    className={grey.grey300.cssClass}
-    style={{ display: "inline-block", ...spacing }}
+    css={[grey.grey300.cssClass, { display: "inline-block", ...spacing }]}
     {...props}
   >
     {" "}
@@ -75,7 +74,7 @@ let InnerBlock: React.FC = props => (
   <div style={spacing} className={grey.grey400.cssClass} {...props} />
 )
 let Panel: React.FC = props => (
-  <Material className={grey.grey300.cssClass} style={spacing} {...props} />
+  <Material css={[grey.grey300.cssClass, spacing]} {...props} />
 )
 let ButtonHolderPanel: React.FC<{ label?: String }> = ({
   label,
@@ -114,12 +113,14 @@ let ToggleButton: React.FC<
 
 let Header = props => (
   <Material
-    className={primary.main.cssClass}
-    style={{
-      padding: 10,
-      zIndex: 1,
-      marginBottom: 20,
-    }}
+    css={[
+      primary.main.cssClass,
+      {
+        padding: 10,
+        zIndex: 1,
+        marginBottom: 20,
+      },
+    ]}
   >
     <h1>Craftsman Needs a Tool</h1>
     <sub>1.0.0</sub>
@@ -156,7 +157,7 @@ const defaultRegularState = {
 
 class App extends Component {
   state = { ...defaultRegularState }
-
+  //?
   calcVarianceAndMean(state: {
     targetNumber: number
     double: number
@@ -267,11 +268,11 @@ class App extends Component {
   }
 
   pnorm(x: number, mean: number, standardDeviation: number) {
-    let erf = mathjs.erf(
+    let erfResult = erf(
       (x - mean) / (standardDeviation * Math.sqrt(2)),
     ) as number
 
-    return 0.5 * (1 + erf)
+    return 0.5 * (1 + erfResult)
   }
 
   wholeRandomize(n: number) {
@@ -292,7 +293,7 @@ class App extends Component {
       <Provider store={store}>
         <div className={grey.grey500.cssClass}>
           <Header />
-          <Material rounded spaced className={grey.grey400.cssClass}>
+          <Material rounded spaced css={grey.grey400.cssClass}>
             {/* <Panel key="toggle area">
               <Button onClick={()=>this.setState({...defaultRegularState})}>
                 Difficulty 5

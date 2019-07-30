@@ -1,6 +1,6 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core"
 import { ProgressBar } from "components/atoms/ProgressBar"
-import { css, cx } from "emotion"
 
 let containerStyle = css`
   margin: 0.5rem 0;
@@ -11,20 +11,12 @@ let barStyle = css`
 `
 
 const StatBar = props => {
+  const { title, total, bars, current, ...otherProps } = props
   return (
-    <div
-      className={cx(containerStyle, props.className)}
-      key={props.title}
-      style={props.style}
-    >
-      <div>{props.title}</div>
-      <ProgressBar
-        key="bar"
-        max={props.total}
-        bars={props.bars}
-        className={barStyle}
-      />
-      {props.current}/{props.total}
+    <div {...otherProps} css={containerStyle} key={title}>
+      <div>{title}</div>
+      <ProgressBar key="bar" max={total} bars={bars} css={barStyle} />
+      {current}/{total}
     </div>
   )
 }

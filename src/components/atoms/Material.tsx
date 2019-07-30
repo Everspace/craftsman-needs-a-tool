@@ -1,23 +1,21 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core"
 import React from "react"
 import { waiting } from "styles/Shadows"
 import { roundedCorners, spaced as spacedStyle } from "styles/Misc"
-import { cx } from "emotion"
 
-interface MaterialProps extends HasStyle {
+interface MaterialProps {
   rounded?: boolean
   spaced?: boolean
 }
 
 const Material: React.FC<MaterialProps> = props => {
-  const { rounded, spaced, className, ...otherProps } = props
+  const { rounded, spaced, ...otherProps } = props
 
   return (
     <div
+      css={[waiting, rounded ? roundedCorners : {}, spaced ? spacedStyle : {}]}
       {...otherProps}
-      className={cx(waiting, className, {
-        [roundedCorners]: rounded,
-        [spacedStyle]: spaced,
-      })}
     />
   )
 }

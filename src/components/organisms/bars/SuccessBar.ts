@@ -21,7 +21,7 @@ const mapStateToProps = state => {
     value: available,
     text: available,
     className: primary.light.cssClass,
-    roundedCorners: "true",
+    roundedCorners: true,
     style: { zIndex: 1 },
   }
 

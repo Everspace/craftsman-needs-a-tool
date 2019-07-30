@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core"
 import React from "react"
-import { css, cx } from "emotion"
 import { cornerRadius } from "styles/Misc"
 import { secondary } from "styles/Colors"
 import { waiting } from "styles/Shadows"
@@ -64,9 +65,6 @@ const interactiveGroupStyle = (
 
 export const InteractiveGroup: React.FC<
   InteractiveGroupProps & Colorable & HasStyle
-> = ({ colorStyle = secondary, seperated = false, className, ...props }) => (
-  <div
-    {...props}
-    className={cx(interactiveGroupStyle(colorStyle, seperated), className)}
-  />
+> = ({ colorStyle = secondary, seperated = false, ...props }) => (
+  <div css={interactiveGroupStyle(colorStyle, seperated)} {...props} />
 )

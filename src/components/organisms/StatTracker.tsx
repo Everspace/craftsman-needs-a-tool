@@ -7,7 +7,7 @@ import SuccessBar from "components/organisms/bars/SuccessBar"
 
 const StatTracker = props => {
   return (
-    <Material rounded spaced className={grey.grey400.cssClass}>
+    <Material rounded spaced css={grey.grey400.cssClass}>
       <MoteBar
         personal={props.personal}
         personalPool={props.personalPool}

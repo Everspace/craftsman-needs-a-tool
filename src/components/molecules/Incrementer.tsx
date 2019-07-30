@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core"
 import React, { useCallback } from "react"
-import { css, cx } from "emotion"
 import { Button } from "components/atoms/Button"
 import { interactive } from "styles/Misc"
 import { InteractiveGroup } from "components/atoms/InteractiveGroup"
@@ -52,10 +53,7 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
       <Button colorStyle={color} onClick={downNumber}>
         -
       </Button>
-      <input
-        {...inputProps}
-        className={cx(interactive(color), numberInputStyle)}
-      />
+      <input {...inputProps} css={[interactive(color), numberInputStyle]} />
       <Button colorStyle={color} onClick={upNumber}>
         +
       </Button>
@@ -63,17 +61,16 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   )
 }
 
-let numberInputStyle = css`
-  width: 2.5em;
-  padding: 0em;
-  text-align: center;
-  box-shadow: none;
-  -moz-appearance: textfield;
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    appearance: none;
-    margin: 0;
-  }
-`
+const numberInputStyle = css({
+  width: "2.5em",
+  padding: "0em",
+  textAlign: "center",
+  boxShadow: "none",
+  "-moz-appearance": "textfield",
+  "&::-webkit-inner-spin-button, &::-webkit-outer-spin-button": {
+    appearance: "none",
+    margin: 0,
+  },
+})
 
 export default Incrementer
