@@ -18,7 +18,6 @@ export const interactive = (colorObj = secondary) =>
       background: "none",
       boder: "none",
       padding: `${cornerRadius} 0.5em`,
-      margin: cornerRadius,
       fontSize: "1.15em",
       fontWeight: 900,
     },

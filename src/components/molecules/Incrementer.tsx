@@ -24,7 +24,6 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   step = 1,
   callback,
   color = secondary,
-  className,
 }) => {
   const { number, setNumber, inputProps } = useNumberInput({
     initialValue,
@@ -49,7 +48,7 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
   )
 
   return (
-    <InteractiveGroup seperated className={className}>
+    <InteractiveGroup seperated>
       <Button colorStyle={color} onClick={downNumber}>
         -
       </Button>
@@ -67,7 +66,7 @@ const numberInputStyle = css({
   textAlign: "center",
   boxShadow: "none",
   "-moz-appearance": "textfield",
-  "&::-webkit-inner-spin-button, &::-webkit-outer-spin-button": {
+  "::-webkit-inner-spin-button, ::-webkit-outer-spin-button": {
     appearance: "none",
     margin: 0,
   },

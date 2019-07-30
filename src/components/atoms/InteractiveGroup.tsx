@@ -1,70 +1,81 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core"
+import { jsx } from "@emotion/core"
 import React from "react"
 import { cornerRadius } from "styles/Misc"
-import { secondary } from "styles/Colors"
-import { waiting } from "styles/Shadows"
+import { grey, secondary } from "styles/Colors"
 
-interface InteractiveGroupProps {
+/*
+// & > *:not(:first-child):not(:last-child) {
+//   margin: 0;
+//   border-radius: 0;
+//   z-index: 0;
+//   ${seperated
+//     ? css`
+//         border-right: 1px dotted ${colorObj.dark.color};
+//         border-left: 1px dotted ${colorObj.dark.color};
+//       `
+//     : ""};
+// }
+*/
+
+type InteractiveGroupProps = {
+  activeColor?: MaterialColor
+  inactiveColor?: MaterialColor
+  bordered?: boolean
   seperated?: boolean
 }
 
-const interactiveGroupStyle = (
-  colorObj: MaterialColor,
+export const InteractiveGroup: React.FC<InteractiveGroupProps> = ({
+  activeColor = secondary,
+  inactiveColor = grey,
+  bordered = false,
   seperated = false,
-) => css`
-  /* Redo some of the interactive style */
-  background-color: transparent;
-  border-radius: ${cornerRadius};
-  margin: ${cornerRadius};
-  padding: 0;
+  ...props
+}) => {
+  return (
+    <div
+      css={[
+        {
+          backgroundColor: "transparent",
+          display: "inline-flex",
+          padding: 0,
+          borderRadius: cornerRadius,
+          margin: cornerRadius,
+          "input, button": {
+            display: "flex",
+            borderRadius: 0,
+            border: "none",
 
-  ${waiting};
-  display: inline-flex;
+            ":first-child": {
+              borderTopLeftRadius: cornerRadius,
+              borderBottomLeftRadius: cornerRadius,
+            },
 
-  & > * {
-    /* Allow z-index to work */
-    position: relative;
+            ":last-child": {
+              borderTopRightRadius: cornerRadius,
+              borderBottomRightRadius: cornerRadius,
+            },
 
-    display: flex;
-
-    /* Reset style */
-    border-radius: 0;
-    box-shadow: none;
-    margin: 0;
-  }
-
-  & > *:hover {
-    /* Push hovered element above siblings */
-    z-index: 1;
-  }
-
-  /* Replant corners */
-  & > *:first-child {
-    border-top-left-radius: ${cornerRadius};
-    border-bottom-left-radius: ${cornerRadius};
-  }
-
-  & > *:not(:first-child):not(:last-child) {
-    margin: 0;
-    border-radius: 0;
-    z-index: 0;
-    ${seperated
-      ? css`
-          border-right: 1px dotted ${colorObj.dark.color};
-          border-left: 1px dotted ${colorObj.dark.color};
-        `
-      : ""};
-  }
-
-  & > *:last-child {
-    border-top-right-radius: ${cornerRadius};
-    border-bottom-right-radius: ${cornerRadius};
-  }
-`
-
-export const InteractiveGroup: React.FC<
-  InteractiveGroupProps & Colorable & HasStyle
-> = ({ colorStyle = secondary, seperated = false, ...props }) => (
-  <div css={interactiveGroupStyle(colorStyle, seperated)} {...props} />
-)
+            ":not(:first-child):not(:last-child)": [
+              {
+                zIndex: 0,
+              },
+              seperated
+                ? {
+                    borderRight: `1px dotted ${activeColor.dark.color}`,
+                    borderLeft: `1px dotted ${activeColor.dark.color}`,
+                  }
+                : {},
+            ],
+          },
+        },
+        bordered
+          ? {
+              border: `1px solid ${activeColor.main.color}`,
+            }
+          : {},
+      ]}
+      {...props}
+    />
+  )
+}

@@ -8,8 +8,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & Colorable
 
 export const Button: React.FC<ButtonProps> = ({
   colorStyle = secondary,
-  style,
   ...props
 }) => {
-  return <button {...props} css={interactive(colorStyle)} />
+  return <button css={interactive(colorStyle)} {...props} />
 }

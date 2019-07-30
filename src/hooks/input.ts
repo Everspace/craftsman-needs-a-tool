@@ -37,26 +37,20 @@ export const useNumberInput = ({
     [min, max],
   )
 
-  const setNumberWrapper = useCallback(
-    (number: number) => {
-      const newNumber = maxima(number)
-      setNumber(newNumber)
-      setValue(newNumber.toString())
-      callback && callback(newNumber)
-    },
-    [callback, setValue, setNumber, maxima],
-  )
+  const setNumberWrapper = (number: number) => {
+    const newNumber = maxima(number)
+    setNumber(newNumber)
+    setValue(newNumber.toString())
+    callback && callback(newNumber)
+  }
 
-  const onChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(e.target.value)
-      if (e.target.value === "") return // don't go to 0 when empty
-      const cast = Number(e.target.value)
-      if (isNaN(cast)) return // drop NaN
-      setNumberWrapper(cast)
-    },
-    [setNumberWrapper, setValue],
-  )
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value)
+    if (e.target.value === "") return // don't go to 0 when empty
+    const cast = Number(e.target.value)
+    if (isNaN(cast)) return // drop NaN
+    setNumberWrapper(cast)
+  }
 
   const inputProps = {
     type: "number",

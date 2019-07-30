@@ -1,27 +1,19 @@
-import React, { Component, useEffect, useState } from "react"
-import { Button } from "components/atoms/Button"
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core"
+import React, { Component } from "react"
+import { ToggleButton } from "components/molecules/ToggleButton"
 
 import Material from "components/atoms/Material"
-import { grey, primary, secondary } from "styles/Colors"
+import { grey } from "styles/Colors"
 import { state, character } from "state"
 import { solar } from "lib/Exalted/motePool"
-import { Provider } from "react-redux"
 import { createStore } from "redux"
 import motes from "reducers/motes"
 import Incrementer from "components/molecules/Incrementer"
 import { InteractiveGroup } from "components/atoms/InteractiveGroup"
 import { erf } from "mathjs"
-
-type Fraction = {
-  numerator: number
-  denominator: number
-}
-
-const sumFractions = (a: Fraction, b: Fraction): Fraction => ({
-  numerator: a.numerator + b.numerator,
-  denominator: a.denominator + b.denominator,
-})
-const divideFraction = (f: Fraction): number => f.numerator / f.denominator
+import { Header } from "components/molecules/Header"
+import { calculateDiceMean, calculateDiceSigma } from "lib/dice"
 
 // const round = (number, decimals) => Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals)
 
@@ -51,10 +43,10 @@ let store = createStore((state: any, action) => {
   return newState
 }, resources)
 
-let spacing = {
+let spacing = css({
   padding: 10,
   margin: 5,
-}
+})
 
 let ButtonBlock: React.FC<{ label?: string }> = ({
   label,
@@ -62,7 +54,13 @@ let ButtonBlock: React.FC<{ label?: string }> = ({
   ...props
 }) => (
   <Material
-    css={[grey.grey300.cssClass, { display: "inline-block", ...spacing }]}
+    css={[
+      grey.grey300.cssClass,
+      spacing,
+      {
+        display: "inline-block",
+      },
+    ]}
     {...props}
   >
     {" "}
@@ -71,60 +69,22 @@ let ButtonBlock: React.FC<{ label?: string }> = ({
 )
 
 let InnerBlock: React.FC = props => (
-  <div style={spacing} className={grey.grey400.cssClass} {...props} />
+  <div css={[grey.grey400.cssClass, spacing]} {...props} />
 )
+
 let Panel: React.FC = props => (
   <Material css={[grey.grey300.cssClass, spacing]} {...props} />
 )
+
 let ButtonHolderPanel: React.FC<{ label?: String }> = ({
   label,
   children,
   ...props
 }) => (
   <Panel {...props}>
-    {label ? <h2 style={spacing}>{label}</h2> : null}
+    {label ? <h2 css={spacing}>{label}</h2> : null}
     <InnerBlock>{children}</InnerBlock>
   </Panel>
-)
-
-let ToggleButton: React.FC<
-  { on?: boolean; callback?: (boolean) => void } & React.ButtonHTMLAttributes<
-    HTMLButtonElement
-  > &
-    Colorable
-> = ({ on = false, callback, onClick, colorStyle = secondary, ...props }) => {
-  let [state, setState] = useState(on)
-
-  useEffect(() => {
-    callback && callback(state)
-  }, [state, callback])
-
-  return (
-    <Button
-      colorStyle={state ? grey : colorStyle}
-      {...props}
-      onClick={e => {
-        onClick && onClick(e)
-        setState(!state)
-      }}
-    />
-  )
-}
-
-let Header = props => (
-  <Material
-    css={[
-      primary.main.cssClass,
-      {
-        padding: 10,
-        zIndex: 1,
-        marginBottom: 20,
-      },
-    ]}
-  >
-    <h1>Craftsman Needs a Tool</h1>
-    <sub>1.0.0</sub>
-  </Material>
 )
 
 const defaultRegularState = {
@@ -164,6 +124,7 @@ class App extends Component {
     reroll1: boolean
     reroll6: boolean
     reroll10: boolean
+    willpower: boolean
   }): { mean: number; variance: number } {
     // Thanks AG from the Exalted discord for the formula/base code this is derived from.
     //
@@ -204,49 +165,15 @@ class App extends Component {
       }
     }
 
-    const meanFraction: Fraction = faces
-      .map(face => ({
-        numerator: face.probability * face.value,
-        denominator: face.reroll ? 0 : face.probability,
-      }))
-      .reduce(sumFractions, { numerator: 0, denominator: 0 })
-    const mean = divideFraction(meanFraction)
+    const mean = calculateDiceMean(faces)
+    const varianceSigma = calculateDiceSigma(faces, mean)
 
-    const varianceFraction = faces
-      .map(face => {
-        let numerator = face.probability
-        if (face.reroll) {
-          numerator *= face.value * (2 * mean + face.value)
-        } else {
-          numerator *= face.value * face.value
-        }
-
-        let denominator = face.probability
-        if (face.reroll) {
-          denominator = 0
-        }
-        return { numerator, denominator }
-      })
-      .reduce(sumFractions, { numerator: 0, denominator: 0 })
-
-    const variance = divideFraction(varianceFraction) - mean * mean
+    const variance = varianceSigma - mean * mean
 
     return { mean, variance }
   }
 
   calcProb(state: any, calcVarianceAndMean) {
-    // let doubledSides = state.double ? 11 - state.double : 0
-    // let p2 = doubledSides / 10 // prob of 2 succeses
-    // let singleSuccessSides = (10 - doubledSides - state.targetNumber + 1)
-    // let p1 = singleSuccessSides / 10
-    // let p0 = 1 - p1 - p2
-    // let availableSides = 10 - (state.reroll6 ? 1:0) - (state.reroll10 ? 1:0) - (state.reroll1 ? 1:0)
-    // let dice = state.dice * 10 / availableSides
-    // let mu = p2 * 2 + p1 * 1
-    // let sigmaSq = p2 * Math.pow(2 - 0.5, 2)
-    //   + p1 * Math.pow(1 - 0.5, 2)
-    //   + p0 * Math.pow(0 - 0.5, 2)
-
     // Since we need to at least roll Target dice over N terminuses, and success is "meet or exceed",
     // Pnorm is about rolling X or less dice, so we need to calculate what the chances of failing
     // are, which is 1 less than the difficulty
@@ -290,11 +217,10 @@ class App extends Component {
     const diceDeviation =
       Math.sqrt(variance.variance * this.state.dice) * standardDeviations
     return (
-      <Provider store={store}>
-        <div className={grey.grey500.cssClass}>
-          <Header />
-          <Material rounded spaced css={grey.grey400.cssClass}>
-            {/* <Panel key="toggle area">
+      <div css={grey.grey500.cssClass}>
+        <Header />
+        <Material rounded spaced css={grey.grey400.cssClass}>
+          {/* <Panel key="toggle area">
               <Button onClick={()=>this.setState({...defaultRegularState})}>
                 Difficulty 5
               </Button>
@@ -302,133 +228,117 @@ class App extends Component {
                 Craft 5 dot Artifact
               </Button>
             </Panel> */}
-            <Panel key="prob area">
-              <p>
-                Probability of succeeding difficulty {this.state.target}:{" "}
-                {(this.calcProb(this.state, variance) * 100).toFixed()}%
-              </p>
-              <p>
-                Success per die: {variance.mean.toFixed(2)} ±
-                {singleDieDeviation.toFixed(2)}
-              </p>
-              <p>
-                Expected successes:{" "}
-                {(
-                  variance.mean * this.state.dice +
-                  this.state.autoSuccesses +
-                  (this.state.willpower ? 1 : 0)
-                ).toFixed(1)}{" "}
-                ±{diceDeviation.toFixed(1)}
-              </p>
-            </Panel>
-            <ButtonHolderPanel label="The Challenge">
-              <ButtonBlock label="Target">
-                <Incrementer
-                  initialValue={this.state.target}
-                  min={1}
-                  max={200}
-                  callback={target => this.doThing({ target })}
-                />
-              </ButtonBlock>
+          <Panel key="prob area">
+            <p>
+              Probability of succeeding difficulty {this.state.target}:{" "}
+              {(this.calcProb(this.state, variance) * 100).toFixed()}%
+            </p>
+            <p>
+              Success per die: {variance.mean.toFixed(2)} ±
+              {singleDieDeviation.toFixed(2)}
+            </p>
+            <p>
+              Expected successes:{" "}
+              {(
+                variance.mean * this.state.dice +
+                this.state.autoSuccesses +
+                (this.state.willpower ? 1 : 0)
+              ).toFixed(1)}{" "}
+              ±{diceDeviation.toFixed(1)}
+            </p>
+          </Panel>
+          <ButtonHolderPanel label="The Challenge">
+            <ButtonBlock label="Target">
+              <Incrementer
+                initialValue={this.state.target}
+                min={1}
+                max={200}
+                callback={target => this.doThing({ target })}
+              />
+            </ButtonBlock>
 
-              <ButtonBlock label="Difficulty">
-                <Incrementer
-                  initialValue={this.state.difficulty}
-                  min={0}
-                  callback={difficulty => this.doThing({ difficulty })}
-                />
-              </ButtonBlock>
-              <ButtonBlock label="Terminus">
-                <Incrementer
-                  initialValue={this.state.terminus}
-                  min={1}
-                  callback={terminus => this.doThing({ terminus })}
-                />
-              </ButtonBlock>
-            </ButtonHolderPanel>
-            <ButtonHolderPanel label="Dice Pool">
-              <ButtonBlock label="Dice">
-                <Incrementer
-                  initialValue={this.state.dice}
-                  min={1}
-                  callback={dice => this.doThing({ dice })}
-                />
-              </ButtonBlock>
-              <ButtonBlock label="Autosuccesses">
-                <Incrementer
-                  initialValue={this.state.autoSuccesses}
-                  callback={autoSuccesses => this.doThing({ autoSuccesses })}
-                />
-              </ButtonBlock>
-              <ButtonBlock>
+            <ButtonBlock label="Difficulty">
+              <Incrementer
+                initialValue={this.state.difficulty}
+                min={0}
+                callback={difficulty => this.doThing({ difficulty })}
+              />
+            </ButtonBlock>
+            <ButtonBlock label="Terminus">
+              <Incrementer
+                initialValue={this.state.terminus}
+                min={1}
+                callback={terminus => this.doThing({ terminus })}
+              />
+            </ButtonBlock>
+          </ButtonHolderPanel>
+          <ButtonHolderPanel label="Dice Pool">
+            <ButtonBlock label="Dice">
+              <Incrementer
+                initialValue={this.state.dice}
+                min={1}
+                callback={dice => this.doThing({ dice })}
+              />
+            </ButtonBlock>
+            <ButtonBlock label="Autosuccesses">
+              <Incrementer
+                initialValue={this.state.autoSuccesses}
+                callback={autoSuccesses => this.doThing({ autoSuccesses })}
+              />
+            </ButtonBlock>
+            <ButtonBlock>
+              <ToggleButton
+                on={this.state.willpower}
+                onToggle={willpower => this.setState({ willpower })}
+                key="wp"
+              >
+                Willpower
+              </ToggleButton>
+            </ButtonBlock>
+          </ButtonHolderPanel>
+
+          <ButtonHolderPanel label="Roll Effects">
+            <ButtonBlock label="Double">
+              <Incrementer
+                initialValue={this.state.double}
+                min={7}
+                max={10}
+                callback={double => this.doThing({ double })}
+              />
+            </ButtonBlock>
+            <ButtonBlock label="Reroll">
+              <InteractiveGroup bordered>
                 <ToggleButton
-                  on={this.state.willpower}
-                  callback={willpower => this.setState({ willpower })}
-                  key="wp"
+                  onToggle={reroll1 => this.setState({ reroll1 })}
+                  key="1s"
                 >
-                  Willpower
+                  1s
                 </ToggleButton>
-              </ButtonBlock>
-            </ButtonHolderPanel>
-
-            <ButtonHolderPanel label="Roll Effects">
-              <ButtonBlock label="Double">
-                <Incrementer
-                  initialValue={this.state.double}
-                  min={7}
-                  max={10}
-                  callback={double => this.doThing({ double })}
-                />
-              </ButtonBlock>
-              <ButtonBlock label="Reroll">
-                <InteractiveGroup>
-                  <ToggleButton
-                    callback={reroll1 => this.setState({ reroll1 })}
-                    key="1s"
-                  >
-                    1s
-                  </ToggleButton>
-                  <ToggleButton
-                    callback={reroll6 => this.setState({ reroll6 })}
-                    key="6s"
-                  >
-                    6s
-                  </ToggleButton>
-                  <ToggleButton
-                    callback={reroll10 => this.setState({ reroll10 })}
-                    key="10s"
-                  >
-                    10s
-                  </ToggleButton>
-                </InteractiveGroup>
-              </ButtonBlock>
-              <ButtonBlock label="Target Number">
-                <Incrementer
-                  initialValue={this.state.targetNumber}
-                  min={4}
-                  max={9}
-                  callback={targetNumber => this.doThing({ targetNumber })}
-                />
-              </ButtonBlock>
-            </ButtonHolderPanel>
-            {/* <Panel>
-              <ButtonBlock label="Stunt Rating">
-                <InteractiveGroup>
-                  <Button>0</Button>
-                  <Button>•</Button>
-                  <Button>••</Button>
-                  <Button>•••</Button>
-                </InteractiveGroup>
-              </ButtonBlock>
-            </Panel>*/}
-
-            {/* <ButtonHolderPanel>
-              <Button>First Word of the Demiurge</Button>
-              <Button>Sacrosanct Delerium</Button>
-            </ButtonHolderPanel> */}
-          </Material>
-        </div>
-      </Provider>
+                <ToggleButton
+                  onToggle={reroll6 => this.setState({ reroll6 })}
+                  key="6s"
+                >
+                  6s
+                </ToggleButton>
+                <ToggleButton
+                  onToggle={reroll10 => this.setState({ reroll10 })}
+                  key="10s"
+                >
+                  10s
+                </ToggleButton>
+              </InteractiveGroup>
+            </ButtonBlock>
+            <ButtonBlock label="Target Number">
+              <Incrementer
+                initialValue={this.state.targetNumber}
+                min={4}
+                max={9}
+                callback={targetNumber => this.doThing({ targetNumber })}
+              />
+            </ButtonBlock>
+          </ButtonHolderPanel>
+        </Material>
+      </div>
     )
   }
 }
