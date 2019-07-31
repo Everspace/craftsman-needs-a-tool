@@ -16,7 +16,7 @@ export const interactive = (colorObj = secondary) =>
   css([
     {
       background: "none",
-      boder: "none",
+      border: "none",
       padding: `${cornerRadius} 0.5em`,
       fontSize: "1.15em",
       fontWeight: 900,
