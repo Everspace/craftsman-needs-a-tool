@@ -1,22 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core"
-import React from "react"
+import { jsx, css } from "@emotion/core"
+import React, { useMemo } from "react"
 import { cornerRadius } from "styles/Misc"
 import { grey, secondary } from "styles/Colors"
-
-/*
-// & > *:not(:first-child):not(:last-child) {
-//   margin: 0;
-//   border-radius: 0;
-//   z-index: 0;
-//   ${seperated
-//     ? css`
-//         border-right: 1px dotted ${colorObj.dark.color};
-//         border-left: 1px dotted ${colorObj.dark.color};
-//       `
-//     : ""};
-// }
-*/
 
 type InteractiveGroupProps = {
   activeColor?: MaterialColor
@@ -25,6 +11,37 @@ type InteractiveGroupProps = {
   seperated?: boolean
 }
 
+const middleChildSelector = ":not(:first-child):not(:last-child)"
+const childrenTypes = ["input", "button"]
+const childrenSelector = "& > " + childrenTypes.join(", & >")
+
+const baseCss = css({
+  backgroundColor: "transparent",
+  display: "inline-flex",
+  padding: 0,
+  borderRadius: cornerRadius,
+  margin: cornerRadius,
+  [childrenSelector]: {
+    display: "flex",
+    borderRadius: 0,
+    border: "none",
+
+    ":first-child": {
+      borderTopLeftRadius: cornerRadius,
+      borderBottomLeftRadius: cornerRadius,
+    },
+
+    ":last-child": {
+      borderTopRightRadius: cornerRadius,
+      borderBottomRightRadius: cornerRadius,
+    },
+
+    [middleChildSelector]: {
+      zIndex: 0, // For fixing a dropshadow thing
+    },
+  },
+})
+
 export const InteractiveGroup: React.FC<InteractiveGroupProps> = ({
   activeColor = secondary,
   inactiveColor = grey,
@@ -32,50 +49,30 @@ export const InteractiveGroup: React.FC<InteractiveGroupProps> = ({
   seperated = false,
   ...props
 }) => {
-  return (
-    <div
-      css={[
-        {
-          backgroundColor: "transparent",
-          display: "inline-flex",
-          padding: 0,
-          borderRadius: cornerRadius,
-          margin: cornerRadius,
-          "input, button": {
-            display: "flex",
-            borderRadius: 0,
-            border: "none",
-
-            ":first-child": {
-              borderTopLeftRadius: cornerRadius,
-              borderBottomLeftRadius: cornerRadius,
-            },
-
-            ":last-child": {
-              borderTopRightRadius: cornerRadius,
-              borderBottomRightRadius: cornerRadius,
-            },
-
-            ":not(:first-child):not(:last-child)": [
-              {
-                zIndex: 0,
+  const seperatedStyle = useMemo(
+    () =>
+      seperated
+        ? css({
+            [childrenSelector]: {
+              [middleChildSelector]: {
+                borderRight: `1px dotted ${activeColor.dark.color}`,
+                borderLeft: `1px dotted ${activeColor.dark.color}`,
               },
-              seperated
-                ? {
-                    borderRight: `1px dotted ${activeColor.dark.color}`,
-                    borderLeft: `1px dotted ${activeColor.dark.color}`,
-                  }
-                : {},
-            ],
-          },
-        },
-        bordered
-          ? {
-              border: `1px solid ${activeColor.main.color}`,
-            }
-          : {},
-      ]}
-      {...props}
-    />
+            },
+          })
+        : null,
+    [seperated, activeColor],
   )
+
+  const borderStyle = useMemo(
+    () =>
+      bordered
+        ? css({
+            border: `1px solid ${activeColor.main.color}`,
+          })
+        : null,
+    [bordered, activeColor],
+  )
+
+  return <div css={[baseCss, seperatedStyle, borderStyle]} {...props} />
 }

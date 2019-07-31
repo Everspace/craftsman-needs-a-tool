@@ -1,5 +1,4 @@
 import { addMotes } from "actions/motes"
-import { AnyAction } from "redux"
 import { addMotesHandler } from "reducers/motes/addMotesHandler"
 
 const baseState = {
@@ -10,7 +9,7 @@ const baseState = {
   drip: 5,
 }
 
-export default function motes(state = baseState, action: AnyAction) {
+export default function motes(state = baseState, action: any) {
   switch (action.type) {
     case "MOTES_ADD":
       return addMotesHandler(state, action)

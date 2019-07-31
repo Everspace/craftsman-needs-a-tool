@@ -10,7 +10,6 @@ export const Header: React.FC = props => (
       {
         padding: 10,
         zIndex: 1,
-        marginBottom: 20,
       },
     ]}
     {...props}
