@@ -17,8 +17,8 @@ const App: React.FC<{}> = () => {
         <NavLink to="/battlegroup">Battlegroups</NavLink>
       </TabNavBar>
       <Switch>
-        <Route path="/battlegroup" component={AppOld} />
-        <Route path="/difficulty" component={AppOld} />
+        {/* <Route path="/battlegroup" component={AppOld} />
+        <Route path="/difficulty" component={AppOld} /> */}
         <Route component={AppOld} />
       </Switch>
     </BrowserRouter>

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react"
 import React, { useState, useEffect } from "react"
-import { Button, ButtonProps } from "components/atoms/ButtonOld"
+import Button, { ButtonProps } from "components/atoms/Button"
 import { grey, secondary } from "styles/Colors"
 
 interface ToggleButtonProps extends ButtonProps {
@@ -9,13 +9,13 @@ interface ToggleButtonProps extends ButtonProps {
   onToggle: (boolean) => void
 }
 
-export const ToggleButton: React.FC<ToggleButtonProps> = ({
+export const ToggleButton = ({
   on = false,
   onToggle,
-  colorStyle = secondary,
+  colour = "secondary",
   onClick,
   ...props
-}) => {
+}: ToggleButtonProps) => {
   let [state, setState] = useState(on)
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
 
   return (
     <Button
-      css={state ? colorStyle.main.cssClass : grey.main.cssClass}
+      colour={state ? colour : "inactive"}
       onClick={e => {
         setState(!state)
         onClick && onClick(e)

@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { jsx, css } from "@emotion/react"
-import React, { useCallback } from "react"
-import { Button } from "components/atoms/ButtonOld"
+import { css } from "twin.macro"
+import React from "react"
+import Button from "components/atoms/Button"
 import { interactive } from "styles/Misc"
-import { InteractiveGroup } from "components/atoms/InteractiveGroupOld"
+import InteractiveGroup from "components/atoms/InteractiveGroup"
 import { secondary } from "styles/Colors"
 import { useNumberInput } from "hooks/input"
 
@@ -17,7 +17,7 @@ interface IncrementerProps {
   callback: (n: number) => void
 }
 
-export const Incrementer: React.SFC<IncrementerProps> = ({
+export const Incrementer: React.FC<IncrementerProps> = ({
   initialValue = 5,
   max = 99,
   min = -9,
@@ -33,27 +33,17 @@ export const Incrementer: React.SFC<IncrementerProps> = ({
     callback,
   })
 
-  const upNumber = useCallback(
-    (e: React.MouseEvent) => {
-      setNumber(number + step)
-    },
-    [number, setNumber, step],
-  )
-
-  const downNumber = useCallback(
-    (e: React.MouseEvent) => {
-      setNumber(number - step)
-    },
-    [number, setNumber, step],
-  )
-
   return (
     <InteractiveGroup seperated>
-      <Button colorStyle={color} onClick={downNumber}>
+      <Button colour="secondary" onClick={() => setNumber(number - step)}>
         -
       </Button>
-      <input {...inputProps} css={[interactive(color), numberInputStyle]} />
-      <Button colorStyle={color} onClick={upNumber}>
+      <input
+        {...inputProps}
+        onInput={e => console.log("what")}
+        css={[interactive(color), numberInputStyle]}
+      />
+      <Button colour="secondary" onClick={() => setNumber(number + step)}>
         +
       </Button>
     </InteractiveGroup>

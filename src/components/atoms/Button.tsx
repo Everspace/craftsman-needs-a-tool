@@ -22,7 +22,7 @@ const secondary = tw`
   hover:bg-yellow-800
   active:bg-yellow-300
   border-yellow-800
-  bg-yellow-600 text-white
+  bg-yellow-700 text-white
 `
 
 const inactive = tw`
