@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { jsx, css } from "@emotion/react"
 import React, { useCallback } from "react"
-import { Button } from "components/atoms/Button"
+import { Button } from "components/atoms/ButtonOld"
 import { interactive } from "styles/Misc"
-import { InteractiveGroup } from "components/atoms/InteractiveGroup"
+import { InteractiveGroup } from "components/atoms/InteractiveGroupOld"
 import { secondary } from "styles/Colors"
 import { useNumberInput } from "hooks/input"
 

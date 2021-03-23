@@ -20,13 +20,19 @@
     "twin.macro": "2.3.0",
     "web-vitals": "1.1.1"
   },
+  "babelMacros": {
+    "twin": {
+      "preset": "emotion"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "prettier \"src/**/*.{ts,tsx,js,jsx}\" --check",
     "lint:fix": "prettier \"src/**/*.{ts,tsx,js,jsx}\" --write",
-    "eject": "react-scripts eject"
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "browserslist": {
     "development": [
@@ -42,6 +48,12 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.1.21",
+    "@storybook/addon-essentials": "^6.1.21",
+    "@storybook/addon-links": "^6.1.21",
+    "@storybook/node-logger": "^6.1.21",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.1.21",
     "@testing-library/jest-dom": "5.11.9",
     "@testing-library/react": "11.2.5",
     "@types/jest": "26.0.21",

@@ -1,3 +1,4 @@
+import { GlobalStyles } from "twin.macro"
 import { Global, css } from "@emotion/react"
 import React from "react"
 import { grey } from "./styles/Colors"
@@ -28,6 +29,7 @@ const globalStyle = css`
 ReactDOM.render(
   [
     React.createElement(Global, { styles: globalStyle }),
+    React.createElement(GlobalStyles),
     React.createElement(App),
   ],
 

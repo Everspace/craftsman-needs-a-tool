@@ -1,79 +1,48 @@
 /** @jsxImportSource @emotion/react */
-import "twin.macro"
-import { jsx, css } from "@emotion/react"
-import React, { useMemo } from "react"
-import { cornerRadius } from "styles/Misc"
-import { grey, secondary } from "styles/Colors"
+import tw, { styled } from "twin.macro"
+import React from "react"
 
-type InteractiveGroupProps = {
-  activeColor?: MaterialColor
-  inactiveColor?: MaterialColor
-  bordered?: boolean
+const seperatedStyle = tw`
+  all-child:(
+    not-first:not-last:(
+      border-l! border-r!
+      border-dotted
+      border-black
+    )
+  )
+`
+
+export interface InteractiveGroupProps {
   seperated?: boolean
+  children: JSX.Element[] | JSX.Element
 }
 
-const middleChildSelector = ":not(:first-child):not(:last-child)"
-const childrenTypes = ["input", "button"]
-const childrenSelector = "& > " + childrenTypes.join(", & >")
-
-const baseCss = css({
-  backgroundColor: "transparent",
-  display: "inline-flex",
-  padding: 0,
-  borderRadius: cornerRadius,
-  margin: cornerRadius,
-  [childrenSelector]: {
-    display: "flex",
-    borderRadius: 0,
-    border: "none",
-
-    ":first-child": {
-      borderTopLeftRadius: cornerRadius,
-      borderBottomLeftRadius: cornerRadius,
-    },
-
-    ":last-child": {
-      borderTopRightRadius: cornerRadius,
-      borderBottomRightRadius: cornerRadius,
-    },
-
-    [middleChildSelector]: {
-      zIndex: 0, // For fixing a dropshadow thing
-    },
-  },
-})
-
-export const InteractiveGroup: React.FC<InteractiveGroupProps> = ({
-  activeColor = secondary,
-  inactiveColor = grey,
-  bordered = false,
+const InteractiveGroup: React.FC<InteractiveGroupProps> = ({
   seperated = false,
-  ...props
+  children,
 }) => {
-  const seperatedStyle = useMemo(
-    () =>
-      seperated
-        ? css({
-            [childrenSelector]: {
-              [middleChildSelector]: {
-                borderRight: `1px dotted ${activeColor.dark.color}`,
-                borderLeft: `1px dotted ${activeColor.dark.color}`,
-              },
-            },
-          })
-        : null,
-    [seperated, activeColor],
-  )
+  return (
+    <div
+      tw="
+    bg-transparent
+    inline-flex
+    p-0 m-1
+    rounded
 
-  const borderStyle = useMemo(
-    () =>
-      bordered
-        ? css({
-            border: `1px solid ${activeColor.main.color}`,
-          })
-        : null,
-    [bordered, activeColor],
+    all-child:(
+      box-shadow[none]
+      not-first:not-last:(m-0)
+      not-last:(rounded-r-none)
+      not-first:(rounded-l-none)
+      first:(rounded-l)
+      last:(rounded-r)
+    )!
+  "
+      css={[seperated && seperatedStyle]}
+    >
+      {children}
+    </div>
   )
-
-  return <div css={[baseCss, seperatedStyle, borderStyle]} {...props} />
 }
+
+export default InteractiveGroup

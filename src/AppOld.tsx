@@ -5,9 +5,12 @@ import { ToggleButton } from "components/molecules/ToggleButton"
 import Material from "components/atoms/Material"
 import { grey } from "styles/Colors"
 import Incrementer from "components/molecules/Incrementer"
-import { InteractiveGroup } from "components/atoms/InteractiveGroup"
+
+import { InteractiveGroup as InteractiveGroupOld } from "components/atoms/InteractiveGroupOld"
 import { erf } from "mathjs"
 import { calculateDiceMean, calculateDiceSigma } from "lib/dice"
+import InteractiveGroup from "components/atoms/InteractiveGroup"
+import Button from "components/atoms/Button"
 
 // const round = (number, decimals) => Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals)
 
@@ -183,6 +186,24 @@ class App extends Component {
       Math.sqrt(variance.variance * this.state.dice) * standardDeviations
     return (
       <div css={grey.grey500.cssClass}>
+        <Material>
+          <InteractiveGroup>
+            <Button>1</Button>
+            <Button>2</Button>
+            <Button>3</Button>
+          </InteractiveGroup>
+          <InteractiveGroup seperated>
+            <Button>1</Button>
+            <Button>2</Button>
+            <Button>3</Button>
+          </InteractiveGroup>
+          <InteractiveGroup seperated>
+            <Button>1</Button>
+          </InteractiveGroup>
+          <InteractiveGroup seperated>
+            <Button>1</Button>
+          </InteractiveGroup>
+        </Material>
         <Material rounded spaced css={grey.grey400.cssClass}>
           {/* <Panel key="toggle area">
               <Button onClick={()=>this.setState({...defaultRegularState})}>
@@ -271,7 +292,7 @@ class App extends Component {
               />
             </ButtonBlock>
             <ButtonBlock label="Reroll">
-              <InteractiveGroup bordered>
+              <InteractiveGroupOld bordered>
                 <ToggleButton
                   onToggle={reroll1 => this.setState({ reroll1 })}
                   key="1s"
@@ -290,7 +311,7 @@ class App extends Component {
                 >
                   10s
                 </ToggleButton>
-              </InteractiveGroup>
+              </InteractiveGroupOld>
             </ButtonBlock>
             <ButtonBlock label="Target Number">
               <Incrementer

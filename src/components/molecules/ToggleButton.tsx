@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react"
 import React, { useState, useEffect } from "react"
-import { Button, ButtonProps } from "components/atoms/Button"
+import { Button, ButtonProps } from "components/atoms/ButtonOld"
 import { grey, secondary } from "styles/Colors"
 
 interface ToggleButtonProps extends ButtonProps {
