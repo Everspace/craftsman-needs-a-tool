@@ -1,15 +1,14 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core"
-import React from "react"
+/** @jsxImportSource @emotion/react */
+import "twin.macro"
 import { waiting } from "styles/Shadows"
 import { roundedCorners, spaced as spacedStyle } from "styles/Misc"
 
-interface MaterialProps {
+interface MaterialProps extends React.ComponentPropsWithRef<"div">, Colorable {
   rounded?: boolean
   spaced?: boolean
 }
 
-const Material: React.FC<MaterialProps> = props => {
+const Material = (props: MaterialProps) => {
   const { rounded, spaced, ...otherProps } = props
 
   return (

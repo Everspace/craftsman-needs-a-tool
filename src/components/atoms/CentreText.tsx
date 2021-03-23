@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core"
+/** @jsxImportSource @emotion/react */
+import "twin.macro"
 
 const CenterText: React.FC<{}> = props => (
   <div {...props} className={`text-center`} />

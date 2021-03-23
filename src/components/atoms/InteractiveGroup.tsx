@@ -1,5 +1,6 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core"
+/** @jsxImportSource @emotion/react */
+import "twin.macro"
+import { jsx, css } from "@emotion/react"
 import React, { useMemo } from "react"
 import { cornerRadius } from "styles/Misc"
 import { grey, secondary } from "styles/Colors"

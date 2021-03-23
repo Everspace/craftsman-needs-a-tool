@@ -1,6 +1,6 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core"
-import React, { Component } from "react"
+/** @jsxImportSource @emotion/react */
+import { css } from "twin.macro"
+import { Component } from "react"
 import { ToggleButton } from "components/molecules/ToggleButton"
 import Material from "components/atoms/Material"
 import { grey } from "styles/Colors"
@@ -36,19 +36,16 @@ let ButtonBlock: React.FC<{ label?: string }> = ({
   </Material>
 )
 
-let InnerBlock: React.FC = props => (
+let InnerBlock = props => (
   <div css={[grey.grey400.cssClass, spacing]} {...props} />
 )
 
-let Panel: React.FC = props => (
+let Panel = props => (
   <Material css={[grey.grey300.cssClass, spacing]} {...props} />
 )
 
-let ButtonHolderPanel: React.FC<{ label?: String }> = ({
-  label,
-  children,
-  ...props
-}) => (
+export type ButtonHolderPanelProps = { label?: String; children }
+let ButtonHolderPanel = ({ label, children, ...props }) => (
   <Panel {...props}>
     {label ? <h2 css={spacing}>{label}</h2> : null}
     <InnerBlock>{children}</InnerBlock>

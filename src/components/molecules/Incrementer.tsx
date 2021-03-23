@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core"
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from "@emotion/react"
 import React, { useCallback } from "react"
 import { Button } from "components/atoms/Button"
 import { interactive } from "styles/Misc"

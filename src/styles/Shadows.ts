@@ -1,4 +1,4 @@
-import { css } from "@emotion/core"
+import { css } from "@emotion/react"
 // #e2e1e0 background
 
 const toShadow = (width, height, alpha) =>

@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core"
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react"
 import { RollState, calcRollVarianceAndMean } from "lib/dice"
 import { pnorm } from "lib/math"
 

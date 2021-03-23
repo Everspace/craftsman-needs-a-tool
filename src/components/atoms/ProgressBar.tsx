@@ -1,9 +1,12 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core"
+/** @jsxImportSource @emotion/react */
+import "twin.macro"
+import { css } from "@emotion/react"
 import React from "react"
 import { grey } from "styles/Colors"
 
-interface ProgressBarProps extends HasStyle {
+interface ProgressBarProps
+  extends HasStyle,
+    React.ComponentPropsWithRef<"div"> {
   bars: BarSegmentDefintion[]
   max?: number
 }
@@ -11,11 +14,11 @@ interface ProgressBarProps extends HasStyle {
 /**
  * A shameless copy of bootstrap's progress thing.
  */
-export const ProgressBar: React.FC<ProgressBarProps> = ({
+export const ProgressBar = ({
   bars,
   max = 100,
   ...props
-}) => {
+}: ProgressBarProps) => {
   return (
     <div {...props} css={[containerCSS, grey.grey500.cssClass]}>
       {bars.map((definition, index) =>
@@ -38,7 +41,9 @@ let roundedCornersStyle = css`
   border-bottom-right-radius: 0.25em;
 `
 
-export interface BarSegmentDefintion extends HasStyle {
+export interface BarSegmentDefintion
+  extends HasStyle,
+    React.ComponentPropsWithRef<"div"> {
   value: number
   text?: string
   roundedCorners?: boolean
@@ -70,7 +75,9 @@ let barSegmentStyle = css`
   transition: width 0.6s ease;
 `
 
-export interface BarSegementProps extends HasStyle {
+export interface BarSegementProps
+  extends HasStyle,
+    React.ComponentPropsWithRef<"div"> {
   percent: number
   text?: string
 }

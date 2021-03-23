@@ -1,5 +1,6 @@
-/** @jsx jsx */
-import { jsx, Interpolation, css } from "@emotion/core"
+/** @jsxImportSource @emotion/react */
+import "twin.macro"
+import { Interpolation, css } from "@emotion/react"
 import { secondary } from "styles/Colors"
 
 type TabNavBarProps = {} & Colorable
@@ -7,11 +8,11 @@ type TabNavBarProps = {} & Colorable
 type TabNavBar = React.FC<TabNavBarProps>
 
 export const TabNavBar: TabNavBar = ({ colorStyle = secondary, ...props }) => {
-  const hoverStyle: Interpolation = {
+  const hoverStyle: Interpolation<{}> = {
     background: colorStyle.light.color,
   }
 
-  const linkStyle: Interpolation = {
+  const linkStyle: Interpolation<{}> = {
     display: "box",
     height: "3em",
     padding: "1em",

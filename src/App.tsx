@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx, css, Interpolation } from "@emotion/core"
+/** @jsxImportSource @emotion/react */
 import React from "react"
 import { Header } from "components/molecules/Header"
 import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom"

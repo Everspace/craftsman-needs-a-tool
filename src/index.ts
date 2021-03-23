@@ -1,4 +1,4 @@
-import { Global, css } from "@emotion/core"
+import { Global, css } from "@emotion/react"
 import React from "react"
 import { grey } from "./styles/Colors"
 import ReactDOM from "react-dom"

@@ -1,6 +1,6 @@
 import { resting, waiting, hovering } from "./Shadows"
 import { secondary } from "./Colors"
-import { css } from "@emotion/core"
+import { css } from "@emotion/react"
 
 export const cornerRadius = "0.25em"
 export const roundedCorners = css({

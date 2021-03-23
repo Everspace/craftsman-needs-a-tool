@@ -1,14 +1,12 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core"
+/** @jsxImportSource @emotion/react */
+import "twin.macro"
 import React from "react"
 import { interactive } from "styles/Misc"
 import { secondary } from "styles/Colors"
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & Colorable
-
-export const Button: React.FC<ButtonProps> = ({
-  colorStyle = secondary,
-  ...props
-}) => {
+export interface ButtonProps
+  extends React.ComponentPropsWithRef<"button">,
+    Colorable {}
+export const Button = ({ colorStyle = secondary, ...props }: ButtonProps) => {
   return <button css={interactive(colorStyle)} {...props} />
 }
