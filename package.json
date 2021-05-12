@@ -11,7 +11,7 @@
     "react-scripts": "^2.1.0",
     "redux": "^4.0.0",
     "typescript": "^3.3.3",
-    "mathjs": "5.5.0"
+    "mathjs": "7.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
