@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import tw, { styled } from "twin.macro"
+import tw from "twin.macro"
 import { EmotionJSX } from "@emotion/core"
-import React from "react"
 
 const seperatedStyle = tw`
   all-child:(
     not-first:not-last:(
+      border-t-0
+      border-b-0
       border-l border-r
       border-dotted
       border-black

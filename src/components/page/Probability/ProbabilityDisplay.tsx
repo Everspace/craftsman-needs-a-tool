@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import "twin.macro"
 import { Panel } from "components/atoms/Material"
-import { calcProb, calcRollVarianceAndMean, RollState } from "lib/dice"
+import { calcProb, calcRollVarianceAndMean } from "lib/dice"
+import { rollstateAtom } from "components/page/Probability/state"
+import { useAtom } from "jotai"
 
-interface ProbabilityDisplayProps {
-  state: RollState
-}
-
-const ProbabilityDisplay = ({ state }: ProbabilityDisplayProps) => {
+const ProbabilityDisplay = () => {
+  const [state] = useAtom(rollstateAtom)
   const variance = calcRollVarianceAndMean(state)
   const standardDeviations = 2 // 95% of all rolls
   const singleDieDeviation = Math.sqrt(variance.variance) * standardDeviations

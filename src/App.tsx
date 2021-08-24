@@ -2,8 +2,8 @@
 import React from "react"
 import { Header } from "components/molecules/Header"
 import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom"
-import { AppOld } from "AppOld"
 import { TabNavBar } from "components/atoms/Navtabs"
+import { ProbabilityPage } from "components/page/Probability"
 
 const App: React.FC<{}> = () => {
   return (
@@ -19,7 +19,7 @@ const App: React.FC<{}> = () => {
       <Switch>
         {/* <Route path="/battlegroup" component={AppOld} />
         <Route path="/difficulty" component={AppOld} /> */}
-        <Route component={AppOld} />
+        <Route component={ProbabilityPage} />
       </Switch>
     </BrowserRouter>
   )

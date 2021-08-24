@@ -1,10 +1,15 @@
-/** @jsxImportSource @emotion/react */
 import Material, { Panel } from "components/atoms/Material"
-import ProbabilityDisplay from "components/layouts/ProbabilityDisplay"
+import ProbabilityDisplay from "components/page/Probability/ProbabilityDisplay"
 import { RollState } from "lib/dice"
 import { Component } from "react"
 import { grey } from "styles/Colors"
 import { css } from "twin.macro"
+import {
+  difficultyAtom,
+  targetNumberAtom,
+  terminusAtom,
+} from "components/page/Probability/state"
+import Incrementer from "components/molecules/Incrementer"
 
 // const round = (number, decimals) => Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals)
 
@@ -56,21 +61,7 @@ const defaultRegularState: RollState = {
   autoSuccesses: 0,
 }
 
-// const defaultCraftState = {
-//   targetNumber: 7,
-//   double: 10,
-//   dice: 20,
-//   difficulty: 5,
-//   terminus: 6,
-//   target: 100,
-//   reroll6: false,
-//   reroll10: false,
-//   reroll1: false,
-//   autoSuccesses: 0,
-//   willpower: true,
-// }
-
-class App extends Component {
+class ProbabilityPage extends Component {
   state = { ...defaultRegularState }
 
   render() {
@@ -86,32 +77,21 @@ class App extends Component {
               </Button>
             </Panel> */}
           {/* TODO: Remember to add in willpower this.stateAutosuccesses += (state.willpower ? 1 : 0) */}
-          <ProbabilityDisplay state={defaultRegularState} />
-          {/* <ButtonHolderPanel label="The Challenge">
+          <ProbabilityDisplay />
+          <ButtonHolderPanel label="The Challenge">hello</ButtonHolderPanel>
+          <ButtonHolderPanel label="The Challenge">
             <ButtonBlock label="Target">
-              <Incrementer
-                initialValue={this.state.target}
-                min={1}
-                max={200}
-                callback={target => this.doThing({ target })}
-              />
+              <Incrementer atom={targetNumberAtom} min={1} max={200} />
             </ButtonBlock>
 
             <ButtonBlock label="Difficulty">
-              <Incrementer
-                initialValue={this.state.difficulty}
-                min={0}
-                callback={difficulty => this.doThing({ difficulty })}
-              />
+              <Incrementer atom={difficultyAtom} min={0} />
             </ButtonBlock>
             <ButtonBlock label="Terminus">
-              <Incrementer
-                initialValue={this.state.terminus}
-                min={1}
-                callback={terminus => this.doThing({ terminus })}
-              />
+              <Incrementer atom={terminusAtom} min={1} />
             </ButtonBlock>
           </ButtonHolderPanel>
+          {/*
           <ButtonHolderPanel label="Dice Pool">
             <ButtonBlock label="Dice">
               <Incrementer
@@ -183,4 +163,4 @@ class App extends Component {
   }
 }
 
-export { App as AppOld }
+export { ProbabilityPage }

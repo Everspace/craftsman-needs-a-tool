@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import tw, { css } from "twin.macro"
+import tw from "twin.macro"
 import { waiting } from "styles/Shadows"
 import { roundedCorners, spaced as spacedStyle } from "styles/Misc"
 import { grey } from "styles/Colors"

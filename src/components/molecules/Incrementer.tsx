@@ -1,49 +1,89 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "twin.macro"
-import React from "react"
+import React, { useCallback, useEffect, useState, useMemo } from "react"
 import Button from "components/atoms/Button"
 import { interactive } from "styles/Misc"
 import InteractiveGroup from "components/atoms/InteractiveGroup"
 import { secondary } from "styles/Colors"
-import { useNumberInput } from "hooks/input"
+import { useAtom, WritableAtom } from "jotai"
 
 interface IncrementerProps {
-  initialValue?: number
+  atom: WritableAtom<number, number>
   max?: number
   min?: number
   step?: number
   className?: string
   color?: any
-  callback: (n: number) => void
+}
+
+const createMaxima = (min: number, max: number) => (newNumber: number) => {
+  if (newNumber > max) {
+    return max
+  }
+  if (newNumber < min) {
+    return min
+  }
+
+  return newNumber
 }
 
 export const Incrementer: React.FC<IncrementerProps> = ({
-  initialValue = 5,
   max = 99,
   min = -9,
   step = 1,
-  callback,
+  atom,
   color = secondary,
 }) => {
-  const { number, setNumber, inputProps } = useNumberInput({
-    initialValue,
-    max,
-    min,
-    step,
-    callback,
-  })
+  const [number, setNumber] = useAtom(atom)
+  const [writtenState, setWrittenState] = useState(number.toString())
+
+  const maxima = useMemo(() => createMaxima(min, max), [min, max])
+
+  const setNumberWithMaxima = useCallback(
+    (n: number) => {
+      setNumber(maxima(n))
+    },
+    [setNumber, maxima],
+  )
+
+  const onChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setWrittenState(e.target.value)
+    },
+    [setWrittenState],
+  )
+
+  useEffect(() => {
+    if (writtenState === "") return // don't go to 0 when empty
+    const cast = Number(writtenState)
+    if (isNaN(cast)) return // drop NaN
+    setNumberWithMaxima(cast)
+  }, [setNumberWithMaxima, writtenState])
+
+  useEffect(() => {
+    setWrittenState(number.toString())
+  }, [number])
 
   return (
     <InteractiveGroup seperated>
-      <Button colour="secondary" onClick={() => setNumber(number - step)}>
+      <Button
+        colour="secondary"
+        onClick={() => setNumberWithMaxima(number - step)}
+      >
         -
       </Button>
       <input
-        {...inputProps}
+        type="number"
+        value={writtenState}
+        step={step}
+        onChange={onChange}
         onInput={e => console.log("what")}
         css={[interactive(color), numberInputStyle]}
       />
-      <Button colour="secondary" onClick={() => setNumber(number + step)}>
+      <Button
+        colour="secondary"
+        onClick={() => setNumberWithMaxima(number + step)}
+      >
         +
       </Button>
     </InteractiveGroup>

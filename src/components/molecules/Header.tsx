@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react"
 import { primary } from "styles/Colors"
 import Material from "components/atoms/Material"
 
