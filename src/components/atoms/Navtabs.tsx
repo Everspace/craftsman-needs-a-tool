@@ -5,9 +5,10 @@ import { secondary } from "styles/Colors"
 
 type TabNavBarProps = {} & Colorable
 
-type TabNavBar = React.FC<TabNavBarProps>
-
-export const TabNavBar: TabNavBar = ({ colorStyle = secondary, ...props }) => {
+export const TabNavBar: React.FC<TabNavBarProps> = ({
+  colorStyle = secondary,
+  ...props
+}) => {
   const hoverStyle: Interpolation<{}> = {
     background: colorStyle.light.color,
   }

@@ -6,6 +6,7 @@ import { interactive } from "styles/Misc"
 import InteractiveGroup from "components/atoms/InteractiveGroup"
 import { secondary } from "styles/Colors"
 import { useAtom, WritableAtom } from "jotai"
+import { createMaxima } from "lib/math"
 
 interface IncrementerProps {
   atom: WritableAtom<number, number>
@@ -14,17 +15,6 @@ interface IncrementerProps {
   step?: number
   className?: string
   color?: any
-}
-
-const createMaxima = (min: number, max: number) => (newNumber: number) => {
-  if (newNumber > max) {
-    return max
-  }
-  if (newNumber < min) {
-    return min
-  }
-
-  return newNumber
 }
 
 export const Incrementer: React.FC<IncrementerProps> = ({
@@ -49,16 +39,13 @@ export const Incrementer: React.FC<IncrementerProps> = ({
   const onChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setWrittenState(e.target.value)
+      if (e.target.value === "") return // don't go to 0 when empty
+      const cast = Number(e.target.value)
+      if (isNaN(cast)) return // drop NaN
+      setNumberWithMaxima(cast)
     },
-    [setWrittenState],
+    [setWrittenState, setNumberWithMaxima],
   )
-
-  useEffect(() => {
-    if (writtenState === "") return // don't go to 0 when empty
-    const cast = Number(writtenState)
-    if (isNaN(cast)) return // drop NaN
-    setNumberWithMaxima(cast)
-  }, [setNumberWithMaxima, writtenState])
 
   useEffect(() => {
     setWrittenState(number.toString())

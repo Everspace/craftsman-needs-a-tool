@@ -18,6 +18,8 @@ export interface Face {
   value: number
 }
 
+export const allFaces = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
 export const calculateDiceMean = (faces: Face[]): number => {
   return divideFraction(
     faces

@@ -18,3 +18,16 @@ export const pnorm = (x: number, mean: number, standardDeviation: number) => {
 
   return 0.5 * (1 + erfResult)
 }
+
+export const createMaxima = (min: number, max: number) => (
+  newNumber: number,
+) => {
+  if (newNumber > max) {
+    return max
+  }
+  if (newNumber < min) {
+    return min
+  }
+
+  return newNumber
+}
