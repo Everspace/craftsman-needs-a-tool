@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from "react"
 import Button, { ButtonProps } from "components/atoms/Button"
 
 interface ToggleButtonProps extends ButtonProps {
@@ -13,14 +12,11 @@ export const ToggleButton = ({
   colour = "secondary",
   ...props
 }: ToggleButtonProps) => {
-  let [state, setState] = useState(on)
-
   return (
     <Button
-      colour={state ? colour : "inactive"}
+      colour={on ? colour : "inactive"}
       onClick={e => {
-        setState(!state)
-        onToggle(!state)
+        onToggle(!on)
       }}
       {...props}
     />
