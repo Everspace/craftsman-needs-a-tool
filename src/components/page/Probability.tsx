@@ -61,7 +61,7 @@ const ProbabilityPage = () => {
                     onClick={() =>
                       setChallengeState({
                         target: v,
-                        difficulty: 1,
+                        difficulty: 0,
                         terminus: 1,
                       })
                     }
@@ -116,7 +116,7 @@ const ProbabilityPage = () => {
           {showPresets ? <PresetPools /> : null}
           <InnerBlock>
             <ButtonBlock label="Dice">
-              <Incrementer atom={diceAtom} min={1} />
+              <Incrementer atom={diceAtom} min={0} />
             </ButtonBlock>
             <ButtonBlock label="Autosuccesses">
               <Incrementer atom={autosuccessAtom} />

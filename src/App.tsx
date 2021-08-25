@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react"
 import { Header } from "components/molecules/Header"
-import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom"
-import { TabNavBar } from "components/atoms/Navtabs"
+import { BrowserRouter, Route, Switch } from "react-router-dom"
 import { ProbabilityPage } from "components/page/Probability"
 
 const App: React.FC<{}> = () => {
@@ -10,12 +9,12 @@ const App: React.FC<{}> = () => {
     <BrowserRouter>
       <Header>
         <h1>Craftsman Needs New Tools</h1>
-        <sub>1.1.0</sub>
+        <sub>2.0.0</sub>
       </Header>
-      <TabNavBar>
+      {/* <TabNavBar>
         <NavLink to="/difficulty">Difficulties</NavLink>
         <NavLink to="/battlegroup">Battlegroups</NavLink>
-      </TabNavBar>
+      </TabNavBar> */}
       <Switch>
         {/* <Route path="/battlegroup" component={AppOld} />
         <Route path="/difficulty" component={AppOld} /> */}

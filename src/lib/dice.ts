@@ -1,5 +1,4 @@
-import { divideFraction, sumFractions } from "lib/math"
-import { erf } from "mathjs"
+import { divideFraction, pnorm, sumFractions } from "lib/math"
 
 export interface RollState {
   targetNumber: number
@@ -59,7 +58,9 @@ export const calculateDiceSigma = (faces: Face[], mean: number): number => {
 
 type VarianceAndMean = { mean: number; variance: number }
 
-export const calcRollVarianceAndMean = (pool: RollState): VarianceAndMean => {
+export const calcRollVarianceAndMean = (
+  pool: ProbabilityState,
+): VarianceAndMean => {
   // Thanks AG from the Exalted discord for the formula/base code this is derived from.
   //
   // let p0 = chance of 0 with no reroll
@@ -78,7 +79,7 @@ export const calcRollVarianceAndMean = (pool: RollState): VarianceAndMean => {
     let isDouble = side >= pool.double
     faces[index] = {
       probability: 1 / 10,
-      reroll: pool.reroll.includes(index),
+      reroll: pool.reroll.includes(index + 1),
       value: isInTarget ? (isDouble ? 2 : 1) : 0,
     }
   }
@@ -92,23 +93,19 @@ export const calcRollVarianceAndMean = (pool: RollState): VarianceAndMean => {
   }
 }
 
-export const pnorm = (x: number, mean: number, standardDeviation: number) => {
-  let erfResult = erf((x - mean) / (standardDeviation * Math.sqrt(2))) as number
-
-  return 0.5 * (1 + erfResult)
-}
-
 export const calcProb = (
   state: ProbabilityState,
   calcVarianceAndMean: VarianceAndMean,
 ) => {
   // Since we need to at least roll Target dice over N terminuses, and success is "meet or exceed",
   // Pnorm is about rolling X or less dice, so we need to calculate what the chances of failing
-  // are, which is 1 less than the difficulty
-  let failure =
-    Math.ceil(state.target / state.terminus) +
-    (state.difficulty - 1) -
-    state.autoSuccesses
+  let failure = Math.ceil(state.target / state.terminus)
+  // if a singular roll (terminus), then failure will be -1 target
+  // target = 5 rolls needed per 1 terminus
+  // failure = 4 (target + (diff 0 - 1))
+  failure += state.difficulty - 1
+  // Then we take away the autosuccesses applied to each roll in the terminus
+  failure -= state.autoSuccesses
 
   const continuityCorrection = failure
   const { mean, variance } = calcVarianceAndMean
