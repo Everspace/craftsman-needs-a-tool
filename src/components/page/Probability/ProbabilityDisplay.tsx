@@ -2,11 +2,12 @@
 import "twin.macro"
 import { Panel } from "components/atoms/Material"
 import { calcProb, calcRollVarianceAndMean } from "lib/dice"
-import { rollstateAtom } from "components/page/Probability/state"
-import { useAtom } from "jotai"
+import { probabilityState } from "components/page/Probability/state"
+import { useAtomValue } from "jotai/utils"
 
 const ProbabilityDisplay = () => {
-  const [state] = useAtom(rollstateAtom)
+  const state = useAtomValue(probabilityState)
+
   const variance = calcRollVarianceAndMean(state)
   const standardDeviations = 2 // 95% of all rolls
   const singleDieDeviation = Math.sqrt(variance.variance) * standardDeviations

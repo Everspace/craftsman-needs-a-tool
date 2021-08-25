@@ -5,12 +5,17 @@ export interface RollState {
   targetNumber: number
   double: number
   dice: number
-  difficulty: number
-  target: number
-  terminus: number
   autoSuccesses: number
   reroll: number[]
 }
+
+export interface ChallengeState {
+  difficulty: number
+  target: number
+  terminus: number
+}
+
+export interface ProbabilityState extends RollState, ChallengeState {}
 
 export interface Face {
   probability: number
@@ -94,7 +99,7 @@ export const pnorm = (x: number, mean: number, standardDeviation: number) => {
 }
 
 export const calcProb = (
-  state: RollState,
+  state: ProbabilityState,
   calcVarianceAndMean: VarianceAndMean,
 ) => {
   // Since we need to at least roll Target dice over N terminuses, and success is "meet or exceed",
